@@ -36,7 +36,7 @@ from itertools import cycle
 import torch.nn as nn
 from model import Seq2Seq
 from tqdm import tqdm, trange
-from bleu-gen import _bleu
+from bleu_gen import _bleu
 from torch.utils.data import DataLoader, Dataset, SequentialSampler, RandomSampler,TensorDataset
 from torch.utils.data.distributed import DistributedSampler
 from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
