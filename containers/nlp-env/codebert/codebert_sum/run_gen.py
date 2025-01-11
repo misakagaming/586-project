@@ -98,6 +98,26 @@ def read_examples(filename):
                         ) 
             )
     return examples
+    
+def read_examples_final(test_filename, output):
+    """Read examples from filename."""
+    examples=[]
+    with open(test_filename,encoding="utf-8") as f1, open(output,encoding="utf-8") as f2:
+        heading = next(f1)
+        reader_obj = csv.reader(f)
+        outputs = f2.readlines()
+        splitter = outputs[0][1]
+        for idx, row in enumerate(reader_obj):
+            code=outputs[idx].split(splitter)[1].strip("\n")
+            nl=row[3]           
+            examples.append(
+                Example(
+                        idx = idx,
+                        source=code,
+                        target = nl,
+                        ) 
+            )
+    return examples
 
 
 class InputFeatures(object):
@@ -212,6 +232,8 @@ def main():
     parser.add_argument("--do_eval", action='store_true',
                         help="Whether to run eval on the dev set.")
     parser.add_argument("--do_test", action='store_true',
+                        help="Whether to run eval on the dev set.")
+    parser.add_argument("--do_test_final", action='store_true',
                         help="Whether to run eval on the dev set.")
     parser.add_argument("--do_lower_case", action='store_true',
                         help="Set this flag if you are using an uncased model.")
@@ -541,6 +563,60 @@ def main():
                                  os.path.join(args.output_dir, "test_{}.output".format(str(idx))).format(file)),2)
             logger.info("  %s = %s "%("bleu-4",str(dev_bleu)))
             logger.info("  "+"*"*20)    
+            
+    if args.do_test_final:
+        print(model.encoder.embeddings)
+        
+        files=[]
+        if args.dev_filename is not None:
+            files.append(args.dev_filename)
+        if args.test_filename is not None:
+            files.append(args.test_filename)
+        for idx,file in enumerate(files):   
+            logger.info("Test file: {}".format(file))
+            eval_examples = read_examples(file, "test_{}.output".format(str(idx))
+            eval_features = convert_examples_to_features(eval_examples, tokenizer, args,stage='test')
+            all_source_ids = torch.tensor([f.source_ids for f in eval_features], dtype=torch.long)
+            all_source_mask = torch.tensor([f.source_mask for f in eval_features], dtype=torch.long)    
+            eval_data = TensorDataset(all_source_ids,all_source_mask)
+
+            # Calculate bleu
+            eval_sampler = SequentialSampler(eval_data)
+            eval_dataloader = DataLoader(eval_data, sampler=eval_sampler, batch_size=args.eval_batch_size)
+
+            model.eval() 
+            embeds=model.encoder.embeddings.word_embeddings
+            print(embeds)
+            for i in dir(embeds):
+                print(i)
+            print(embeds.weight)
+            print(embeds.parameters)
+            np.savetxt('/users/eray.erer/codebert_sum/weights.txt', embeds.weight.cpu().detach().numpy())
+            p=[]
+            for batch in tqdm(eval_dataloader,total=len(eval_dataloader)):
+                batch = tuple(t.to(device) for t in batch)
+                source_ids,source_mask= batch                  
+                with torch.no_grad():
+                    preds = model(source_ids=source_ids,source_mask=source_mask)  
+                    for pred in preds:
+                        t=pred[0].cpu().numpy()
+                        t=list(t)
+                        if 0 in t:
+                            t=t[:t.index(0)]
+                        text = tokenizer.decode(t,clean_up_tokenization_spaces=False)
+                        p.append(text)
+            model.train()
+            predictions=[]
+            with open(os.path.join(args.output_dir,"test_final_{}.output".format(str(idx))),'w') as f, open(os.path.join(args.output_dir,"test_final_{}.gold".format(str(idx))),'w') as f1:
+                for ref,gold in zip(p,eval_examples):
+                    predictions.append(str(gold.idx)+'\t'+ref)
+                    f.write(str(gold.idx)+'\t'+ref+'\n')
+                    f1.write(str(gold.idx)+'\t'+gold.target+'\n')     
+
+            dev_bleu=round(_bleu(os.path.join(args.output_dir, "test_final_{}.gold".format(str(idx))).format(file), 
+                                 os.path.join(args.output_dir, "test_final_{}.output".format(str(idx))).format(file)),2)
+            logger.info("  %s = %s "%("bleu-4",str(dev_bleu)))
+            logger.info("  "+"*"*20)  
 
 
 
