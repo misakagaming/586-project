@@ -1,0 +1,174 @@
+0	Chinese remainder theorem
+1	Chinese remainder theorem
+2	Pi
+3	Y combinator
+4	Van Eck sequence
+5	Van Eck sequence
+6	Van Eck sequence
+7	Loops_Continue
+8	General FizzBuzz
+9	General FizzBuzz
+10	Checkpoint synchronization
+11	Checkpoint synchronization
+12	Variable-length quantity
+13	String case
+14	MD5
+15	Date manipulation
+16	Sorting algorithms_Sleep sort
+17	Loops_Nested
+18	Remove duplicate elements
+19	Look-and-say sequence
+20	Stack
+21	Totient function
+22	Conditional structures
+23	Sort using a custom comparator
+24	Animation
+25	Sorting algorithms_Radix sort
+26	List comprehensions
+27	Sorting algorithms_Selection sort
+28	Apply a callback to an array
+29	Singleton
+30	Safe addition
+31	Loops_Downward for
+32	Write entire file
+33	Loops_For
+34	Non-continuous subsequences
+35	Twin primes
+36	Twin primes
+37	Roots of unity
+38	Long multiplication
+39	Pell's equation
+40	Bulls and cows
+41	Sorting algorithms_Bubble sort
+42	File input_output
+43	Arithmetic_Integer
+44	Matrix transposition
+45	Man or boy test
+46	Short-circuit evaluation
+47	Find limit of recursion
+48	Find limit of recursion
+49	Image noise
+50	Perfect numbers
+51	Arbitrary-precision integers (included)
+52	Inverted index
+53	Least common multiple
+54	Least common multiple
+55	Loops_Break
+56	Water collected between towers
+57	Sum and product puzzle
+58	Parsing_Shunting-yard algorithm
+59	Parsing_Shunting-yard algorithm
+60	Middle three digits
+61	Stern-Brocot sequence
+62	Documentation
+63	Documentation
+64	Problem of Apollonius
+65	Chat server
+66	FASTA format
+67	Find palindromic numbers in both binary and ternary bases
+68	Find palindromic numbers in both binary and ternary bases
+69	Cipolla's algorithm
+70	Cipolla's algorithm
+71	Literals_String
+72	GUI_Maximum window dimensions
+73	Enumerations
+74	Knapsack problem_Unbounded
+75	Range extraction
+76	Range extraction
+77	Type detection
+78	Maximum triangle path sum
+79	Four bit adder
+80	Four bit adder
+81	Unix_ls
+82	UTF-8 encode and decode
+83	Magic squares of doubly even order
+84	Same fringe
+85	Peaceful chess queen armies
+86	Move-to-front algorithm
+87	Execute a system command
+88	XML validation
+89	Longest increasing subsequence
+90	Scope modifiers
+91	Brace expansion
+92	GUI component interaction
+93	One of n lines in a file
+94	Addition chains
+95	Repeat
+96	Modular inverse
+97	Hello world_Web server
+98	Hello world_Web server
+99	Terminal control_Clear the screen
+100	Active Directory_Connect
+101	Pythagorean quadruples
+102	Sokoban
+103	Practical numbers
+104	Literals_Floating point
+105	Erdős-primes
+106	Erdős-primes
+107	Erdős-primes
+108	Solve a Numbrix puzzle
+109	Solve a Numbrix puzzle
+110	Solve a Numbrix puzzle
+111	Church numerals
+112	Church numerals
+113	Solve a Hopido puzzle
+114	Solve a Hopido puzzle
+115	Nonogram solver
+116	Nonogram solver
+117	Word search
+118	Break OO privacy
+119	Break OO privacy
+120	Object serialization
+121	Eertree
+122	Eertree
+123	Long year
+124	Zumkeller numbers
+125	Zumkeller numbers
+126	Associative array_Merging
+127	Associative array_Merging
+128	Metallic ratios
+129	Metallic ratios
+130	Metallic ratios
+131	Markov chain text generator
+132	Dijkstra's algorithm
+133	Geometric algebra
+134	Suffix tree
+135	Suffix tree
+136	Associative array_Iteration
+137	Define a primitive data type
+138	Define a primitive data type
+139	Solve a Holy Knight's tour
+140	Solve a Holy Knight's tour
+141	Hash join
+142	Polynomial synthetic division
+143	Polynomial synthetic division
+144	Polynomial synthetic division
+145	Latin Squares in reduced form
+146	Closest-pair problem
+147	Inheritance_Single
+148	Associative array_Creation
+149	Associative array_Creation
+150	Color wheel
+151	Polymorphism
+152	Square root by hand
+153	Square root by hand
+154	Reflection_List properties
+155	Minimal steps down to 1
+156	Align columns
+157	URL parser
+158	URL parser
+159	URL parser
+160	Base58Check encoding
+161	Base58Check encoding
+162	Dynamic variable names
+163	Data Encryption Standard
+164	Fibonacci matrix-exponentiation
+165	Fibonacci matrix-exponentiation
+166	Commatizing numbers
+167	Arithmetic coding_As a generalized change of radix
+168	Empty program
+169	Kosaraju
+170	Reflection_List methods
+171	Send an unknown method call
+172	Twelve statements
+173	Transportation problem

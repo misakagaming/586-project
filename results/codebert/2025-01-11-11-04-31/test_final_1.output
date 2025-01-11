@@ -1,0 +1,2120 @@
+0	abstract class Class1
+{
+   public abstract void method1();
+
+   public int method2()
+   {
+     return 0;
+   }
+}
+
+1	abstract class Class1
+{
+   public abstract void method1();
+
+   public int method2()
+   {
+     return 0;
+   }
+}
+
+2	using System;
+using System.Numerics;
+
+namespace IntegerRoots {
+    class Program {
+        static BigInteger IRoot(BigInteger @base, int n) {
+            if (@base < 0 || n <= 0) {
+                throw new ArgumentException();
+            }
+
+            int n1 = n - 1;
+3	using System;
+using System.Collections.Generic;
+
+namespace ContinuedFraction {
+    class Program {
+        static double Calc(Func<int, int[]> f, int n) {
+            double temp = 0.0;
+            for (int ni = n; ni >= 1; ni--) {
+                int[] p = f(ni);
+ 
+4	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WieferichPrimes {
+    class Program {
+        static long ModPow(long @base, long exp, long mod) {
+            if (mod == 1) {
+                return 0;
+            }
+
+            long
+5	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WieferichPrimes {
+    class Program {
+        static long ModPow(long @base, long exp, long mod) {
+            if (mod == 1) {
+                return 0;
+            }
+
+            long
+6	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace WieferichPrimes {
+    class Program {
+        static long ModPow(long @base, long exp, long mod) {
+            if (mod == 1) {
+                return 0;
+            }
+
+            long
+7	using System;
+ 
+class Program {
+    static void Main(string[] args) {    
+        for (int i = 2; i <= 8; i+= 2) {        
+            Console.Write("{0}, ", i);
+        }
+
+        Console.WriteLine("who do we appreciate?");
+    }
+}
+
+8	class Program
+{
+    public void FizzBuzzGo()
+    {
+        Boolean Fizz = false;
+        Boolean Buzz = false;
+        for (int count = 1; count <= 100; count ++)
+        {
+            Fizz = count % 3 == 0;
+            Buzz = count % 5 == 0;
+      
+9	class Program
+{
+    public void FizzBuzzGo()
+    {
+        Boolean Fizz = false;
+        Boolean Buzz = false;
+        for (int count = 1; count <= 100; count ++)
+        {
+            Fizz = count % 3 == 0;
+            Buzz = count % 5 == 0;
+      
+10	using System;
+using System.Threading;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int sleep = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Sleeping...");
+        Thread.Sleep(sleep); 
+        Console.WriteLine("Awake!");
+    }
+}
+
+11	using System;
+using System.Threading;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int sleep = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Sleeping...");
+        Thread.Sleep(sleep); 
+        Console.WriteLine("Awake!");
+    }
+}
+
+12	using System;
+
+class Program
+{
+    static void Main()
+    {
+        
+        var x = "hello world";
+
+        
+        x = null;
+
+        
+        x = "ab\0";
+        Console.WriteLine(x);
+        Console.WriteLine(x.Length); 
+
+ 
+13	using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TheNameGame {
+    class Program {
+        static void PrintVerse(string name) {
+            StringBuilder sb = new StringBuilder(name.ToLower());
+            sb[0] = Char.ToUpper(sb[0]);
+            string x = sb.ToString();
+14	static void Main(string[] args)
+{
+    
+
+    SmtpClient SMTP = new SmtpClient("smtp.gmail.com", 587); 
+    SMTP.EnableSsl = true; 
+    SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
+    SMTP.Credentials = new NetworkCredential("YourUserName", "YourPassword");
+    MailMessage Mail = new MailMessage("yourEmail@address.com", "theirEmail@address.com");
+
+
+
+15	using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class Program
+{
+    static void Main()
+    {
+        foreach (var date in PalindromicDates(2021).Take(15)) WriteLine(date.ToString("yyyy-MM-dd"));
+    }
+
+    public static IEnumerable<DateTime> PalindromicDates(int startYear) {
+        for (int y =
+16	using System; 
+class Program
+{
+    static DateTime start;
+    static void Main(string[] args)
+    {
+        start = DateTime.Now;
+        
+        Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+        int counter = 0;
+        while (true)
+        {
+   
+17	private static readonly Random Rand = new Random();
+
+void sattoloCycle<T>(IList<T> items) {
+    for (var i = items.Count; i-- > 1;) {
+        int j = Rand.Next(i);
+        var tmp = items[i];
+        items[i] = items[j];
+        items[j] = tmp;
+    }
+}
+
+18	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+19	static void Main()
+{
+	Console.WriteLine("GCD of {0} and {1} is {2}", 1, 1, gcd(1, 1));
+	Console.WriteLine("GCD of {0} and {1} is {2}", 1, 10, gcd(1, 10));
+	Console.WriteLine("GCD of {0} and {1} is {2}", 10, 100, gcd(10, 100));
+	Console.WriteLine("GCD of {0} and {1} is {2}
+20	using System;
+using System.Linq;
+
+namespace PerniciousNumbers
+{
+    class Program
+    {
+        public static int PopulationCount(long n)
+        {
+            int cnt = 0;
+            do
+            {
+                if ((n & 1) != 0)
+21	using System;
+using static System.Console;
+
+class Program {
+
+  const int mc = 103 * 1000 * 10000 + 11 * 9 + 1;
+
+  static bool[] sv = new bool[mc + 1];
+
+  static void sieve() { int[] dS = new int[10000];
+    for (int a = 9, i = 9999; a >= 0; a--)
+      for (int b = 9; b >= 0; b--)
+        for (int c = 9, s = a
+22	using System;
+
+namespace System
+{
+	extension String
+	{
+		public void Reverse()
+		{
+			int i = 0;
+			int j = mLength - 1;
+		while (i < j)
+			{
+					Swap!(Ptr[i++], Ptr[j--]);
+			}
+		}
+	}
+}
+
+namespace StringReverse
+{
+	class Program
+	{
+		static void Main()
+		
+23	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+24	using System; 
+using System.ComponentModel; 
+using System.Windows.Forms; 
+
+class RosettaInteractionForm : Form
+{    
+
+    
+    
+    class NumberModel: INotifyPropertyChanged
+    {
+        
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
+
+        int _value;
+        public int Value
+       
+25	        public static void gnomeSort(int[] anArray)
+        {
+            int first = 1;
+            int second = 2;
+
+            while (first < anArray.Length)
+            {
+                             
+26	using System;
+using System.Linq;
+
+namespace IdentityMatrix
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Requires exactly one argument");
+            
+27	using System;
+using System.Linq;
+
+namespace CountingSort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rand = new Random();                                   
+            int[] arr = new int
+28	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class PartialFunctionApplication
+{
+    static Func<T1, TResult> PartiallyApply<T1, T2, TResult>(Func<T1, T2, TResult> function, T2 argument2)
+    {
+        return argument1 => function(argument1, argument2);
+    }
+
+    static void Main()
+    {
+        var fs
+29	using System.Runtime.InteropServices;
+
+class Program {
+    [DllImport("fakelib.dll")]
+    public static extern int fakefunction(int args);
+
+    static void Main(string[] args) {
+        int r = fakefunction(10);
+    }
+}
+
+30	if (foo == null)
+    Console.WriteLine("foo is null");
+
+31	using System;
+ 
+class Program {
+    static void Main(string[] args) {    
+        for (int i = 2; i <= 8; i+= 2) {        
+            Console.Write("{0}, ", i);
+        }
+
+        Console.WriteLine("who do we appreciate?");
+    }
+}
+
+32	using System.Collections.Generic;
+using System.IO;
+
+class Program {
+    static void Main() {
+        var files = new List<string> {
+            "test1.txt",
+            "test2.txt"
+        };
+        foreach (string file in files) {
+            File.WriteAllText(file
+33	string src = "Hello";
+string dst = src;
+
+34	var array = new int[,] { 
+    { 1, 2, 3 },
+    { 4, 5, 6}
+}
+
+array[0, 0] = 999;
+
+
+var array = new int[5, 4, 3, 2];
+
+35	namespace RosettaCode.Arithmetic.Complex
+{
+    using System;
+    using System.Numerics;
+
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var number = Complex.ImaginaryOne;
+            foreach (var result in new[] { number + number, number * number, -number, 1 / number, Complex.
+36	namespace RosettaCode.Arithmetic.Complex
+{
+    using System;
+    using System.Numerics;
+
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var number = Complex.ImaginaryOne;
+            foreach (var result in new[] { number + number, number * number, -number, 1 / number, Complex.
+37	public static class Haversine {
+  public static double calculate(double lat1, double lon1, double lat2, double lon2) {
+    var R = 6372.8; 
+    var dLat = toRadians(lat2 - lat1);
+    var dLon = toRadians(lon2 - lon1);
+    lat1 = toRadians(lat1);
+    lat2 = toRadians(lat2);
+   
+    var a = Math.Sin
+38	public class Matrix
+{
+	int n;
+	int m;
+	double[,] a;
+
+	public Matrix(int n, int m)
+	{
+		if (n <= 0 || m <= 0)
+			throw new ArgumentException("Matrix dimensions must be positive");
+		this.n = n;
+		this.m = m;
+		a = new double[n, m];
+	}
+
+	
+	public double this[int i, int j]
+	{
+		get { return a[i - 1
+39	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace PostfixToInfix
+{
+    class Program
+    {
+        class Operator
+        {
+           public Operator(char t, int p, bool i = false)
+            {
+                 
+40	using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        const int from = 1;
+        const int to = 10;
+
+        int randomNumber = new Random().Next(from, to);
+        int guessedNumber;
+
+        Console.Write("The number is between {0} and {1}. ", from, to);
+        while (true
+41	using System;
+
+namespace CombSort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] unsorted = new int[] { 3, 5, 1, 9, 7, 6, 8, 2, 4 };
+            Console.WriteLine(string.Join(",", combSort(unsorted)));
+        }
+
+42	using System;
+using System.IO;
+using System.Text;
+
+namespace RosettaFileByChar
+{
+    class Program
+    {
+        static char GetNextCharacter(StreamReader streamReader) => (char)streamReader.Read();
+
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+           
+43	using System;
+
+class Program
+{
+    static void Main()
+    {
+        var value = "100";
+        var fromBases = new[] { 2, 8, 10, 16 };
+        var toBase = 10;
+        foreach (var fromBase in fromBases)
+        {
+            Console.WriteLine("{0} in base {1
+44	using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace Cuboid
+{
+    public partial class Form1 : Form
+    {
+        double[][] nodes = {
+            new double[] {-1, -1, -1}, new double[] {-1, -1, 1}, new double[] {-1, 1, -1},
+      
+45	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+static class Program {
+    static void Main() {
+        Func<int, IEnumerable<int>> ms = m => Infinite().Select(i => (int)Math.Pow(i, m));
+        var squares = ms(2);
+        var cubes = ms(3);
+        var filtered = squares.Where(square => cubes.First(
+46	bool? value = null
+
+47	public class SubtractiveGenerator {
+    public static int MAX = 1000000000;
+    private int[] state;
+    private int pos;
+
+    private int mod(int n) {
+        return ((n % MAX) + MAX) % MAX;
+    }
+
+    public SubtractiveGenerator(int seed) {
+        state = new int[55];
+
+        int[] temp = new int[55];
+    
+48	public class SubtractiveGenerator {
+    public static int MAX = 1000000000;
+    private int[] state;
+    private int pos;
+
+    private int mod(int n) {
+        return ((n % MAX) + MAX) % MAX;
+    }
+
+    public SubtractiveGenerator(int seed) {
+        state = new int[55];
+
+        int[] temp = new int[55];
+    
+49	using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace Cuboid
+{
+    public partial class Form1 : Form
+    {
+        double[][] nodes = {
+            new double[] {-1, -1, -1}, new double[] {-1, -1, 1}, new double[] {-1, 1, -1},
+      
+50	using System;
+using System.Collections.Generic;
+
+static class program
+{
+    static int n = 61;
+    static List<int> l = new List<int>() { 0, 1 };
+
+    static int fusc(int n)
+    {
+        if (n < l.Count) return l[n];
+        int f = (n & 1) == 0 ? l[n >> 1] : l[(n - 1) >> 1] +
+51	var nums = Enumerable.Range(1, 10);
+
+int summation = nums.Aggregate((a, b) => a + b);
+
+int product = nums.Aggregate((a, b) => a * b);
+
+string concatenation = nums.Aggregate(String.Empty, (a, b) => a.ToString() + b.ToString());
+
+Console.WriteLine("{0} {1} {2}", summation, product, concatenation);
+
+52	using System;
+using System.Collections.Generic;
+
+namespace MissingPermutation
+{
+    class Program
+    {
+        static void Main()
+        {
+            string[] given = new string[] { "ABCD", "CABD", "ACDB", "DACB", 
+                                
+53	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	int count = Convert.ToInt32(Console.ReadLine());
+	for (int line = 0; line < count; line++) {
+            Console.WriteLine(Console.ReadLine().Split(' ').Sum(i => Convert.ToInt32(i)));
+	}
+    }
+}
+
+54	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	int count = Convert.ToInt32(Console.ReadLine());
+	for (int line = 0; line < count; line++) {
+            Console.WriteLine(Console.ReadLine().Split(' ').Sum(i => Convert.ToInt32(i)));
+	}
+    }
+}
+
+55	using System;
+using System.Security.Cryptography;
+
+private static int GetRandomInt()
+{
+  int result = 0;
+  var rng = new RNGCryptoServiceProvider();
+  var buffer = new byte[4];
+
+  rng.GetBytes(buffer);
+  result = BitConverter.ToInt32(buffer, 0);
+
+  return result;
+}
+
+56	namespace Algorithms
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class TopologicalSorter<ValueType>
+    {
+        private class Relations
+        {
+            public int Dependencies = 0;
+            public HashSet<ValueType> Dependents = new HashSet<ValueType>();
+ 
+57	using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class Program
+{
+    static void Main()
+    {
+        foreach (var date in PalindromicDates(2021).Take(15)) WriteLine(date.ToString("yyyy-MM-dd"));
+    }
+
+    public static IEnumerable<DateTime> PalindromicDates(int startYear) {
+        for (int y =
+58	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace PostfixToInfix
+{
+    class Program
+    {
+        class Operator
+        {
+           public Operator(char t, int p, bool i = false)
+            {
+                 
+59	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace PostfixToInfix
+{
+    class Program
+    {
+        class Operator
+        {
+           public Operator(char t, int p, bool i = false)
+            {
+                 
+60	using System;
+using System.Security.Cryptography;
+using System.Text;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string text = "Rosetta Code";
+        byte[] bytes = Encoding.ASCII.GetBytes(text);
+        RIPEMD160 myRIPEMD160 = RIPEMD160Managed.Create();
+        byte[] hashValue = myRIPEMD160.
+61	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CardShuffles {
+    public static class Helper {
+        public static string AsString<T>(this ICollection<T> c) {
+            StringBuilder sb = new StringBuilder("[");
+            sb.Append(string.Join(", ", c));
+       
+62	interface ICamera {
+    
+}
+
+class MobilePhone {
+    
+}
+
+class CameraPhone: ICamera, MobilePhone {
+    
+}
+
+63	interface ICamera {
+    
+}
+
+class MobilePhone {
+    
+}
+
+class CameraPhone: ICamera, MobilePhone {
+    
+}
+
+64	using System;
+using System.Diagnostics;
+using System.Drawing;
+
+namespace RosettaConstrainedRandomCircle
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var points = new Point[404];
+            int i = 0;
+            for (int y = -15; y
+65	using System.Net.Sockets;
+using System.Threading;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static TcpListener listen;
+        static Thread serverthread;
+
+        static void Main(string[] args)
+        {
+            listen = new TcpListener(System.Net.IPAddress.Parse("127.0.0.1"), 12321
+66	class Program {
+    static void Main(string[] args) { int bi, i = 0; string chars = args.Length < 1 ? "abc" : args[0];
+        foreach (var item in System.IO.File.ReadAllLines("unixdict.txt")) {
+            int ai = -1; foreach (var ch in chars)
+                if ((bi = item.IndexOf(ch))
+67	using static System.Console;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main() {
+        const int limit = 1_000_000;
+        WriteLine("First 20:");
+        WriteLine(FindEmirpPrimes(limit).Take(20).Delimit());
+        WriteLine();
+		
+       
+68	using static System.Console;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main() {
+        const int limit = 1_000_000;
+        WriteLine("First 20:");
+        WriteLine(FindEmirpPrimes(limit).Take(20).Delimit());
+        WriteLine();
+		
+       
+69	using System;
+using System.Collections.Generic;
+using System.Numerics;
+
+namespace TonelliShanks {
+    class Solution {
+        private readonly BigInteger root1, root2;
+        private readonly bool exists;
+
+        public Solution(BigInteger root1, BigInteger root2, bool exists) {
+            this.root1 = root1;
+           
+70	using System;
+using System.Collections.Generic;
+using System.Numerics;
+
+namespace TonelliShanks {
+    class Solution {
+        private readonly BigInteger root1, root2;
+        private readonly bool exists;
+
+        public Solution(BigInteger root1, BigInteger root2, bool exists) {
+            this.root1 = root1;
+           
+71	class Program
+{
+    static void Main(string[] args)
+    {
+        string x = "foo";
+        x += "bar";
+        System.Console.WriteLine(x);
+    }
+}
+
+72	using System;
+    
+public class IntegerOverflow
+{
+    public static void Main() {
+        unchecked {
+            Console.WriteLine("For 32-bit signed integers:");
+            Console.WriteLine(-(-2147483647 - 1));
+            Console.WriteLine(2000000000 + 2000000000);
+            Console.Write
+73	using System;
+
+namespace ChineseZodiac {
+    class Program {
+        static string[] animals = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig" };
+        static string[] elements = { "Wood", "Fire", "Earth", "Metal", "Water" };
+        static string[] animalChars = { "子", "
+74	using System;
+using System.Collections.Generic;
+
+namespace SubsetSum {
+    class Item {
+        public Item(string word, int weight) {
+            Word = word;
+            Weight = weight;
+        }
+
+        public string Word { get; set; }
+        public int Weight { get; set; }
+
+     
+75	#define USE_BIGRATIONAL
+#define BANDED_ROWS
+#define INCREASED_LIMITS
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using Numerics;
+
+using static Common;
+using static Task1;
+using static Task2;
+using static Task3;
+
+#if !USE_BIGRATIONAL
+
+struct BigRational
+{
+    public override string To
+76	#define USE_BIGRATIONAL
+#define BANDED_ROWS
+#define INCREASED_LIMITS
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using Numerics;
+
+using static Common;
+using static Task1;
+using static Task2;
+using static Task3;
+
+#if !USE_BIGRATIONAL
+
+struct BigRational
+{
+    public override string To
+77	using System;
+
+namespace NonDecimalRadicesOutput
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 42; i++)
+            {
+                string binary = Convert.ToString(i, 2);
+        
+78	using System;
+using System.Linq;
+
+namespace IdentityMatrix
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Requires exactly one argument");
+            
+79	using System;
+
+
+
+
+
+
+
+public static class NullableBoolExtension
+{
+    public static bool? Implies(this bool? left, bool? right)
+    {
+        return !left | right;
+    }
+
+    public static bool? IsEquivalentTo(this bool? left, bool? right)
+    {
+        return left.HasValue && right.HasValue ? left == right : default(bool?);
+    }
+
+  
+80	using System;
+
+
+
+
+
+
+
+public static class NullableBoolExtension
+{
+    public static bool? Implies(this bool? left, bool? right)
+    {
+        return !left | right;
+    }
+
+    public static bool? IsEquivalentTo(this bool? left, bool? right)
+    {
+        return left.HasValue && right.HasValue ? left == right : default(bool?);
+    }
+
+  
+81	using System;
+using System.IO;
+
+namespace AppendPwdRosetta
+{
+    class PasswordRecord
+    {
+        public string account, password, fullname, office, extension, homephone, email, directory, shell;
+        public int UID, GID;
+        public PasswordRecord(string account, string password, int UID, int GID, string fullname, string office, string extension, string homephone, 
+       
+82	using System;
+
+namespace RosettaCode.CharacterCode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine((int) 'a');   
+            Console.WriteLine((char) 97);   
+        }
+    }
+}
+
+83	using System;
+using System.Linq;
+
+namespace Four_Squares_Puzzle {
+    class Program {
+        static void Main(string[] args) {
+            fourSquare(1, 7, true, true);
+            fourSquare(3, 9, true, true);
+            fourSquare(0, 9, false, false);
+        }
+
+ 
+84	class Link
+{
+    public int Item { get; set; }
+    public Link Prev { get; set; }
+    public Link Next { get; set; }
+
+    
+    public Link(int item, Link prev = null, Link next = null) {
+        Item = item;
+        Prev = prev;
+        Next = next;
+    }
+}
+
+85	using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static System.Console;
+using static System.Math;
+
+namespace N_Queens
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = 8;
+            var cols = Range(0, n);
+      
+86	using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine(new DateTime());
+    }
+}
+
+87	using System;
+
+namespace GetSystemCommandOutput {
+    class Program {
+        static void Main(string[] args) {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.Process
+88	using System.Xml;
+using System.Xml.Serialization;
+[XmlRoot("root")]
+public class ExampleXML
+{
+    [XmlElement("element")]
+    public string element = "Some text here";
+    static void Main(string[] args)
+    {
+        var xmlnamespace = new XmlSerializerNamespaces();
+        xmlnamespace.Add("", ""); 
+        var writer = X
+89	using System;
+
+namespace LangtonAnt
+{
+    public struct Point
+    {
+        public int X;
+        public int Y;
+
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+
+    enum Direction
+90	using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static System.Console;
+using static System.Math;
+
+namespace N_Queens
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = 8;
+            var cols = Range(0, n);
+      
+91	using System;
+
+namespace FloydWarshallAlgorithm {
+    class Program {
+        static void FloydWarshall(int[,] weights, int numVerticies) {
+            double[,] dist = new double[numVerticies, numVerticies];
+            for (int i = 0; i < numVerticies; i++) {
+                for
+92	using System; 
+using System.ComponentModel; 
+using System.Windows.Forms; 
+
+class RosettaInteractionForm : Form
+{    
+
+    
+    
+    class NumberModel: INotifyPropertyChanged
+    {
+        
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
+
+        int _value;
+        public int Value
+       
+93	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using static System.Console;
+using static System.Linq.Enumerable;
+
+namespace WorldCupGroupStage
+{
+    public static class WorldCupGroupStage
+    {
+        static int[][] _histogram;
+
+        static WorldCupGroupStage()
+        {
+            int[]
+94	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+95	using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        var captor = (Func<int, Func<int>>)(number => () => number * number);
+        var functions = Enumerable.Range(0, 10).Select(captor);
+        foreach (var function in functions.Take(9))
+        {
+          
+96	static void Main(string[] args)
+{
+    
+    for (int i = 0; i < 50; i++)
+    {
+        Console.WriteLine("{0}\t{1} ", i,isSemiPrime(i));
+    }
+    Console.ReadLine();
+}
+
+
+private static bool isSemiPrime(int c)
+{
+    int a = 2, b = 0;
+    while (b < 3 && c != 1)
+
+97	using System;
+using System.Net;
+using System.Net.Sockets;
+
+class Program {        
+    static void Main(string[] args) {        
+        try {
+            TcpListener server = new TcpListener(IPAddress.Any, 12345);
+            server.Start();
+        } 
+       
+98	using System;
+using System.Net;
+using System.Net.Sockets;
+
+class Program {        
+    static void Main(string[] args) {        
+        try {
+            TcpListener server = new TcpListener(IPAddress.Any, 12345);
+            server.Start();
+        } 
+       
+99	using System;
+
+namespace multtbl
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write(" X".PadRight(4));
+            for (int i = 1; i <= 12; i++)
+                Console.Write(i.ToString("####").PadLeft(
+100	using System;
+using System.IO;
+using System.Net.Sockets;
+
+class Program {
+    static void Main(string[] args) {
+        TcpClient tcp = new TcpClient("localhost", 256);
+        StreamWriter writer = new StreamWriter(tcp.GetStream());
+
+        writer.Write("hello socket world");
+        writer.Flush();
+
+        tcp.Close();
+    }
+101	using System;
+using System.Collections;
+
+namespace RosettaCode {
+    class SierpinskiTriangle {
+        int len;
+        BitArray b;
+
+        public SierpinskiTriangle(int n) {
+            if (n < 1) {
+                throw new ArgumentOutOfRangeException("Order must be greater than zero");
+  
+102	    public static class Luhn
+    {
+        public static bool LuhnCheck(this string cardNumber)
+        {
+            return LuhnCheck(cardNumber.Select(c => c - '0').ToArray());
+        }
+
+        private static bool LuhnCheck(this int[] digits)
+        {
+            return Get
+103	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WeirdNumbers {
+    class Program {
+        static List<int> Divisors(int n) {
+            List<int> divs = new List<int> { 1 };
+            List<int> divs2 = new List<int>();
+
+  
+104	    public class IbanValidator : IValidateTypes
+    {
+        public ValidationResult Validate(string value)
+        {
+            
+            if (string.IsNullOrEmpty(value))
+                return ValidationResult.ValueMissing;
+
+            if (value.Length < 2)
+105	using static System.Console;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class SafePrimes
+{
+    public static void Main() {
+        HashSet<int> primes = Primes(10_000_000).ToHashSet();
+        WriteLine("First 35 safe primes:");
+        WriteLine(string.Join(" ", primes.Where(IsSafe).Take(
+106	using static System.Console;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class SafePrimes
+{
+    public static void Main() {
+        HashSet<int> primes = Primes(10_000_000).ToHashSet();
+        WriteLine("First 35 safe primes:");
+        WriteLine(string.Join(" ", primes.Where(IsSafe).Take(
+107	using static System.Console;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class SafePrimes
+{
+    public static void Main() {
+        HashSet<int> primes = Primes(10_000_000).ToHashSet();
+        WriteLine("First 35 safe primes:");
+        WriteLine(string.Join(" ", primes.Where(IsSafe).Take(
+108	using System;
+class Program {
+ 
+  static bool sameDigits(int n, int b) {
+    int f = n % b;
+    while ((n /= b) > 0) if (n % b != f) return false;
+    return true;
+  }
+ 
+  static bool isBrazilian(int n) {
+    if (n < 7) return false;
+    if (n % 2 == 0) return true;
+    for (int b = 2; b < n
+109	using System;
+class Program {
+ 
+  static bool sameDigits(int n, int b) {
+    int f = n % b;
+    while ((n /= b) > 0) if (n % b != f) return false;
+    return true;
+  }
+ 
+  static bool isBrazilian(int n) {
+    if (n < 7) return false;
+    if (n % 2 == 0) return true;
+    for (int b = 2; b < n
+110	using System;
+class Program {
+ 
+  static bool sameDigits(int n, int b) {
+    int f = n % b;
+    while ((n /= b) > 0) if (n % b != f) return false;
+    return true;
+  }
+ 
+  static bool isBrazilian(int n) {
+    if (n < 7) return false;
+    if (n % 2 == 0) return true;
+    for (int b = 2; b < n
+111	using System;
+using System.Numerics;
+
+namespace IntegerRoots {
+    class Program {
+        static BigInteger IRoot(BigInteger @base, int n) {
+            if (@base < 0 || n <= 0) {
+                throw new ArgumentException();
+            }
+
+            int n1 = n - 1;
+112	using System;
+using System.Numerics;
+
+namespace IntegerRoots {
+    class Program {
+        static BigInteger IRoot(BigInteger @base, int n) {
+            if (@base < 0 || n <= 0) {
+                throw new ArgumentException();
+            }
+
+            int n1 = n - 1;
+113	using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace Cuboid
+{
+    public partial class Form1 : Form
+    {
+        double[][] nodes = {
+            new double[] {-1, -1, -1}, new double[] {-1, -1, 1}, new double[] {-1, 1, -1},
+      
+114	using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace Cuboid
+{
+    public partial class Form1 : Form
+    {
+        double[][] nodes = {
+            new double[] {-1, -1, -1}, new double[] {-1, -1, 1}, new double[] {-1, 1, -1},
+      
+115	    public class IbanValidator : IValidateTypes
+    {
+        public ValidationResult Validate(string value)
+        {
+            
+            if (string.IsNullOrEmpty(value))
+                return ValidationResult.ValueMissing;
+
+            if (value.Length < 2)
+116	    public class IbanValidator : IValidateTypes
+    {
+        public ValidationResult Validate(string value)
+        {
+            
+            if (string.IsNullOrEmpty(value))
+                return ValidationResult.ValueMissing;
+
+            if (value.Length < 2)
+117	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using static System.Console;
+using static System.Linq.Enumerable;
+
+namespace WorldCupGroupStage
+{
+    public static class WorldCupGroupStage
+    {
+        static int[][] _histogram;
+
+        static WorldCupGroupStage()
+        {
+            int[]
+118	using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static IEnumerable<int[]> Combinations(int m, int n)
+    {
+            int[] result = new int[m];
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            while (stack.Count
+119	using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static IEnumerable<int[]> Combinations(int m, int n)
+    {
+            int[] result = new int[m];
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            while (stack.Count
+120	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode
+{
+    static class StreamMerge
+    {
+        static IEnumerable<T> Merge2<T>(IEnumerable<T> source1, IEnumerable<T> source2) where T : IComparable
+        {
+            var q1 = new Queue<T>(source1);
+     
+121	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode.SymmetricDifference
+{
+    public static class IEnumerableExtension
+    {
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> @this, IEnumerable<T> that)
+        {
+            return @this.Except(that).Concat(that
+122	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode.SymmetricDifference
+{
+    public static class IEnumerableExtension
+    {
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> @this, IEnumerable<T> that)
+        {
+            return @this.Except(that).Concat(that
+123	using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace RosettaCode.LastFridaysOfYear
+{
+    internal static class Program
+    {
+        private static IEnumerable<DateTime> LastFridaysOfYear(int year)
+        {
+            for (var month = 1; month <= 12; month++)
+         
+124	static int[] sedol_weights = { 1, 3, 1, 7, 3, 9 };
+static int sedolChecksum(string sedol)
+{
+    int len = sedol.Length;
+    int sum = 0;
+
+    if (len == 7) 
+        return (int)sedol[6];
+
+    if ((len > 7) || (len < 6) || System.Text.RegularExpressions.Regex.IsMatch(sedol, "[AEIOUaeiou
+125	static int[] sedol_weights = { 1, 3, 1, 7, 3, 9 };
+static int sedolChecksum(string sedol)
+{
+    int len = sedol.Length;
+    int sum = 0;
+
+    if (len == 7) 
+        return (int)sedol[6];
+
+    if ((len > 7) || (len < 6) || System.Text.RegularExpressions.Regex.IsMatch(sedol, "[AEIOUaeiou
+126	using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Test
+{
+    class Program
+    {
+     
+        static void Main(string[] args)
+        {
+            
+            List<int> myList = new List<int>() { 1, 1, 2, 4, 4 }; 
+
+
+127	using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Test
+{
+    class Program
+    {
+     
+        static void Main(string[] args)
+        {
+            
+            List<int> myList = new List<int>() { 1, 1, 2, 4, 4 }; 
+
+
+128	using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace RosettaCode.LastFridaysOfYear
+{
+    internal static class Program
+    {
+        private static IEnumerable<DateTime> LastFridaysOfYear(int year)
+        {
+            for (var month = 1; month <= 12; month++)
+         
+129	using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace RosettaCode.LastFridaysOfYear
+{
+    internal static class Program
+    {
+        private static IEnumerable<DateTime> LastFridaysOfYear(int year)
+        {
+            for (var month = 1; month <= 12; month++)
+         
+130	using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace RosettaCode.LastFridaysOfYear
+{
+    internal static class Program
+    {
+        private static IEnumerable<DateTime> LastFridaysOfYear(int year)
+        {
+            for (var month = 1; month <= 12; month++)
+         
+131	public static class Extension
+{
+    public static IEnumerable<IEnumerable<T>> Permutations<T>(this IEnumerable<T> values) where T : IComparable<T>
+    {
+        if (values.Count() == 1)
+            return new[] { values };
+        return values.SelectMany(v => Permutations(values.Where(x => x.CompareTo(v) != 0)), (v, p
+132	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+class Program
+{
+    static void PrintCollection(IEnumerable<int> x)
+    {
+        Console.WriteLine(string.Join(" ", x));
+    }
+    static void Main(string[] args)
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.Write
+133	using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static IEnumerable<int[]> Combinations(int m, int n)
+    {
+            int[] result = new int[m];
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            while (stack.Count
+134	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main()
+    {
+        SqueezeAndPrint("", ' ');
+        SqueezeAndPrint("\"If I were two-faced, would I be wearing this one?\" --- Abraham Lincoln ", '-');
+        SqueezeAndPrint("..1111111111111111111111111111111111111111111111111111111111111117777888", '7
+135	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main()
+    {
+        SqueezeAndPrint("", ' ');
+        SqueezeAndPrint("\"If I were two-faced, would I be wearing this one?\" --- Abraham Lincoln ", '-');
+        SqueezeAndPrint("..1111111111111111111111111111111111111111111111111111111111111117777888", '7
+136	using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Test
+{
+    class Program
+    {
+     
+        static void Main(string[] args)
+        {
+            
+            List<int> myList = new List<int>() { 1, 1, 2, 4, 4 }; 
+
+
+137	using System;
+using System.Numerics;
+
+class QuadraticRoots
+{
+    static Tuple<Complex, Complex> Solve(double a, double b, double c)
+    {
+        var q = -(b + Math.Sign(b) * Complex.Sqrt(b * b - 4 * a * c)) / 2;
+        return Tuple.Create(q / a, c / q);
+    }
+
+    static void Main
+138	using System;
+using System.Numerics;
+
+class QuadraticRoots
+{
+    static Tuple<Complex, Complex> Solve(double a, double b, double c)
+    {
+        var q = -(b + Math.Sign(b) * Complex.Sqrt(b * b - 4 * a * c)) / 2;
+        return Tuple.Create(q / a, c / q);
+    }
+
+    static void Main
+139	using System;
+using System.Collections.Generic;
+
+namespace Morse
+{
+    class Morse
+    {
+        static void Main(string[] args)
+        {
+            string word = "sos";
+            Dictionary<string, string> Codes = new Dictionary<string, string>
+            {
+           
+140	using System;
+using System.Collections.Generic;
+
+namespace Morse
+{
+    class Morse
+    {
+        static void Main(string[] args)
+        {
+            string word = "sos";
+            Dictionary<string, string> Codes = new Dictionary<string, string>
+            {
+           
+141	using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        List<string> haystack = new List<string>() { "Zig", "Zag", "Wally", "Ronald", "Bush", "Krusty", "Charlie", "Bush", "Bozo" };
+
+        foreach (string needle in new string[] { "Washington", "Bush" }) {
+            int
+142	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode.SymmetricDifference
+{
+    public static class IEnumerableExtension
+    {
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> @this, IEnumerable<T> that)
+        {
+            return @this.Except(that).Concat(that
+143	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode.SymmetricDifference
+{
+    public static class IEnumerableExtension
+    {
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> @this, IEnumerable<T> that)
+        {
+            return @this.Except(that).Concat(that
+144	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RosettaCode.SymmetricDifference
+{
+    public static class IEnumerableExtension
+    {
+        public static IEnumerable<T> SymmetricDifference<T>(this IEnumerable<T> @this, IEnumerable<T> that)
+        {
+            return @this.Except(that).Concat(that
+145	using System;
+using System.Collections.Generic;
+using static System.Console;
+using static System.Linq.Enumerable;
+
+public static class SquareButNotCube
+{
+    public static void Main() {
+        var squares = from i in Integers() select i * i;
+        var cubes = from i in Integers() select i * i * i;
+
+        foreach (var x in Merge().Take(33)) {
+       
+146	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+147	static void Main(string[] args)
+{
+	int p;
+
+	p = 1;
+	Console.WriteLine("Ref Before: " + p);
+	Value(ref p);
+	Console.WriteLine("Ref After : " + p);
+
+	p = 1;
+	Console.WriteLine("Val Before: " + p);
+	Value(p);
+	Console.WriteLine("Val After : " + p);
+
+	Console.ReadLine();
+}
+
+private static void Value(ref int Value)
+{
+	Value += 1;
+148	private static readonly Random Rand = new Random();
+
+void sattoloCycle<T>(IList<T> items) {
+    for (var i = items.Count; i-- > 1;) {
+        int j = Rand.Next(i);
+        var tmp = items[i];
+        items[i] = items[j];
+        items[j] = tmp;
+    }
+}
+
+149	private static readonly Random Rand = new Random();
+
+void sattoloCycle<T>(IList<T> items) {
+    for (var i = items.Count; i-- > 1;) {
+        int j = Rand.Next(i);
+        var tmp = items[i];
+        items[i] = items[j];
+        items[j] = tmp;
+    }
+}
+
+150	using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using System.Windows.Threading;
+
+namespace Polyspiral
+{
+    public partial class Form1 : Form
+    {
+        private double inc;
+
+        public Form1()
+        {
+            Width = Height = 640;
+         
+151	using System;
+
+namespace FindIntersection {
+    class Vector3D {
+        private double x, y, z;
+
+        public Vector3D(double x, double y, double z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+   
+152	using System;
+using System.Numerics;
+
+class QuadraticRoots
+{
+    static Tuple<Complex, Complex> Solve(double a, double b, double c)
+    {
+        var q = -(b + Math.Sign(b) * Complex.Sqrt(b * b - 4 * a * c)) / 2;
+        return Tuple.Create(q / a, c / q);
+    }
+
+    static void Main
+153	using System;
+using System.Numerics;
+
+class QuadraticRoots
+{
+    static Tuple<Complex, Complex> Solve(double a, double b, double c)
+    {
+        var q = -(b + Math.Sign(b) * Complex.Sqrt(b * b - 4 * a * c)) / 2;
+        return Tuple.Create(q / a, c / q);
+    }
+
+    static void Main
+154	using System;
+using System.Collections;
+using System.Collections.Generic;
+using static System.Linq.Enumerable;
+
+public static class Rosetta
+{
+    static void Main()
+    {
+        foreach ((int x, int n) in new [] {
+            (99809, 1),
+            (18, 2),
+            (19, 3),
+
+155	using System;
+
+namespace rms
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] x = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            Console.WriteLine(rootMeanSquare(x));
+        }
+
+     
+156	using System;
+using System.IO;
+
+namespace NBodyProblem {
+    class Vector3D {
+        public Vector3D(double x, double y, double z) {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+
+        public double X { get; }
+    
+157	System.Net.Dns.GetHostName();
+
+158	System.Net.Dns.GetHostName();
+
+159	System.Net.Dns.GetHostName();
+
+160	using System;
+using System.Linq;
+using System.Security.Cryptography;
+using NUnit.Framework;
+
+namespace BitcoinValidator
+{
+    public class ValidateTest
+    {
+        [TestCase]
+        public void ValidateBitcoinAddressTest()
+        {
+            Assert.IsTrue(ValidateBitcoinAddress("1AGNa15ZQXAZUgFiqJ2i7
+161	using System;
+using System.Linq;
+using System.Security.Cryptography;
+using NUnit.Framework;
+
+namespace BitcoinValidator
+{
+    public class ValidateTest
+    {
+        [TestCase]
+        public void ValidateBitcoinAddressTest()
+        {
+            Assert.IsTrue(ValidateBitcoinAddress("1AGNa15ZQXAZUgFiqJ2i7
+162	#define USE_BIGRATIONAL
+#define BANDED_ROWS
+#define INCREASED_LIMITS
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using Numerics;
+
+using static Common;
+using static Task1;
+using static Task2;
+using static Task3;
+
+#if !USE_BIGRATIONAL
+
+struct BigRational
+{
+    public override string To
+163	using System;
+using System.IO;
+
+public class BitReader
+{
+    uint readData = 0;
+    int startPosition = 0;
+    int endPosition = 0;
+
+    public int InBuffer
+    {
+        get { return endPosition - startPosition; }
+    }
+
+    private Stream stream;
+
+    public Stream BaseStream
+    {
+        get { return stream; }
+    }
+
+  
+164	using System;
+
+namespace FractionReduction {
+    class Program {
+        static int IndexOf(int n, int[] s) {
+            for (int i = 0; i < s.Length; i++) {
+                if (s[i] == n) {
+                    return i;
+        
+165	using System;
+
+namespace FractionReduction {
+    class Program {
+        static int IndexOf(int n, int[] s) {
+            for (int i = 0; i < s.Length; i++) {
+                if (s[i] == n) {
+                    return i;
+        
+166	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    public static List<int> PrimeFactors(int number)
+    {
+        var primes = new List<int>();
+        for (int div = 2; div <= number; div++)
+        {
+            while (number % div == 0)
+          
+167	using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
+
+namespace Anagram
+{
+    class Program
+    {
+        const string DICO_URL = "http:
+
+        static void Main( string[] args )
+        {
+            WebRequest request = WebRequest.Create(DICO_URL);
+     
+168	
+System.Console.Write("\a"); 
+System.Threading.Thread.Sleep(1000); 
+System.Console.Beep(); 
+System.Threading.Thread.Sleep(1000);
+
+
+System.Console.Beep(440, 2000); 
+
+169	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KolakoskiSequence {
+    class Crutch {
+        public readonly int len;
+        public int[] s;
+        public int i;
+
+        public Crutch(int len) {
+            this.len = len
+170	using System;
+using System.Collections;
+using System.Collections.Generic;
+using static System.Linq.Enumerable;
+
+public static class Rosetta
+{
+    static void Main()
+    {
+        foreach ((int x, int n) in new [] {
+            (99809, 1),
+            (18, 2),
+            (19, 3),
+
+171	
+MyClass.Method(someParameter);
+ 
+
+myInstance.Method(someParameter);
+
+172	using System;
+using System.Collections.Generic;
+using static System.Linq.Enumerable;
+
+public static class SuccessivePrimeDifferences {
+
+    public static void Main() {
+        var primes = GeneratePrimes(1_000_000).ToList();
+        foreach (var d in new[] {
+            new [] { 2 },
+            new [] { 1 },
+    
+173	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace standardDeviation
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<double> nums = new List<double> { 2, 4, 4, 4, 5, 5, 7, 9 };
+            for (int i = 1; i <=

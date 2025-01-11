@@ -1,0 +1,8 @@
+var current = [head of list to traverse]
+while(current != null)
+{
+    
+
+    current = current.Next;
+}
+

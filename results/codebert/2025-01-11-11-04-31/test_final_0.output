@@ -1,0 +1,1039 @@
+0	using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a = int.Parse(Console.ReadLine());
+        int b = int.Parse(Console.ReadLine());
+        if (a < b)
+            Console.WriteLine("{0} is less than {1}", a, b);
+        if (a == b)
+  
+1	using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+
+namespace HilbertCurve {
+    class Program {
+        static void Swap<T>(ref T a, ref T b) {
+            var c = a;
+            a = b;
+            b = c;
+        }
+
+   
+2	using System;
+using System.IO;
+using System.Linq;
+
+public class Rosetta
+{
+    public static void Main() => RemoveLines("foobar.txt", start: 1, count: 2);
+
+    static void RemoveLines(string filename, int start, int count = 1) =>
+        File.WriteAllLines(filename, File.ReadAllLines(filename)
+            .Where((line, index) => index < start - 1 || index
+3	class Link
+{
+    public int Item { get; set; }
+    public Link Prev { get; set; }
+    public Link Next { get; set; }
+
+    
+    public Link(int item, Link prev = null, Link next = null) {
+        Item = item;
+        Prev = prev;
+        Next = next;
+    }
+}
+
+4	using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+namespace FloodFill
+{
+    class Program
+    {
+        private static bool ColorMatch(Color a, Color b)
+        {
+            return (a.ToArgb() & 0xffffff) == (b.ToArgb() & 0xffffff);
+        }
+
+        static void
+5	using System; using static System.Console;
+class Program { static void Main() { int c = 0, lmt = 1000;
+    for (int n = 1, p = 2, k; n <= lmt; n++)
+      if ((k = n + n * (p += n >= p ? p : 0)) > lmt) break;
+      else Console.Write("{0,3} ({1,-10})  {2}", k,
+          Convert.ToString(
+6	using System;
+using System.IO;
+
+namespace DirectoryWalk
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] filePaths = Directory.GetFiles(@"c:\MyDir", "a*");
+            foreach (string filename in filePaths)
+                Console
+7	using System;
+using System.Linq;
+
+namespace CaesarCypher
+{
+    class Program
+    {
+        static char Encrypt(char ch, int code)
+        {
+            if (!char.IsLetter(ch)) return ch;
+
+            char offset = char.IsUpper(ch) ? 'A' : 'a';
+           
+8	
+MyClass.Method(someParameter);
+ 
+
+myInstance.Method(someParameter);
+
+9	int n = 15;
+List<int> t = new List<int>() { 0, 1 };
+for (int i = 1; i <= n; i++)
+{
+    for (var j = i; j > 1; j--) t[j] += t[j - 1];
+    t.Add(t[i]);
+    for (var j = i + 1; j > 1; j--) t[j] += t[j - 1];
+    Console.Write(((i == 1) ? ""
+10	int n = 15;
+List<int> t = new List<int>() { 0, 1 };
+for (int i = 1; i <= n; i++)
+{
+    for (var j = i; j > 1; j--) t[j] += t[j - 1];
+    t.Add(t[i]);
+    for (var j = i + 1; j > 1; j--) t[j] += t[j - 1];
+    Console.Write(((i == 1) ? ""
+11	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CardShuffles {
+    public static class Helper {
+        public static string AsString<T>(this ICollection<T> c) {
+            StringBuilder sb = new StringBuilder("[");
+            sb.Append(string.Join(", ", c));
+       
+12	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CardShuffles {
+    public static class Helper {
+        public static string AsString<T>(this ICollection<T> c) {
+            StringBuilder sb = new StringBuilder("[");
+            sb.Append(string.Join(", ", c));
+       
+13	public static ulong Fib(uint n) {
+    return (n < 2)? n : Fib(n - 1) + Fib(n - 2);
+}
+
+14	System.IO.Directory.CreateDirectory(path)
+
+15	static Random tRand = new Random();
+
+static void Main(string[] args)
+{
+	Thread t = new Thread(new ParameterizedThreadStart(WriteText));
+	t.Start("Enjoy");
+
+	t = new Thread(new ParameterizedThreadStart(WriteText));
+	t.Start("Rosetta");
+
+	t = new Thread(new ParameterizedThreadStart(WriteText));
+	t.Start("Code");
+
+	Console.ReadLine();
+}
+
+private static void WriteText(object p)
+{
+	Thread.Sleep(t
+16	using System;
+using System.Collections.Generic;
+
+namespace MissingPermutation
+{
+    class Program
+    {
+        static void Main()
+        {
+            string[] given = new string[] { "ABCD", "CABD", "ACDB", "DACB", 
+                                
+17	using System;
+using System.Collections.Generic;
+
+namespace MissingPermutation
+{
+    class Program
+    {
+        static void Main()
+        {
+            string[] given = new string[] { "ABCD", "CABD", "ACDB", "DACB", 
+                                
+18	using System;
+using System.Collections.Generic;
+using static System.Console;
+using static System.Linq.Enumerable;
+
+public static class SquareButNotCube
+{
+    public static void Main() {
+        var squares = from i in Integers() select i * i;
+        var cubes = from i in Integers() select i * i * i;
+
+        foreach (var x in Merge().Take(33)) {
+       
+19	using System;
+
+namespace FaulhabersFormula {
+    internal class Frac {
+        private long num;
+        private long denom;
+
+        public static readonly Frac ZERO = new Frac(0, 1);
+        public static readonly Frac ONE = new Frac(1, 1);
+
+        public Frac(long n, long d) {
+          
+20	using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static System.Console;
+using static System.Math;
+
+namespace N_Queens
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = 8;
+            var cols = Range(0, n);
+      
+21	using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static System.Console;
+using static System.Math;
+
+namespace N_Queens
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = 8;
+            var cols = Range(0, n);
+      
+22	using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        List<string> haystack = new List<string>() { "Zig", "Zag", "Wally", "Ronald", "Bush", "Krusty", "Charlie", "Bush", "Bozo" };
+
+        foreach (string needle in new string[] { "Washington", "Bush" }) {
+            int
+23	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+	int count = Convert.ToInt32(Console.ReadLine());
+	for (int line = 0; line < count; line++) {
+            Console.WriteLine(Console.ReadLine().Split(' ').Sum(i => Convert.ToInt32(i)));
+	}
+    }
+}
+
+24	using System;  
+class program
+{
+    static void Main()
+    {
+        knapSack(40);
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        Console.Write(knapSack(400) + "\n" + sw.Elapsed);  
+        Console.Read();
+    }
+
+    static string knapSack(uint w1)
+ 
+25	
+
+
+
+
+#define Tripartite
+
+namespace RosettaCode {
+  using System;
+  using System.Diagnostics;
+
+  public class QuickSort<T> where T : IComparable {
+    #region Constants
+    public const UInt32 INSERTION_LIMIT_DEFAULT = 12;
+    private const Int32 SAMPLES_MAX = 19;
+    #endregion
+
+    #region Properties
+    public UInt32 InsertionLimit { get; }
+    private
+26	
+
+
+
+
+#define Tripartite
+
+namespace RosettaCode {
+  using System;
+  using System.Diagnostics;
+
+  public class QuickSort<T> where T : IComparable {
+    #region Constants
+    public const UInt32 INSERTION_LIMIT_DEFAULT = 12;
+    private const Int32 SAMPLES_MAX = 19;
+    #endregion
+
+    #region Properties
+    public UInt32 InsertionLimit { get; }
+    private
+27	using System;
+class Program
+{
+    static void Main(string[] args)
+    {
+        Func<int, int> outfunc = Composer<int, int, int>.Compose(functA, functB);
+        Console.WriteLine(outfunc(5)); 
+    }
+    static int functA(int i) { return i * 10; }
+    static int functB(int i) { return i + 5;
+28	using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SieveOfEratosthenes
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxprime = int.Parse(args[0]);
+            var primelist = GetAllPrimesLessThan(maxprime);
+    
+29	using System.Xml;
+using System.Xml.Serialization;
+[XmlRoot("root")]
+public class ExampleXML
+{
+    [XmlElement("element")]
+    public string element = "Some text here";
+    static void Main(string[] args)
+    {
+        var xmlnamespace = new XmlSerializerNamespaces();
+        xmlnamespace.Add("", ""); 
+        var writer = X
+30	using System;
+namespace StringConcatenation
+{
+  class Program {
+    static void Main() {
+        String s = scope ("hello");
+        Console.Write(s);
+        Console.WriteLine(" literal");
+        s.Append(" literal");
+        Console.WriteLine(s);
+    }
+  }
+}
+
+31	using System;
+using System.Linq;
+
+class Program
+{
+    private static string Ordinalize(int i)
+    {
+        i = Math.Abs(i);
+
+        if (new[] {11, 12, 13}.Contains(i%100))
+            return i + "th";
+
+        switch (i%10)
+        {
+       
+32	using System;
+using System.Collections.Generic;
+
+namespace SnakeAndLadder {
+    class Program {
+        private static Dictionary<int, int> snl = new Dictionary<int, int>() {
+            {4, 14},
+            {9, 31},
+            {17, 7},
+            {20, 38},
+ 
+33	using System;
+using System.Linq;
+
+namespace CountingSort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rand = new Random();                                   
+            int[] arr = new int
+34	using System;
+using System.Linq;
+
+namespace CountingSort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rand = new Random();                                   
+            int[] arr = new int
+35	public class Bitmap
+{
+    public struct Color
+    {
+        public byte Red { get; set; }
+        public byte Blue { get; set; }
+        public byte Green { get; set; }
+    }
+    Color[,] _imagemap;
+    public int Width { get { return _imagemap.GetLength(0); } }
+    public int Height { get { return _imagemap.
+36	public static void cocktailSort(int[] A)
+    {
+        bool swapped;
+        do
+        {
+            swapped = false;
+            for (int i = 0; i <= A.Length - 2; i++)
+            {
+                if (A[i] > A
+37	using System;
+
+namespace ChineseZodiac {
+    class Program {
+        static string[] animals = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig" };
+        static string[] elements = { "Wood", "Fire", "Earth", "Metal", "Water" };
+        static string[] animalChars = { "子", "
+38	ArrayList array = new ArrayList( new int[] { 1, 2, 3, 4, 5 } );
+ArrayList evens = new ArrayList();
+foreach( int i in array )
+{
+        if( (i%2) == 0 )
+                evens.Add( i );
+}
+foreach( int i in evens )
+       System.Console.WriteLine( i.ToString() );
+
+39	using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static System.Console;
+using static System.Math;
+
+namespace N_Queens
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            var n = 8;
+            var cols = Range(0, n);
+      
+40	using System;
+using System.Collections.Generic;
+using System.Numerics;
+
+namespace TonelliShanks {
+    class Solution {
+        private readonly BigInteger root1, root2;
+        private readonly bool exists;
+
+        public Solution(BigInteger root1, BigInteger root2, bool exists) {
+            this.root1 = root1;
+           
+41	using System;
+using System.Collections.Generic;
+using System.Numerics;
+
+namespace TonelliShanks {
+    class Solution {
+        private readonly BigInteger root1, root2;
+        private readonly bool exists;
+
+        public Solution(BigInteger root1, BigInteger root2, bool exists) {
+            this.root1 = root1;
+           
+42	
+
+
+using System;
+
+namespace DetectCycles
+{
+ 
+ 
+ 
+ 
+ 
+  public class Cycles<T> where T : IEquatable<T>
+  {
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static Tuple<int,int> FindCycle(
+43	using System;
+
+namespace EulerSumOfPowers {
+    class Program {
+        const int MAX_NUMBER = 250;
+
+        static void Main(string[] args) {
+            bool found = false;
+            long[] fifth = new long[MAX_NUMBER];
+
+            for (int i = 1; i <= MAX_NUMBER; i++) {
+
+44	using System;
+
+namespace LCS
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string word1 = "thisisatest";
+            string word2 = "testing123testing";
+            
+            Console.WriteLine(lcsBack(word1,
+45	using System;
+
+namespace LCS
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string word1 = "thisisatest";
+            string word2 = "testing123testing";
+            
+            Console.WriteLine(lcsBack(word1,
+46	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+47	using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        for (int i = 2008; i <= 2121; i++)
+        {
+            DateTime date = new DateTime(i, 12, 25);
+            if (date.DayOfWeek == DayOfWeek.Sunday)
+            {
+   
+48	using System;
+using System.Collections.Generic;
+
+public class Program {
+    static void Main() {
+        int[] unsorted = { 6, 2, 7, 8, 3, 1, 10, 5, 4, 9 };
+        Array.Sort(unsorted);
+    }
+}
+
+49	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main()
+    {
+        SqueezeAndPrint("", ' ');
+        SqueezeAndPrint("\"If I were two-faced, would I be wearing this one?\" --- Abraham Lincoln ", '-');
+        SqueezeAndPrint("..1111111111111111111111111111111111111111111111111111111111111117777888", '7
+50	using System;
+using static System.Linq.Enumerable;
+
+public class Program
+{
+    static void Main()
+    {
+        SqueezeAndPrint("", ' ');
+        SqueezeAndPrint("\"If I were two-faced, would I be wearing this one?\" --- Abraham Lincoln ", '-');
+        SqueezeAndPrint("..1111111111111111111111111111111111111111111111111111111111111117777888", '7
+51	using System;
+using System.Linq;
+using System.Net;
+
+static class Program
+{
+    static void Main(string[] args)
+    {
+        WebClient client = new WebClient();
+        string text = client.DownloadString("http:
+        string[] words = text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        var query = from w in
+52	using System;
+using System.Text;
+using System.Collections.Generic;
+
+public class BalancedTernary
+{
+	public static void Main()
+	{
+		BalancedTernary a = new BalancedTernary("+-0++0+");
+		System.Console.WriteLine("a: " + a + " = " + a.ToLong());
+		BalancedTernary b = new BalancedTernary(-436);
+		System.Console.WriteLine("b: " + b + " = " + b.
+53	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RosettaCode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string test = "string of ☺☻♥♦⌂, may include control characters and other ilk.♫☼§►↔�
+54	class Program
+{
+    static void Main(string[] args)
+    {
+        
+
+        List<double> myList = new List<double>();
+        for (double i = 1; i < 1001; i++)
+        {
+            myList.Add(i);
+        }
+        
+
+      
+55	using System;
+using System.Linq;
+
+namespace Test
+{
+    class Program
+    {
+        static void Main()
+        {
+            double[] myArr = new double[] { 1, 5, 3, 6, 4, 2 };
+
+            myArr = myArr.OrderBy(i => i).ToArray();
+            
+56	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RosettaCode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string test = "string of ☺☻♥♦⌂, may include control characters and other ilk.♫☼§►↔�
+57	static class StdErr
+{
+    static void Main(string[] args)
+    {
+        Console.Error.WriteLine("Goodbye, World!");
+    }
+}
+
+58	using System;
+
+namespace NonDecimalRadicesOutput
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 42; i++)
+            {
+                string binary = Convert.ToString(i, 2);
+        
+59	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    static void Main() {
+        Console.WriteLine(string.Join(" ", Primes(100)));
+    }
+
+    static IEnumerable<int> Primes(int limit) => Enumerable.Range(2, limit-1).Where(IsPrime);
+    static bool IsPrime(int n) => Enumerable.Range(2, (int)Math.Sqrt
+60	using System; using static System.Console;
+class Program { static void Main() { int c = 0, lmt = 1000;
+    for (int n = 1, p = 2, k; n <= lmt; n++)
+      if ((k = n + n * (p += n >= p ? p : 0)) > lmt) break;
+      else Console.Write("{0,3} ({1,-10})  {2}", k,
+          Convert.ToString(
+61	ArrayList array = new ArrayList( new int[] { 1, 2, 3, 4, 5 } );
+ArrayList evens = new ArrayList();
+foreach( int i in array )
+{
+        if( (i%2) == 0 )
+                evens.Add( i );
+}
+foreach( int i in evens )
+       System.Console.WriteLine( i.ToString() );
+
+62	using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace SieveOfEratosthenes
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxprime = int.Parse(args[0]);
+            var primelist = GetAllPrimesLessThan(maxprime);
+    
+63	        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+64	using System;
+using System.IO;
+using System.Linq;
+
+public class Rosetta
+{
+    public static void Main() => RemoveLines("foobar.txt", start: 1, count: 2);
+
+    static void RemoveLines(string filename, int start, int count = 1) =>
+        File.WriteAllLines(filename, File.ReadAllLines(filename)
+            .Where((line, index) => index < start - 1 || index
+65	using System;
+using System.IO;
+using System.Linq;
+
+public class Rosetta
+{
+    public static void Main() => RemoveLines("foobar.txt", start: 1, count: 2);
+
+    static void RemoveLines(string filename, int start, int count = 1) =>
+        File.WriteAllLines(filename, File.ReadAllLines(filename)
+            .Where((line, index) => index < start - 1 || index
+66	using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace RosettaCode.LastFridaysOfYear
+{
+    internal static class Program
+    {
+        private static IEnumerable<DateTime> LastFridaysOfYear(int year)
+        {
+            for (var month = 1; month <= 12; month++)
+         
+67	static void Main (string[] args) {
+    do {
+        Console.WriteLine ("Number:");
+        Int64 p = 0;
+        do {
+            try {
+                p = Convert.ToInt64 (Console.ReadLine ());
+                break;
+         
+68	static void Main (string[] args) {
+    do {
+        Console.WriteLine ("Number:");
+        Int64 p = 0;
+        do {
+            try {
+                p = Convert.ToInt64 (Console.ReadLine ());
+                break;
+         
+69	using System;
+
+namespace System
+{
+	extension String
+	{
+		public void Reverse()
+		{
+			int i = 0;
+			int j = mLength - 1;
+		while (i < j)
+			{
+					Swap!(Ptr[i++], Ptr[j--]);
+			}
+		}
+	}
+}
+
+namespace StringReverse
+{
+	class Program
+	{
+		static void Main()
+		
+70	using System;
+using System.Collections;
+using System.Collections.Generic;
+using static System.Linq.Enumerable;
+
+public static class Rosetta
+{
+    static void Main()
+    {
+        foreach ((int x, int n) in new [] {
+            (99809, 1),
+            (18, 2),
+            (19, 3),
+
+71	using System;
+using static System.Console;
+
+class Program {
+
+  const int mc = 103 * 1000 * 10000 + 11 * 9 + 1;
+
+  static bool[] sv = new bool[mc + 1];
+
+  static void sieve() { int[] dS = new int[10000];
+    for (int a = 9, i = 9999; a >= 0; a--)
+      for (int b = 9; b >= 0; b--)
+        for (int c = 9, s = a
+72	using System;
+using static System.Console;
+
+class Program {
+
+  const int mc = 103 * 1000 * 10000 + 11 * 9 + 1;
+
+  static bool[] sv = new bool[mc + 1];
+
+  static void sieve() { int[] dS = new int[10000];
+    for (int a = 9, i = 9999; a >= 0; a--)
+      for (int b = 9; b >= 0; b--)
+        for (int c = 9, s = a
+73	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class LoopsWithMultipleRanges
+{
+    public static void Main() {
+        int prod = 1;
+        int sum = 0;
+        int x = 5;
+        int y = -5;
+        int z = -2;
+        int one = 1;
+   
+74	using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class LoopsWithMultipleRanges
+{
+    public static void Main() {
+        int prod = 1;
+        int sum = 0;
+        int x = 5;
+        int y = -5;
+        int z = -2;
+        int one = 1;
+   
+75	using System;
+
+namespace RosettaCode {
+    class Program {
+        static void Main(string[] args) {
+            Console.WriteLine("=== radians ===");
+            Console.WriteLine("sin (pi/3) = {0}", Math.Sin(Math.PI / 3));
+            Console.WriteLine("cos (pi/3) = {0}", Math.Cos
+76	using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        List<string> haystack = new List<string>() { "Zig", "Zag", "Wally", "Ronald", "Bush", "Krusty", "Charlie", "Bush", "Bozo" };
+
+        foreach (string needle in new string[] { "Washington", "Bush" }) {
+            int
+77	using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class TruthTable
+{
+    enum TokenType { Unknown, WhiteSpace, Constant, Operand, Operator, LeftParenthesis, RightParenthesis }
+
+    readonly char trueConstant, falseConstant;
+    readonly IDictionary<char, Operator> operators = new Dictionary<char, Operator>();
+
+    public TruthTable(char falseConstant, char trueConstant)
+ 
+78	using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class TruthTable
+{
+    enum TokenType { Unknown, WhiteSpace, Constant, Operand, Operator, LeftParenthesis, RightParenthesis }
+
+    readonly char trueConstant, falseConstant;
+    readonly IDictionary<char, Operator> operators = new Dictionary<char, Operator>();
+
+    public TruthTable(char falseConstant, char trueConstant)
+ 
+79	using System;
+using System.Linq;
+using System.Collections.Generic;
+
+List<Foo> foos = Enumerable.Range(1, n).Select(x => new Foo()).ToList();
+
+80	using System;
+
+class Program
+{
+    static void Main()
+    {
+        var number = 0;
+        do
+        {
+            Console.WriteLine(Convert.ToString(number, 8));
+        } while (++number > 0);
+    }
+}
+
+81	using System;
+
+class Program
+{
+    static void Main()
+    {
+        var number = 0;
+        do
+        {
+            Console.WriteLine(Convert.ToString(number, 8));
+        } while (++number > 0);
+    }
+}
+
+82	using System;
+using System.Net;
+using System.Net.Sockets;
+
+class Program {        
+    static void Main(string[] args) {        
+        try {
+            TcpListener server = new TcpListener(IPAddress.Any, 12345);
+            server.Start();
+        } 
+       
+83	using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class FifteenPuzzle
+{
+    const int GridSize = 4; 
+    const int BlockCount = 16;
+
+    static readonly Random R = new Random();
+
+    private List<Button> Puzzles = new List<Button>();
+    private int Moves = 0;
+    private DateTime Start;
+
+    public class Puzzle
+    {
+   
+84	using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WeirdNumbers {
+    class Program {
+        static List<int> Divisors(int n) {
+            List<int> divs = new List<int> { 1 };
+            List<int> divs2 = new List<int>();
+
+  
+85	using System;
+
+class Program
+{
+    static void Main()
+    {
+        int a = int.Parse(Console.ReadLine());
+        int b = int.Parse(Console.ReadLine());
+        if (a < b)
+            Console.WriteLine("{0} is less than {1}", a, b);
+        if (a == b)
+  

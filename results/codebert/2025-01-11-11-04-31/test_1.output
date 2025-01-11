@@ -1,0 +1,174 @@
+0	Abstract type
+1	Abstract type
+2	Integer roots
+3	Continued fraction
+4	Wieferich primes
+5	Wieferich primes
+6	Wieferich primes
+7	Loops_For with a specified step
+8	FizzBuzz
+9	FizzBuzz
+10	Sleep
+11	Sleep
+12	Binary strings
+13	The Name Game
+14	Send email
+15	Palindrome dates
+16	Handle a signal
+17	Sattolo cycle
+18	Sort an integer array
+19	Greatest common divisor
+20	Pernicious numbers
+21	Self numbers
+22	Reverse a string
+23	Sort an integer array
+24	GUI enabling_disabling of controls
+25	Sorting algorithms_Gnome sort
+26	Identity matrix
+27	Sorting algorithms_Counting sort
+28	Partial function application
+29	Call a function in a shared library
+30	Null object
+31	Loops_For with a specified step
+32	Globally replace text in several files
+33	Copy a string
+34	Multi-dimensional array
+35	Arithmetic_Complex
+36	Arithmetic_Complex
+37	Haversine formula
+38	Matrix multiplication
+39	Parsing_RPN to infix conversion
+40	Guess the number_With feedback
+41	Sorting algorithms_Comb sort
+42	Read a file character by character_UTF8
+43	Non-decimal radices_Input
+44	Draw a cuboid
+45	Generator_Exponential
+46	Boolean values
+47	Subtractive generator
+48	Subtractive generator
+49	Draw a cuboid
+50	Fusc sequence
+51	Catamorphism
+52	Find the missing permutation
+53	Input_Output for pairs of numbers
+54	Input_Output for pairs of numbers
+55	Random number generator (device)
+56	Topological sort
+57	Palindrome dates
+58	Parsing_RPN to infix conversion
+59	Parsing_RPN to infix conversion
+60	RIPEMD-160
+61	Card shuffles
+62	Inheritance_Multiple
+63	Inheritance_Multiple
+64	Constrained random points on a circle
+65	Echo server
+66	ABC words
+67	Emirp primes
+68	Emirp primes
+69	Monelli-Shanks algorithm
+70	Monelli-Shanks algorithm
+71	String append
+72	Integer overflow
+73	Chinese zodiac
+74	Subset sum problem
+75	Pathological floating point problems
+76	Pathological floating point problems
+77	Non-decimal radices_Output
+78	Identity matrix
+79	Ternary logic
+80	Ternary logic
+81	Append a record to the end of a text file
+82	Character codes
+83	4-rings or 4-squares puzzle
+84	Doubly-linked list_Element definition
+85	N-queens problem
+86	Show the epoch
+87	Get system command output
+88	XML_DOM serialization
+89	Langton's ant
+90	N-queens problem
+91	Floyd-Warshall algorithm
+92	GUI enabling_disabling of controls
+93	World Cup group stage
+94	Sort an integer array
+95	Closures_Value capture
+96	Semiprime
+97	Determine if only one instance is running
+98	Determine if only one instance is running
+99	Multiplication tables
+100	Sockets
+101	Sierpinski triangle
+102	Luhn test of credit card numbers
+103	Weird numbers
+104	IBAN
+105	Safe primes and unsafe primes
+106	Safe primes and unsafe primes
+107	Safe primes and unsafe primes
+108	Brazilian numbers
+109	Brazilian numbers
+110	Brazilian numbers
+111	Integer roots
+112	Integer roots
+113	Draw a cuboid
+114	Draw a cuboid
+115	IBAN
+116	IBAN
+117	World Cup group stage
+118	Combinations
+119	Combinations
+120	Stream merge
+121	Symmetric difference
+122	Symmetric difference
+123	Last Friday of each month
+124	SEDOLs
+125	SEDOLs
+126	Averages_Mode
+127	Averages_Mode
+128	Last Friday of each month
+129	Last Friday of each month
+130	Last Friday of each month
+131	Permutations
+132	Set
+133	Combinations
+134	Determine if a string is squeezable
+135	Determine if a string is squeezable
+136	Averages_Mode
+137	Roots of a quadratic function
+138	Roots of a quadratic function
+139	Morse code
+140	Morse code
+141	Search a list
+142	Symmetric difference
+143	Symmetric difference
+144	Symmetric difference
+145	Square but not cube
+146	Sort an integer array
+147	Pointers and references
+148	Sattolo cycle
+149	Sattolo cycle
+150	Polyspiral
+151	Find the intersection of a line with a plane
+152	Roots of a quadratic function
+153	Roots of a quadratic function
+154	Partition an integer x into n primes
+155	Averages_Root mean square
+156	N-body problem
+157	Hostname
+158	Hostname
+159	Hostname
+160	Bitcoin_address validation
+161	Bitcoin_address validation
+162	Pathological floating point problems
+163	Bitwise IO
+164	Fraction reduction
+165	Fraction reduction
+166	Parallel calculations
+167	Anagrams
+168	Terminal control_Ringing the terminal bell
+169	Kolakoski sequence
+170	Partition an integer x into n primes
+171	Call an object method
+172	Successive prime differences
+173	Cumulative standard deviation

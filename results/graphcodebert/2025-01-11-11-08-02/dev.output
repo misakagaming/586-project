@@ -1,0 +1,16 @@
+using System;
+
+namespace RosettaCode.Insertion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(i);
+            Console.WriteLine(current);
+         }
+
+           Console.WriteLine(string.ReadLine());
+        }
+       }
+}
