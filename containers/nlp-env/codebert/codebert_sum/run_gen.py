@@ -104,7 +104,7 @@ def read_examples_final(test_filename, output):
     examples=[]
     with open(test_filename,encoding="utf-8") as f1, open(output,encoding="utf-8") as f2:
         heading = next(f1)
-        reader_obj = csv.reader(f)
+        reader_obj = csv.reader(f1)
         outputs = f2.readlines()
         splitter = outputs[0][1]
         for idx, row in enumerate(reader_obj):
