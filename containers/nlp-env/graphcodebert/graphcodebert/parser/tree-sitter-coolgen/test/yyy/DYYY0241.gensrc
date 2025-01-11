@@ -1,0 +1,95 @@
+       +->   DYYY0241_CHILD_DELETE             07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp child (Transient, Mandatory, Import only)
+       !           cinstance_id
+       !           creference_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !       EXPORTS:
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View child
+       !           cinstance_id
+       !           creference_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !           cupdate_user_id
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n10_obj_not_found
+       !           n43_obj_not_deleted
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           121_child_not_found
+       !           132_child_concurrency_error
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n10_obj_not_found TO -10
+     9 !  SET loc dont_change_return_codes n43_obj_not_deleted TO -43
+    10 !
+    11 !  SET loc dont_change_reason_codes 1_default TO 1
+    12 !  SET loc dont_change_reason_codes 121_child_not_found TO 121
+    13 !  SET loc dont_change_reason_codes 132_child_concurrency_error TO 132
+    14 !
+    15 !  NOTE:
+    15 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    15 !  If Instance_id is being used, reading must be operated according to this section, instead of
+    15 !  business_key(s).
+    15 !
+    16 !  NOTE:
+    16 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    16 !  Choose Control of Cursor Generation property as "Select only".
+    16 !
+    17 !  +=>READ (Select Only) child
+    17 !  !        WHERE DESIRED child cparent_pkey_attr_text = imp child cparent_pkey_attr_text
+    17 !  !              AND  DESIRED child ckey_attr_num = imp child ckey_attr_num
+    17 !  +> WHEN successful
+    18 !  !  +->IF child creference_id ^= imp child creference_id
+    19 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n43_obj_not_deleted
+    20 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 132_child_concurrency_error
+    21 ! <------ESCAPE
+    18 !  !  +--
+    22 !  !  DELETE child
+    17 !  +> WHEN not found
+    23 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n10_obj_not_found
+    24 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 121_child_not_found
+    17 !  +--
+       +---

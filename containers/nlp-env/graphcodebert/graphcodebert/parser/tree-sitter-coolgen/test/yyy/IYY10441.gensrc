@@ -1,0 +1,74 @@
+       +->   IYY10441_XML_GROUP_PARSE_S        07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp canam_xml (Transient, Optional, Import only)
+       !           xml_buffer
+       !       EXPORTS:
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (10) exp_group_list
+       !           Entity View exp_g_list iyy1_type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !
+     2 !  NOTE:
+     2 !  PURPOSE(CONTINUED)
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  Check for Pre-Post Condition and Return/Reason Code
+     3 !
+     4 !  NOTE:
+     4 !  PRE-CONDITION
+     4 !  Give XML sourse will be parsed as desired attributes
+     4 !  POST-CONDITION
+     4 !  XML will be created
+     4 !  Return Code = 1, Reason Code = 1
+     4 !
+     5 !  NOTE:
+     5 !  PRE-CONDITION
+     5 !  XML Create Error
+     5 !  POST-CONDITION
+     5 !  XML could not created. Check Exp_error canam_xml for details
+     5 !  Return Code = -70, Reason Code = 1
+     5 !
+     6 !  NOTE:
+     6 !  RETURN / REASON CODES
+     6 !  +1/1 XML Parsed
+     6 !  -70/1 XML PArse error
+     6 !
+     7 !  NOTE:
+     7 !  RELEASE HISTORY
+     7 !  01_00 01-10-2009 New Release
+     7 !
+     8 !  NOTE:
+     8 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     8 !  USE <mapper ab>
+     8 !
+     9 !  USE myy10441_xml_group_parse
+     9 !     WHICH IMPORTS: Work View imp canam_xml TO Work View imp canam_xml
+     9 !     WHICH EXPORTS: Work View exp_error canam_xml FROM Work View exp_error canam_xml
+     9 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     9 !                    Group View  exp_group_list FROM Group View exp_group_list
+       +---

@@ -1,0 +1,131 @@
+       +->   MYY10351_TYPE_LIST                07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from iyy1_type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !         Entity View imp_filter_start iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter_stop iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter iyy1_type (Transient, Mandatory, Import only)
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list iyy1_type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_imp_filter iyy1_list
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View loc_imp_from type
+       !           tinstance_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !         Entity View loc_imp_filter_start type
+       !           tkey_attr_text
+       !         Entity View loc_imp_filter_stop type
+       !           tkey_attr_text
+       !         Entity View loc_imp_filter type
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !         Group View (48) loc_exp_group_list
+       !           Entity View loc_exp_g_list type
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  SET <loc imp*> TO <imp*>
+     3 !
+     4 !  SET loc_imp_filter iyy1_list list_direction TO imp_filter iyy1_list list_direction
+     5 !  SET loc_imp_filter iyy1_list scroll_type TO imp_filter iyy1_list scroll_type
+     6 !  SET loc_imp_filter iyy1_list sort_option TO imp_filter iyy1_list sort_option
+     7 !  SET loc_imp_filter iyy1_list scroll_amount TO imp_filter iyy1_list scroll_amount
+     8 !  SET loc_imp_filter iyy1_list order_by_field_num TO imp_filter iyy1_list order_by_field_num
+     9 !
+    10 !  SET loc_imp_from type tinstance_id TO imp_from iyy1_type tinstance_id
+    11 !  SET loc_imp_from type tkey_attr_text TO imp_from iyy1_type tkey_attr_text
+    12 !  SET loc_imp_from type tsearch_attr_text TO imp_from iyy1_type tsearch_attr_text
+    13 !
+    14 !  SET loc_imp_filter_start type tkey_attr_text TO imp_filter_start iyy1_type tkey_attr_text
+    15 !  SET loc_imp_filter_stop type tkey_attr_text TO imp_filter_stop iyy1_type tkey_attr_text
+    16 !
+    17 !  SET loc_imp_filter type tsearch_attr_text TO imp_filter iyy1_type tsearch_attr_text
+    18 !  SET loc_imp_filter type tother_attr_text TO imp_filter iyy1_type tother_attr_text
+    19 !
+    20 !  NOTE:
+    20 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    20 !  USE <implementation ab>
+    20 !
+    21 !  USE cyyy0351_type_list
+    21 !     WHICH IMPORTS: Work View loc_imp_filter iyy1_list TO Work View imp_filter iyy1_list
+    21 !                    Entity View loc_imp_from type TO Entity View imp_from type
+    21 !                    Entity View loc_imp_filter_start type TO Entity View imp_filter_start type
+    21 !                    Entity View loc_imp_filter_stop type TO Entity View imp_filter_stop type
+    21 !                    Entity View loc_imp_filter type TO Entity View imp_filter type
+    21 !     WHICH EXPORTS: Group View  loc_exp_group_list FROM Group View exp_group_list
+    21 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    22 !
+    23 !  NOTE:
+    23 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    23 !  SET <exp*> TO <loc exp*>
+    23 !
+    24 !  +=>FOR SUBSCRIPT OF loc_exp_group_list FROM 1 TO LAST OF loc_exp_group_list BY 1
+    25 !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF loc_exp_group_list
+    26 !  !  SET exp_g_list iyy1_type tinstance_id TO loc_exp_g_list type tinstance_id
+    27 !  !  SET exp_g_list iyy1_type treference_id TO loc_exp_g_list type treference_id
+    28 !  !  SET exp_g_list iyy1_type tcreate_user_id TO loc_exp_g_list type tcreate_user_id
+    29 !  !  SET exp_g_list iyy1_type tupdate_user_id TO loc_exp_g_list type tupdate_user_id
+    30 !  !  SET exp_g_list iyy1_type tkey_attr_text TO loc_exp_g_list type tkey_attr_text
+    31 !  !  SET exp_g_list iyy1_type tsearch_attr_text TO loc_exp_g_list type tsearch_attr_text
+    32 !  !  SET exp_g_list iyy1_type tother_attr_text TO loc_exp_g_list type tother_attr_text
+    33 !  !  SET exp_g_list iyy1_type tother_attr_date TO loc_exp_g_list type tother_attr_date
+    34 !  !  SET exp_g_list iyy1_type tother_attr_time TO loc_exp_g_list type tother_attr_time
+    35 !  !  SET exp_g_list iyy1_type tother_attr_amount TO loc_exp_g_list type tother_attr_amount
+    24 !  +--
+       +---

@@ -1,0 +1,31 @@
+       +->   CYYY9001_EXCEPTION_HNDLNG_DFLT    07/05/2023  15:07
+       !       EXPORTS:
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  USE cyyy9991_setservid
+     3 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_servid iyy1_component
+     4 !
+     5 !  SET exp_error iyy1_component severity_code TO "I"
+     6 !  SET exp_error iyy1_component rollback_indicator TO SPACES
+     7 !  SET exp_error iyy1_component context_string TO SPACES
+     8 !  SET exp_error iyy1_component return_code TO 1
+     9 !  SET exp_error iyy1_component reason_code TO 1
+    10 !  SET exp_error iyy1_component checksum TO SPACES
+    11 !
+       +---

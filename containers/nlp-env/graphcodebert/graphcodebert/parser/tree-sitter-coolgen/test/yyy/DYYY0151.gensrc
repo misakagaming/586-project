@@ -1,0 +1,150 @@
+       +->   DYYY0151_PARENT_LIST              07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           pkey_attr_text
+       !         Entity View imp_filter_start parent (Transient, Mandatory, Import only)
+       !           pkey_attr_text
+       !         Entity View imp_filter_stop parent (Transient, Mandatory, Import only)
+       !           pkey_attr_text
+       !         Entity View imp_filter parent (Transient, Mandatory, Import only)
+       !           psearch_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list parent (Transient, Export only)
+       !             pinstance_id
+       !             preference_id
+       !             pcreate_user_id
+       !             pupdate_user_id
+       !             pkey_attr_text
+       !             psearch_attr_text
+       !             pother_attr_text
+       !             ptype_tkey_attr_text
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View parent
+       !           pinstance_id
+       !           preference_id
+       !           pcreate_user_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       LOCALS:
+       !         Work View loc_filter iyy1_list
+       !           scroll_type
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           11_list_full
+       !           12_list_empty
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !
+     9 !  SET loc dont_change_reason_codes 1_default TO 1
+    10 !  SET loc dont_change_reason_codes 11_list_full TO 11
+    11 !  SET loc dont_change_reason_codes 12_list_empty TO 12
+    12 !
+    13 !  NOTE:
+    13 !  ****************************************************************
+    13 !
+    14 !  SET SUBSCRIPT OF exp_group_list TO 0
+    15 !  SET loc_filter iyy1_list scroll_type TO imp_filter iyy1_list scroll_type
+    16 !
+    17 !  +->CASE OF imp_filter iyy1_list sort_option
+    17 !  +> CASE "ASC"
+    18 !  !  NOTE:
+    18 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    18 !  !  Choose General->Select Clause Isolation Level property as "Uncommitted / Browse" and
+    18 !  !  DB2 MVS (XDB)->Optimize for N rows property as "Use the value: 1".
+    18 !  !
+    19 !  !  +=>READ EACH (Optimize 1, Isolation UR) parent
+    19 !  !  !        SORTED BY ASCENDING parent pkey_attr_text
+    19 !  !  !        WHERE DESIRED parent pkey_attr_text >= imp_from parent pkey_attr_text
+    19 !  !  !              AND  DESIRED parent pkey_attr_text >= imp_filter_start parent pkey_attr_text
+    19 !  !  !              AND  DESIRED parent pkey_attr_text <= imp_filter_stop parent pkey_attr_text
+    19 !  !  !              AND  DESIRED parent psearch_attr_text IS LIKE imp_filter parent psearch_attr_text
+    20 !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    21 !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    22 !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    21 !  !  !  !  +> ELSE
+    23 !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    24 !  !  !  !  !  MOVE  parent TO exp_g_list parent
+    21 !  !  !  !  +--
+    20 !  !  !  +> ELSE
+    25 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    26 !  ! <------ESCAPE
+    20 !  !  !  +--
+    19 !  !  +--
+    17 !  +> CASE "DES"
+    27 !  !  NOTE:
+    27 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    27 !  !  Choose General->Select Clause Isolation Level property as "Uncommitted / Browse" and
+    27 !  !  DB2 MVS (XDB)->Optimize for N rows property as "Use the value: 1".
+    27 !  !
+    28 !  !  +=>READ EACH (Optimize 1, Isolation UR) parent
+    28 !  !  !        SORTED BY DESCENDING parent pkey_attr_text
+    28 !  !  !        WHERE DESIRED parent pkey_attr_text <= imp_from parent pkey_attr_text
+    28 !  !  !              AND  DESIRED parent pkey_attr_text >= imp_filter_start parent pkey_attr_text
+    28 !  !  !              AND  DESIRED parent pkey_attr_text <= imp_filter_stop parent pkey_attr_text
+    28 !  !  !              AND  DESIRED parent psearch_attr_text IS LIKE imp_filter parent psearch_attr_text
+    29 !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    30 !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    31 !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    30 !  !  !  !  +> ELSE
+    32 !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    33 !  !  !  !  !  MOVE  parent TO exp_g_list parent
+    30 !  !  !  !  +--
+    29 !  !  !  +> ELSE
+    34 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    35 !  ! <------ESCAPE
+    29 !  !  !  +--
+    28 !  !  +--
+    17 !  +> OTHERWISE
+    17 !  +--
+    36 !  +->IF LAST OF exp_group_list <= 0
+    37 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 12_list_empty
+    36 !  +--
+       +---

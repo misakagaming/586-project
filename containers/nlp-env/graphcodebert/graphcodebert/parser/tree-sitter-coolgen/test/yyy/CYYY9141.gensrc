@@ -1,0 +1,61 @@
+       +->   CYYY9141_CONTEXT_STRING_SET       07/05/2023  15:07
+       !       IMPORTS:
+       !         Group View (9) imp_group_context
+       !           Work View imp_g_context dont_change_text (Transient, Optional, Import only)
+       !             text_150
+       !       EXPORTS:
+       !         Work View exp_context iyy1_component (Transient, Export only)
+       !           context_string
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Group View (9) loc_imp_group
+       !           Work View loc_imp_g_string iro1_component
+       !             string_150_tx
+       !         Work View loc_context iro1_component
+       !           context_string_tx
+       !         Work View loc_error iro1_component
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           severity_cd
+       !           checksum_tx
+       !           rollback_indicator_tx
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     2 !
+     3 !  NOTE:
+     3 !  RELEASE HISTORY
+     3 !  01_00 23-02-1998 New release
+     4 !
+     5 !  USE cyyy9001_exception_hndlng_dflt
+     5 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     6 !
+     7 !  +=>FOR SUBSCRIPT OF imp_group_context FROM 1 TO LAST OF imp_group_context BY 1
+     8 !  !  SET SUBSCRIPT OF loc_imp_group TO SUBSCRIPT OF imp_group_context
+     9 !  !  SET loc_imp_g_string iro1_component string_150_tx TO imp_g_context dont_change_text text_150
+     7 !  +--
+    10 !
+    11 !  USE iro11041_context_string_set_s
+    11 !     WHICH IMPORTS: Group View  loc_imp_group TO Group View input_group
+    11 !     WHICH EXPORTS: Work View loc_context iro1_component FROM Work View output_data iro1_component
+    11 !                    Work View loc_error iro1_component FROM Work View out_error iro1_component
+    12 !
+    13 !  +->IF loc_error iro1_component return_code < 1
+    14 !  !  USE cyyy9821_mv_ro1_to_yy1
+    14 !  !     WHICH IMPORTS: Work View loc_error iro1_component TO Work View imp_error iro1_component
+    14 !  !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    13 !  +> ELSE
+    15 !  !  SET exp_context iyy1_component context_string TO loc_context iro1_component context_string_tx
+    13 !  +--
+       +---

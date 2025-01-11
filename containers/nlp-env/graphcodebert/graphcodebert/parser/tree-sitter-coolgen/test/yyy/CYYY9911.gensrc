@@ -1,0 +1,23 @@
+       +->   CYYY9911_CHECK_DIALECT            07/05/2023  15:07
+       !       IMPORTS:
+       !         Work View imp_dialect iro1_component (Transient, Optional, Import only)
+       !           dialect_cd
+       !       EXPORTS:
+       !         Work View exp_dialect iro1_component (Transient, Export only)
+       !           dialect_cd
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  +->IF imp_dialect iro1_component dialect_cd <= SPACES
+     4 !  !  SET exp_dialect iro1_component dialect_cd TO "QX"
+     3 !  +> ELSE
+     5 !  !  SET exp_dialect iro1_component dialect_cd TO imp_dialect iro1_component dialect_cd
+     3 !  +--
+       +---

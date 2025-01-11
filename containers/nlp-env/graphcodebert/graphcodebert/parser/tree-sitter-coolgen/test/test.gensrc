@@ -1,0 +1,205 @@
+       +->   DYYY0111_PARENT_CREATE            07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       EXPORTS:
+       !         Entity View exp parent (Transient, Export only)
+       !           preference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View parent
+       !           pinstance_id
+       !           preference_id
+       !           pcreate_user_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View type
+       !           tkey_attr_text
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n40_obj_create_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           101_parent_not_found
+       !           102_parent_already_exist
+       !           103_parent_attr_value_invalid
+       !           111_parents_type_not_found
+       !
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  ****************************************************************
+     1 !  Mandatory or optional only the needed fields for the operation are checked.
+     2 !
+     3 !  NOTE:
+     3 !  PRE-CONDITION:
+     3 !  INIT command, authorization data and at most 30 TRANS_IDs are given.
+     3 !  POST-CONDITION:
+     3 !  Authorization indicators that are connected to TRANS_IDs are returned.
+     3 !  RETURN CODE = 1, REASON CODE = 1
+     4 !
+    18 !  SET SUBSCRIPT OF loc_group_context TO 1
+    19 !  SET loc_g_context dont_change_text text_150 TO "CYY1S011"
+    21 !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    27 !  USE isc1z021_o_authorization_check_s
+    27 !     WHICH IMPORTS: Group View  imp_group_trans TO Group View imp_group_trans
+    27 !                    Entity View imp isc1_authorization_info TO Entity View imp isc1_authorization_info
+    27 !     WHICH EXPORTS: Entity View exp isc1_authorization_info FROM Entity View exp isc1_authorization_info
+    27 !                    Work View loc_error isc1_component FROM Work View exp_error isc1_component
+    28 !
+    29 !  MOVE loc_reference iyy1_server_data TO exp_reference iyy1_server_data
+    30 !  +->IF loc_error isc1_component return_code < 1
+    31 !  !  USE cyyy9831_mv_sc1_to_yy1
+    31 !  !     WHICH IMPORTS: Work View loc_error isc1_component TO Work View imp_error isc1_component
+    31 !  !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    30 !  +> ELSE
+    32 !  !  SET exp_error iyy1_component context_string TO loc_context iyy1_component context_string
+    30 !  +--
+    38 !  +->CASE OF imp_command iyy1_component send_command
+    38 !  +> CASE "INIT"
+    38 !  +> OTHERWISE
+    39 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1120_invalid_command
+    40 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    41 !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    42 !  !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    38 !  +--
+    66 !  +->IF ((loc_from child cparent_pkey_attr_text < loc_filter_start child cparent_pkey_attr_text)
+    66 !  !        OR  (loc_from child cparent_pkey_attr_text = loc_filter_start child cparent_pkey_attr_text
+    66 !  !        AND  loc_from child ckey_attr_num < loc_filter_start child ckey_attr_num))
+    66 !  !        OR  ((loc_from child cparent_pkey_attr_text > loc_filter_stop child cparent_pkey_attr_text)
+    66 !  !        OR  (loc_from child cparent_pkey_attr_text = loc_filter_stop child cparent_pkey_attr_text
+    66 !  !        AND  loc_from child ckey_attr_num > loc_filter_stop child ckey_attr_num))
+    67 !  !
+    68 !  !  +->IF loc_filter iyy1_list sort_option = "ASC"
+    69 !  !  !  SET loc_from child cparent_pkey_attr_text TO loc_filter_start child cparent_pkey_attr_text
+    70 !  !  !  SET loc_from child ckey_attr_num TO loc_filter_start child ckey_attr_num
+    68 !  !  +> ELSE
+    71 !  !  !  SET loc_from child cparent_pkey_attr_text TO loc_filter_stop child cparent_pkey_attr_text
+    72 !  !  !  SET loc_from child ckey_attr_num TO loc_filter_stop child ckey_attr_num
+    68 !  !  +--
+    66 !  +--
+    93 !  +=>REPEAT
+    94 !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    95 !  !  MOVE loc_g_list type TO exp_g_list type
+    96 !  !  +->IF loc_filter iyy1_list list_direction = "P"
+    97 !  !  !  SET SUBSCRIPT OF loc_group_list TO SUBSCRIPT OF loc_group_list - 1
+    96 !  !  +> ELSE
+    98 !  !  !  SET SUBSCRIPT OF loc_group_list TO SUBSCRIPT OF loc_group_list + 1
+    96 !  !  +--
+    99 !  !  SET loc_read_lb iyy1_supplied total_integer TO loc_read_lb iyy1_supplied total_integer - 1
+    93 !  +--UNTIL loc_read_lb iyy1_supplied total_integer = 0
+   100 !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+   101 !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+   102 !  !  NOTE:
+   102 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   102 !  !  !! WARNING: In D AB, if there' s a need for generating context string, must exit from ESCAPE AB.
+   102 !  !
+   103 ! <---ESCAPE
+   100 !  +--
+   111 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+   112 !  !
+   113 !  !  EXIT STATE IS std_return_rb WITH ROLLBACK
+   114 !  !
+   111 !  +> ELSE
+   115 !  !
+   116 !  !  EXIT STATE IS std_return
+   117 !  !
+   111 !  +--
+   121 !  +->CREATE parent
+   122 !  !  SET pinstance_id TO imp parent pinstance_id
+   123 !  !  SET preference_id TO imp_reference iyy1_server_data reference_id
+   124 !  !  SET pcreate_user_id TO imp_reference iyy1_server_data userid
+   125 !  !  SET pupdate_user_id TO imp_reference iyy1_server_data userid
+   126 !  !  SET pkey_attr_text TO imp parent pkey_attr_text
+   127 !  !  SET psearch_attr_text TO imp parent psearch_attr_text
+   128 !  !  SET pother_attr_text TO imp parent pother_attr_text
+   129 !  !  SET ptype_tkey_attr_text TO imp parent ptype_tkey_attr_text
+   121 !  +> WHEN successful
+   130 !  !  SET exp parent preference_id TO imp_reference iyy1_server_data reference_id
+   121 !  +> WHEN already exists
+   131 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+   132 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 102_parent_already_exist
+   121 !  +> WHEN permitted value violation
+   133 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+   134 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 103_parent_attr_value_invalid
+   121 !  +--
+   135 !  +=>READ (Select Only) type
+   135 !  !        WHERE DESIRED type tkey_attr_text = imp parent ptype_tkey_attr_text
+   135 !  +> WHEN successful
+   136 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+   135 !  +> WHEN not found
+   137 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+   138 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 111_parents_type_not_found
+   135 !  +--
+   150 !  +=>READ EACH (Optimize 1, Isolation UR) parent
+   150 !  !        SORTED BY DESCENDING parent pkey_attr_text
+   150 !  !        WHERE DESIRED parent pkey_attr_text <= imp_from parent pkey_attr_text
+   150 !  !              AND  DESIRED parent pkey_attr_text >= imp_filter_start parent pkey_attr_text
+   150 !  !              AND  DESIRED parent pkey_attr_text <= imp_filter_stop parent pkey_attr_text
+   150 !  !              AND  DESIRED parent psearch_attr_text IS LIKE imp_filter parent psearch_attr_text
+   151 !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+   152 !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+   153 !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+   152 !  !  !  +> ELSE
+   154 !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+   155 !  !  !  !  MOVE  parent TO exp_g_list parent
+   152 !  !  !  +--
+   151 !  !  +> ELSE
+   156 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+   157 !  <------ESCAPE
+   151 !  !  +--
+   150 !  +--
+   200 !  +=>READ (Select Only) type
+   200 !  !        WHERE DESIRED type tkey_attr_text = imp parent ptype_tkey_attr_text
+   200 !  +> WHEN successful
+   201 !  !  NOTE:
+   201 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   201 !  !  All fields are updated except for the key field(s), Create_ts and Create_userid.
+   201 !  !
+   202 !  !  +->UPDATE parent
+   203 !  !  !  SET preference_id TO imp_reference iyy1_server_data reference_id
+   204 !  !  !  SET pupdate_user_id TO imp_reference iyy1_server_data userid
+   205 !  !  !  SET psearch_attr_text TO imp parent psearch_attr_text
+   206 !  !  !  SET pother_attr_text TO imp parent pother_attr_text
+   207 !  !  !  SET ptype_tkey_attr_text TO imp parent ptype_tkey_attr_text
+   202 !  !  +> WHEN successful
+   208 !  !  !  MOVE  parent TO exp parent
+   202 !  !  +> WHEN not unique
+   209 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+   210 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 102_parent_already_exist
+   202 !  !  +> WHEN permitted value violation
+   211 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+   212 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 103_parent_attr_value_invalid
+   202 !  !  +--
+   200 !  +> WHEN not found
+   213 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+   214 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 111_parents_type_not_found
+   200 !  +--
+       +---

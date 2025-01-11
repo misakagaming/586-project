@@ -1,0 +1,27 @@
+       +->   EYYY0431_XML_GROUP_CREATE         07/05/2023  15:09
+       !       IMPORTS:
+       !         Group View (48) imp_group
+       !           Entity View imp_g type (Transient, Optional,
+       !                       Import only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !
+       !     EXTERNAL ACTION BLOCK
+       !
+       +---

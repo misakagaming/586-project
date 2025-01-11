@@ -1,0 +1,96 @@
+       +->   CYYY0141_PARENT_DELETE            07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           preference_id
+       !           pkey_attr_text
+       !       EXPORTS:
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  USE cyyy9001_exception_hndlng_dflt
+     3 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     5 !  Name the method below
+     5 !
+     6 !  SET SUBSCRIPT OF loc_group_context TO 1
+     7 !  SET loc_g_context dont_change_text text_150 TO "CYYY0141"
+     8 !  SET SUBSCRIPT OF loc_group_context TO 2
+     9 !  SET loc_g_context dont_change_text text_150 TO "DELETE"
+    10 !
+    11 !  NOTE:
+    11 !  ****************************************************************
+    11 !  The used ReturnCode/ReasonCode values
+    11 !
+    12 !  NOTE:
+    12 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    12 !  Set the return and reason codes below
+    12 !
+    13 !  SET loc dont_change_return_codes 1_ok TO 1
+    14 !
+    15 !  SET loc dont_change_reason_codes 1_default TO 1
+    16 !
+    17 !  +->IF exp_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+    18 !  !  USE dyyy0141_parent_delete
+    18 !  !     WHICH IMPORTS: Work View exp_error iyy1_component TO Work View imp_error iyy1_component
+    18 !  !                    Work View imp_reference iyy1_server_data TO Work View imp_reference iyy1_server_data
+    18 !  !                    Entity View imp parent TO Entity View imp parent
+    18 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    19 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    20 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    21 !  !  !  NOTE:
+    21 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    21 !  !  !  !! WARNING: In D AB, if there' s a need for generating context string, must exit from ESCAPE AB.
+    21 !  !  !
+    22 ! <------ESCAPE
+    19 !  !  +--
+    17 !  +--
+    23 !
+    24 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    25 !  !  USE cyyy9141_context_string_set
+    25 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    25 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    25 !  !                    Work View exp_error iyy1_component FROM Work View exp_context iyy1_component
+    26 !  !
+    27 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    28 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    27 !  !  +--
+    29 !  !  SET exp_error iyy1_component severity_code TO "E"
+    24 !  +--
+       +---

@@ -1,0 +1,22 @@
+       +->   CYY1A131_SERVER_INIT              07/05/2023  15:07
+       !       EXPORTS:
+       !         Work View exp_reference iyy1_server_data (Transient, Export only)
+       !           server_date
+       !           server_time
+       !           reference_id
+       !           server_timestamp
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     3 !
+     4 !  SET exp_reference iyy1_server_data server_timestamp TO CURRENT_TIMESTAMP
+     5 !  SET exp_reference iyy1_server_data server_date TO datetimestamp(exp_reference iyy1_server_data server_timestamp)
+     6 !  SET exp_reference iyy1_server_data server_time TO timetimestamp(exp_reference iyy1_server_data server_timestamp)
+     7 !  SET exp_reference iyy1_server_data reference_id TO exp_reference iyy1_server_data server_timestamp
+       +---

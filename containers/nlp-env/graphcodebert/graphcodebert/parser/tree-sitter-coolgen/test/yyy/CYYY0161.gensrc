@@ -1,0 +1,19 @@
+       +->   CYYY0161_PARENT_INSTANCE_ID_GEN   07/05/2023  15:08
+       !       EXPORTS:
+       !         Entity View exp parent (Transient, Export only)
+       !           pinstance_id
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  The needed code must be written with respect to the instance id' s type and acquirement.
+     3 !
+     4 !  SET exp parent pinstance_id TO CURRENT_TIMESTAMP
+       +---

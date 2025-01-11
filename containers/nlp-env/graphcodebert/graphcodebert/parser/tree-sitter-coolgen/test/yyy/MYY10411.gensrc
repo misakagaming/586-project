@@ -1,0 +1,76 @@
+       +->   MYY10411_XML_CREATE               07/05/2023  15:10
+       !       IMPORTS:
+       !         Entity View imp iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Entity View loc_imp type
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Check description for porpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 01-10-2009 New Release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  SET <loc imp*> TO <imp*>
+     3 !
+     4 !  SET loc_imp type tkey_attr_text TO imp iyy1_type tkey_attr_text
+     5 !  SET loc_imp type tsearch_attr_text TO imp iyy1_type tsearch_attr_text
+     6 !  SET loc_imp type tother_attr_text TO imp iyy1_type tother_attr_text
+     7 !  SET loc_imp type tother_attr_date TO imp iyy1_type tother_attr_date
+     8 !  SET loc_imp type tother_attr_time TO imp iyy1_type tother_attr_time
+     9 !  SET loc_imp type tother_attr_amount TO imp iyy1_type tother_attr_amount
+    10 !  SET loc_imp type tcreate_user_id TO imp iyy1_type tcreate_user_id
+    11 !  SET loc_imp type tupdate_user_id TO imp iyy1_type tupdate_user_id
+    12 !  SET loc_imp type tinstance_id TO imp iyy1_type tinstance_id
+    13 !  SET loc_imp type treference_id TO imp iyy1_type treference_id
+    14 !
+    15 !  NOTE:
+    15 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    15 !  USE <implementation ab>
+    15 !
+    16 !  USE cyyy0411_xml_create
+    16 !     WHICH IMPORTS: Entity View loc_imp type TO Entity View imp type
+    16 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    16 !                    Work View exp canam_xml FROM Work View exp canam_xml
+    16 !                    Work View exp_error canam_xml FROM Work View exp_error canam_xml
+       +---

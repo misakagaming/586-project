@@ -1,0 +1,27 @@
+       +->   EYYY0441_XML_GROUP_PARSE          07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp canam_xml (Transient, Optional,
+       !                     Import only)
+       !           xml_buffer
+       !       EXPORTS:
+       !         Group View (48) exp_group
+       !           Entity View exp_g type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !
+       !     EXTERNAL ACTION BLOCK
+       !
+       +---

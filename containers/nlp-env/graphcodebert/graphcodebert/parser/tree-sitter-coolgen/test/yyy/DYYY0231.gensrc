@@ -1,0 +1,123 @@
+       +->   DYYY0231_CHILD_UPDATE             07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp child (Transient, Mandatory, Import only)
+       !           cinstance_id
+       !           creference_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !           csearch_attr_text
+       !           cother_attr_text
+       !       EXPORTS:
+       !         Entity View exp child (Transient, Export only)
+       !           creference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View child
+       !           cinstance_id
+       !           creference_id
+       !           cupdate_user_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !           csearch_attr_text
+       !           cother_attr_text
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n10_obj_not_found
+       !           n41_obj_update_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           121_child_not_found
+       !           122_child_already_exist
+       !           123_child_attr_value_invalid
+       !           132_child_concurrency_error
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n10_obj_not_found TO -10
+     9 !  SET loc dont_change_return_codes n41_obj_update_failed TO -41
+    10 !
+    11 !  SET loc dont_change_reason_codes 1_default TO 1
+    12 !  SET loc dont_change_reason_codes 121_child_not_found TO 121
+    13 !  SET loc dont_change_reason_codes 122_child_already_exist TO 122
+    14 !  SET loc dont_change_reason_codes 123_child_attr_value_invalid TO 123
+    15 !  SET loc dont_change_reason_codes 132_child_concurrency_error TO 132
+    16 !
+    17 !  NOTE:
+    17 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    17 !  If Instance_id is being used, reading must be operated according to this section, instead
+    17 !  of business_key(s).
+    17 !
+    18 !  NOTE:
+    18 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    18 !  Choose Control of Cursor Generation property as "Select only".
+    18 !  (being read for update)
+    18 !
+    19 !  +=>READ (Cursor Only) child
+    19 !  !        WHERE DESIRED child cparent_pkey_attr_text = imp child cparent_pkey_attr_text
+    19 !  !              AND  DESIRED child ckey_attr_num = imp child ckey_attr_num
+    19 !  +> WHEN successful
+    20 !  !  +->IF imp child creference_id ^= child creference_id
+    21 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    22 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 132_child_concurrency_error
+    23 ! <------ESCAPE
+    20 !  !  +--
+    24 !  !  NOTE:
+    24 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    24 !  !  All fields are updated except for the key field(s), Create_ts and Create_userid.
+    24 !  !
+    25 !  !  +->UPDATE child
+    26 !  !  !  SET creference_id TO imp_reference iyy1_server_data reference_id
+    27 !  !  !  SET cupdate_user_id TO imp_reference iyy1_server_data userid
+    28 !  !  !  SET csearch_attr_text TO imp child csearch_attr_text
+    29 !  !  !  SET cother_attr_text TO imp child cother_attr_text
+    25 !  !  +> WHEN successful
+    30 !  !  !  MOVE  child TO exp child
+    25 !  !  +> WHEN not unique
+    31 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    32 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 122_child_already_exist
+    25 !  !  +> WHEN permitted value violation
+    33 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    34 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 123_child_attr_value_invalid
+    25 !  !  +--
+    19 !  +> WHEN not found
+    35 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n10_obj_not_found
+    36 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 121_child_not_found
+    19 !  +--
+       +---

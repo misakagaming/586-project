@@ -1,0 +1,16 @@
+       +->   CYYY0361_TYPE_INSTANCE_ID_GEN     07/05/2023  15:09
+       !       EXPORTS:
+       !         Entity View exp type (Transient, Export only)
+       !           tinstance_id
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  SET exp type tinstance_id TO CURRENT_TIMESTAMP
+       +---

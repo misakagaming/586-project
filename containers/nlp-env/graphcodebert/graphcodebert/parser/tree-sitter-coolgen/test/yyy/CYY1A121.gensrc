@@ -1,0 +1,130 @@
+       +->   CYY1A121_SERVER_TERMINATION       07/05/2023  15:07
+       !       IMPORTS:
+       !         Work View imp_dialect iyy1_component (Transient, Optional, Import only)
+       !           dialect_cd
+       !         Work View imp_error iyy1_component (Transient, Optional, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       EXPORTS:
+       !         Work View exp_error_msg iyy1_component (Transient, Export only)
+       !           severity_code
+       !           message_tx
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_imp_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           implementation_id
+       !           specification_id
+       !           dialect_cd
+       !           activity_cd
+       !           checksum
+       !         Work View loc_error_msg iyy1_component
+       !           severity_code
+       !           message_tx
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     2 !
+     3 !  NOTE:
+     3 !  RELEASE HISTORY
+     3 !  01_00 23-02-1998 New release
+     4 !
+     5 !  SET loc dont_change_return_codes 1_ok TO 1
+     6 !
+     7 !  NOTE:
+     7 !  ****************************************************************
+     7 !  Please format the error message.
+     7 !
+     8 !  MOVE imp_error iyy1_component TO loc_imp_error iyy1_component
+     9 !
+    10 !  NOTE:
+    10 !  ****************************************************************
+    10 !  This component is which spec + impl + serv ?
+    10 !
+    11 !  USE cyyy9051_cmpnt_identifiers_get
+    11 !     WHICH EXPORTS: Work View loc_imp_error iyy1_component FROM Work View exp_identifiers iyy1_component
+    11 !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    12 !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    13 !  !  MOVE loc_error iyy1_component TO loc_imp_error iyy1_component
+    12 !  +--
+    14 !
+    15 !  NOTE:
+    15 !  ****************************************************************
+    15 !  Set the dialect code.
+    15 !
+    16 !  SET loc_imp_error iyy1_component dialect_cd TO imp_dialect iyy1_component dialect_cd
+    17 !
+    18 !  NOTE:
+    18 !  ****************************************************************
+    18 !  Convert the error data to message.
+    18 !
+    19 !  USE cyyy9041_excptn_msg_fmt_as_str
+    19 !     WHICH IMPORTS: Work View loc_imp_error iyy1_component TO Work View imp_error iyy1_component
+    19 !     WHICH EXPORTS: Work View loc_error_msg iyy1_component FROM Work View exp_error_msg iyy1_component
+    19 !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    20 !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    21 !  !  MOVE loc_error iyy1_component TO loc_imp_error iyy1_component
+    20 !  +--
+    22 !
+    23 !  NOTE:
+    23 !  ****************************************************************
+    23 !  If message is not formatted, use the available data.
+    23 !
+    24 !  +->IF loc_error_msg iyy1_component message_tx <= SPACES
+    25 !  !  SET loc_error_msg iyy1_component message_tx TO loc_imp_error iyy1_component context_string
+    24 !  +--
+    26 !  +->IF loc_error_msg iyy1_component severity_code <= SPACES
+    27 !  !  SET loc_error_msg iyy1_component severity_code TO loc_imp_error iyy1_component severity_code
+    26 !  +--
+    28 !
+    29 !  NOTE:
+    29 !  ****************************************************************
+    29 !  If error code is negative, set Severity = 'Error'
+    29 !
+    30 !  +->IF loc_imp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    31 !  !  SET loc_imp_error iyy1_component severity_code TO "E"
+    32 !  !  SET loc_error_msg iyy1_component severity_code TO loc_imp_error iyy1_component severity_code
+    30 !  +--
+    33 !
+    34 !  MOVE loc_error_msg iyy1_component TO exp_error_msg iyy1_component
+    35 !  MOVE loc_imp_error iyy1_component TO exp_error iyy1_component
+    36 !
+    37 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    38 !  !
+    39 !  !  EXIT STATE IS std_return_rb WITH ROLLBACK
+    40 !  !
+    37 !  +> ELSE
+    41 !  !
+    42 !  !  EXIT STATE IS std_return
+    43 !  !
+    37 !  +--
+       +---

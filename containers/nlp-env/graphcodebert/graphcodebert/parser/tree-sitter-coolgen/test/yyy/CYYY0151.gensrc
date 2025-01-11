@@ -1,0 +1,290 @@
+       +->   CYYY0151_PARENT_LIST              07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           pkey_attr_text
+       !         Entity View imp_filter_start parent (Transient, Mandatory, Import only)
+       !           pkey_attr_text
+       !         Entity View imp_filter_stop parent (Transient, Mandatory, Import only)
+       !           pkey_attr_text
+       !         Entity View imp_filter parent (Transient, Mandatory, Import only)
+       !           psearch_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list parent (Transient, Export only)
+       !             pinstance_id
+       !             preference_id
+       !             pkey_attr_text
+       !             psearch_attr_text
+       !             pother_attr_text
+       !             ptype_tkey_attr_text
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_filter iyy1_list
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View loc_from parent
+       !           pkey_attr_text
+       !           pinstance_id
+       !         Entity View loc_filter_start parent
+       !           pkey_attr_text
+       !         Entity View loc_filter_stop parent
+       !           pkey_attr_text
+       !         Entity View loc_filter parent
+       !           psearch_attr_text
+       !         Group View (48) loc_group_list
+       !           Entity View loc_g_list parent
+       !             pinstance_id
+       !             preference_id
+       !             pkey_attr_text
+       !             psearch_attr_text
+       !             pother_attr_text
+       !             ptype_tkey_attr_text
+       !         Entity View loc_empty parent
+       !           pkey_attr_text
+       !         Entity View loc_max parent
+       !           pkey_attr_text
+       !         Work View loc_read_lb iyy1_supplied
+       !           total_integer
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !         Work View loc_mvs_string_high_value iyy1_supplied
+       !           flag
+       !         Work View loc_pc_string_high_value iyy1_supplied
+       !           flag
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  USE cyyy9001_exception_hndlng_dflt
+     3 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     5 !  Name the method below
+     5 !
+     6 !  SET SUBSCRIPT OF loc_group_context TO 1
+     7 !  SET loc_g_context dont_change_text text_150 TO "CYYY0151"
+     8 !  SET SUBSCRIPT OF loc_group_context TO 2
+     9 !  SET loc_g_context dont_change_text text_150 TO "LIST"
+    10 !
+    11 !  NOTE:
+    11 !  ****************************************************************
+    11 !  The used ReturnCode/ReasonCode values
+    11 !
+    12 !  NOTE:
+    12 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    12 !  Set the return and reason codes below
+    12 !
+    13 !  SET loc dont_change_return_codes 1_ok TO 1
+    14 !
+    15 !  SET loc dont_change_reason_codes 1_default TO 1
+    16 !
+    17 !  NOTE:
+    17 !  ****************************************************************
+    17 !  a) The attribute(s) to be sorted must be in imp_from.
+    17 !  b) If the attribute(s) to be sorted are not unique, the attribute(s) supplying them to be unique must be added.
+    17 !     (Being defined as index in DB is not necessary)
+    17 !  c) If there are multiple sorting options, common attribute(s) will naturally be in imp_form once.
+    17 !  d) Attribute(s) to be sorted SORTED BY(s) must be included too, for uniqueness attribute(s) must be at the end if
+    17 !  added any.
+    17 !  e) Attribute(s) in SORTED BY(s) must be first in WHERE condition in I1204such a manner that they oversee the
+    17 !  same sequence.
+    17 !
+    18 !  +->IF exp_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+    19 !  !  MOVE imp_filter iyy1_list TO loc_filter iyy1_list
+    20 !  !
+    21 !  !  +->IF loc_filter iyy1_list scroll_amount > MAX OF exp_group_list
+    21 !  !  !        OR  loc_filter iyy1_list scroll_amount < 1
+    22 !  !  !  SET loc_filter iyy1_list scroll_amount TO MAX OF exp_group_list
+    21 !  !  +--
+    23 !  !  +->IF loc_filter iyy1_list sort_option = SPACES
+    24 !  !  !  SET loc_filter iyy1_list sort_option TO "ASC"
+    23 !  !  +--
+    25 !  !  +->IF loc_filter iyy1_list list_direction = "P"
+    26 !  !  !  +->IF loc_filter iyy1_list sort_option = "ASC"
+    27 !  !  !  !  SET loc_filter iyy1_list sort_option TO "DES"
+    26 !  !  !  +> ELSE
+    28 !  !  !  !  SET loc_filter iyy1_list sort_option TO "ASC"
+    26 !  !  !  +--
+    25 !  !  +--
+    29 !  !
+    30 !  !  NOTE:
+    30 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    30 !  !  Check over the filtering sections
+    30 !  !
+    31 !  !  NOTE:
+    31 !  !  ****************************************************************
+    31 !  !  Min-Max interval filtering
+    31 !  !
+    32 !  !  MOVE imp_filter_start parent TO loc_filter_start parent
+    33 !  !  MOVE imp_filter_stop parent TO loc_filter_stop parent
+    34 !  !
+    35 !  !  NOTE:
+    35 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    35 !  !  Give the highest value that every key and filter_stop variable can get
+    35 !  !
+    36 !  !  SET loc_mvs_string_high_value iyy1_supplied flag TO "9"
+    37 !  !  SET loc_pc_string_high_value iyy1_supplied flag TO "Z"
+    38 !  !
+    39 !  !  +->IF loc_pc_string_high_value iyy1_supplied flag > loc_mvs_string_high_value iyy1_supplied flag
+    40 !  !  !  SET loc_max parent pkey_attr_text TO "ZZZZZ"
+    39 !  !  +> ELSE
+    41 !  !  !  SET loc_max parent pkey_attr_text TO "99999"
+    39 !  !  +--
+    42 !  !
+    43 !  !  NOTE:
+    43 !  !  ****************************************************************
+    43 !  !  If the stop comes empty, it is accepted as maximum.
+    43 !  !  If the stop comes occupied it cannot be less than Start, if it is less it is made equal to start.
+    43 !  !
+    44 !  !  +->IF loc_filter_stop parent pkey_attr_text = loc_empty parent pkey_attr_text
+    45 !  !  !  SET loc_filter_stop parent pkey_attr_text TO loc_max parent pkey_attr_text
+    44 !  !  +> ELSE
+    46 !  !  !  +->IF loc_filter_start parent pkey_attr_text > loc_filter_stop parent pkey_attr_text
+    47 !  !  !  !  SET loc_filter_stop parent pkey_attr_text TO loc_filter_start parent pkey_attr_text
+    46 !  !  !  +--
+    44 !  !  +--
+    48 !  !
+    49 !  !  MOVE imp_from parent TO loc_from parent
+    50 !  !
+    51 !  !  NOTE:
+    51 !  !  ****************************************************************
+    51 !  !  From initial value is checked
+    51 !  !
+    52 !  !  +->IF loc_filter iyy1_list sort_option = "ASC"
+    52 !  !  +> ELSE
+    53 !  !  !  NOTE:
+    53 !  !  !  ****************************************************************
+    53 !  !  !  If From comes empty for Full list, it is made equal to Max.
+    53 !  !  !
+    54 !  !  !  +->IF loc_filter iyy1_list scroll_type ^= "S"
+    55 !  !  !  !  NOTE:
+    55 !  !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    55 !  !  !  !  !!! WARNING !!!
+    55 !  !  !  !  For sectionary key(s) (means if the key consists of multiple fields), check out CYYY0251_CHILD_LIST Action Block.
+    55 !  !  !  !
+    56 !  !  !  !  +->IF loc_from parent pkey_attr_text <= loc_empty parent pkey_attr_text
+    57 !  !  !  !  !  SET loc_from parent pkey_attr_text TO loc_max parent pkey_attr_text
+    56 !  !  !  !  +--
+    54 !  !  !  +--
+    52 !  !  +--
+    58 !  !
+    59 !  !  NOTE:
+    59 !  !  ****************************************************************
+    59 !  !  If the attributes in filter_start and filter_stop appear in from too, From cannot come greater than filter_Stop and
+
+    59 !  !  less than filter_Start.
+    59 !  !
+    60 !  !  NOTE:
+    60 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    60 !  !  !!! WARNING !!!
+    60 !  !  For sectionary key(s) (means if the key consists of multiple fields), check out CYYY0251_CHILD_LIST Action Block.
+    60 !  !
+    61 !  !  +->IF (loc_from parent pkey_attr_text < loc_filter_start parent pkey_attr_text)
+    61 !  !  !        OR  (loc_from parent pkey_attr_text > loc_filter_stop parent pkey_attr_text)
+    62 !  !  !
+    63 !  !  !  +->IF loc_filter iyy1_list sort_option = "ASC"
+    64 !  !  !  !  SET loc_from parent pkey_attr_text TO loc_filter_start parent pkey_attr_text
+    63 !  !  !  +> ELSE
+    65 !  !  !  !  SET loc_from parent pkey_attr_text TO loc_filter_stop parent pkey_attr_text
+    63 !  !  !  +--
+    61 !  !  +--
+    66 !  !
+    67 !  !  NOTE:
+    67 !  !  ****************************************************************
+    67 !  !  Filtering (Compensate % as much as the filter variable length)
+    67 !  !
+    68 !  !  SET loc_filter parent psearch_attr_text TO "%%%%%%%%%%%%%%%%%%%%%%%%%"
+    69 !  !  SET loc_filter parent psearch_attr_text TO concat(trim(imp_filter parent psearch_attr_text),
+    69 !  !              loc_filter parent psearch_attr_text)
+    70 !  !  NOTE:
+    70 !  !  ****************************************************************
+    70 !  !  END OF filtering
+    70 !  !
+    71 !  !  USE dyyy0151_parent_list
+    71 !  !     WHICH IMPORTS: Work View exp_error iyy1_component TO Work View imp_error iyy1_component
+    71 !  !                    Work View loc_filter iyy1_list TO Work View imp_filter iyy1_list
+    71 !  !                    Entity View loc_from parent TO Entity View imp_from parent
+    71 !  !                    Entity View loc_filter_start parent TO Entity View imp_filter_start parent
+    71 !  !                    Entity View loc_filter_stop parent TO Entity View imp_filter_stop parent
+    71 !  !                    Entity View loc_filter parent TO Entity View imp_filter parent
+    71 !  !     WHICH EXPORTS: Group View  loc_group_list FROM Group View exp_group_list
+    71 !  !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    72 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    73 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    74 !  !  !  NOTE:
+    74 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    74 !  !  !  !! WARNING: In D AB, if there' s a need for generating context string, must exit from ESCAPE AB.
+    74 !  !  !
+    75 ! <------ESCAPE
+    72 !  !  +--
+    76 !  !
+    77 !  !  SET loc_read_lb iyy1_supplied total_integer TO LAST OF loc_group_list
+    78 !  !  +->IF loc_read_lb iyy1_supplied total_integer > 0
+    79 !  !  !  +->IF loc_filter iyy1_list list_direction = "P"
+    80 !  !  !  !  SET SUBSCRIPT OF loc_group_list TO loc_read_lb iyy1_supplied total_integer
+    79 !  !  !  +> ELSE
+    81 !  !  !  !  SET SUBSCRIPT OF loc_group_list TO 1
+    79 !  !  !  +--
+    82 !  !  !  SET SUBSCRIPT OF exp_group_list TO 0
+    83 !  !  !  +=>REPEAT
+    84 !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    85 !  !  !  !  MOVE loc_g_list parent TO exp_g_list parent
+    86 !  !  !  !  +->IF loc_filter iyy1_list list_direction = "P"
+    87 !  !  !  !  !  SET SUBSCRIPT OF loc_group_list TO SUBSCRIPT OF loc_group_list - 1
+    86 !  !  !  !  +> ELSE
+    88 !  !  !  !  !  SET SUBSCRIPT OF loc_group_list TO SUBSCRIPT OF loc_group_list + 1
+    86 !  !  !  !  +--
+    89 !  !  !  !  SET loc_read_lb iyy1_supplied total_integer TO loc_read_lb iyy1_supplied total_integer - 1
+    83 !  !  !  +--UNTIL loc_read_lb iyy1_supplied total_integer = 0
+    78 !  !  +--
+    18 !  +--
+    90 !
+    91 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    92 !  !  USE cyyy9141_context_string_set
+    92 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    92 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    92 !  !                    Work View exp_error iyy1_component FROM Work View exp_context iyy1_component
+    93 !  !
+    94 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    95 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    94 !  !  +--
+    96 !  !  SET exp_error iyy1_component severity_code TO "E"
+    91 !  +--
+       +---

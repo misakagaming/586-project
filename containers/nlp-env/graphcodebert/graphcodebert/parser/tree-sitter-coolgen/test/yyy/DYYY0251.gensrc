@@ -1,0 +1,169 @@
+       +->   DYYY0251_CHILD_LIST               07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from child (Transient, Mandatory, Import only)
+       !           cinstance_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !         Entity View imp_filter_start child (Transient, Mandatory, Import only)
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !         Entity View imp_filter_stop child (Transient, Mandatory, Import only)
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !         Entity View imp_filter child (Transient, Mandatory, Import only)
+       !           csearch_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list child (Transient, Export only)
+       !             cinstance_id
+       !             creference_id
+       !             ccreate_user_id
+       !             cupdate_user_id
+       !             cparent_pkey_attr_text
+       !             ckey_attr_num
+       !             csearch_attr_text
+       !             cother_attr_text
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View child
+       !           cinstance_id
+       !           creference_id
+       !           ccreate_user_id
+       !           cupdate_user_id
+       !           cparent_pkey_attr_text
+       !           ckey_attr_num
+       !           csearch_attr_text
+       !           cother_attr_text
+       !       LOCALS:
+       !         Work View loc_filter iyy1_list
+       !           scroll_type
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           11_list_full
+       !           12_list_empty
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Amaç için açıklamaya bakınız
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !
+     9 !  SET loc dont_change_reason_codes 1_default TO 1
+    10 !  SET loc dont_change_reason_codes 11_list_full TO 11
+    11 !  SET loc dont_change_reason_codes 12_list_empty TO 12
+    12 !
+    13 !  NOTE:
+    13 !  ****************************************************************
+    13 !
+    14 !  SET SUBSCRIPT OF exp_group_list TO 0
+    15 !  SET loc_filter iyy1_list scroll_type TO imp_filter iyy1_list scroll_type
+    16 !
+    17 !  +->CASE OF imp_filter iyy1_list sort_option
+    17 !  +> CASE "ASC"
+    18 !  !  NOTE:
+    18 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    18 !  !  Choose General->Select Clause Isolation Level property as "Uncommitted / Browse" and
+    18 !  !  DB2 MVS (XDB)->Optimize for N rows property as "Use the value: 1".
+    18 !  !
+    19 !  !  +=>READ EACH (Optimize 1, Isolation UR) child
+    19 !  !  !        SORTED BY ASCENDING child cparent_pkey_attr_text
+    19 !  !  !              AND SORTED BY ASCENDING child ckey_attr_num
+    19 !  !  !        WHERE DESIRED child cparent_pkey_attr_text >= imp_from child cparent_pkey_attr_text
+    19 !  !  !              AND  (DESIRED child cparent_pkey_attr_text > imp_from child cparent_pkey_attr_text
+    19 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_from child cparent_pkey_attr_text
+    19 !  !  !              AND  DESIRED child ckey_attr_num >= imp_from child ckey_attr_num))
+    19 !  !  !              AND  (DESIRED child cparent_pkey_attr_text > imp_filter_start child cparent_pkey_attr_text
+    19 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_filter_start child cparent_pkey_attr_text
+    19 !  !  !              AND  DESIRED child ckey_attr_num >= imp_filter_start child ckey_attr_num))
+    19 !  !  !              AND  (DESIRED child cparent_pkey_attr_text < imp_filter_stop child cparent_pkey_attr_text
+    19 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_filter_stop child cparent_pkey_attr_text
+    19 !  !  !              AND  DESIRED child ckey_attr_num <= imp_filter_stop child ckey_attr_num))
+    19 !  !  !              AND  DESIRED child csearch_attr_text IS LIKE imp_filter child csearch_attr_text
+    20 !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    21 !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    22 !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    21 !  !  !  !  +> ELSE
+    23 !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    24 !  !  !  !  !  MOVE  child TO exp_g_list child
+    21 !  !  !  !  +--
+    20 !  !  !  +> ELSE
+    25 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    26 !  ! <------ESCAPE
+    20 !  !  !  +--
+    19 !  !  +--
+    17 !  +> CASE "DES"
+    27 !  !  NOTE:
+    27 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    27 !  !  Choose General->Select Clause Isolation Level property as "Uncommitted / Browse" and
+    27 !  !  DB2 MVS (XDB)->Optimize for N rows property as "Use the value: 1".
+    27 !  !
+    28 !  !  +=>READ EACH (Optimize 1, Isolation UR) child
+    28 !  !  !        SORTED BY DESCENDING child cparent_pkey_attr_text
+    28 !  !  !              AND SORTED BY DESCENDING child ckey_attr_num
+    28 !  !  !        WHERE DESIRED child cparent_pkey_attr_text <= imp_from child cparent_pkey_attr_text
+    28 !  !  !              AND  (DESIRED child cparent_pkey_attr_text < imp_from child cparent_pkey_attr_text
+    28 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_from child cparent_pkey_attr_text
+    28 !  !  !              AND  DESIRED child ckey_attr_num <= imp_from child ckey_attr_num))
+    28 !  !  !              AND  (DESIRED child cparent_pkey_attr_text > imp_filter_start child cparent_pkey_attr_text
+    28 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_filter_start child cparent_pkey_attr_text
+    28 !  !  !              AND  DESIRED child ckey_attr_num >= imp_filter_start child ckey_attr_num))
+    28 !  !  !              AND  (DESIRED child cparent_pkey_attr_text < imp_filter_stop child cparent_pkey_attr_text
+    28 !  !  !              OR  (DESIRED child cparent_pkey_attr_text = imp_filter_stop child cparent_pkey_attr_text
+    28 !  !  !              AND  DESIRED child ckey_attr_num <= imp_filter_stop child ckey_attr_num))
+    28 !  !  !              AND  DESIRED child csearch_attr_text IS LIKE imp_filter child csearch_attr_text
+    29 !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    30 !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    31 !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    30 !  !  !  !  +> ELSE
+    32 !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    33 !  !  !  !  !  MOVE  child TO exp_g_list child
+    30 !  !  !  !  +--
+    29 !  !  !  +> ELSE
+    34 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    35 !  ! <------ESCAPE
+    29 !  !  !  +--
+    28 !  !  +--
+    17 !  +> OTHERWISE
+    17 !  +--
+    36 !  +->IF LAST OF exp_group_list <= 0
+    37 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 12_list_empty
+    36 !  +--
+       +---

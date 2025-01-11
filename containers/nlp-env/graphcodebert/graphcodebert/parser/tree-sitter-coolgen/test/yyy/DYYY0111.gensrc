@@ -1,0 +1,115 @@
+       +->   DYYY0111_PARENT_CREATE            07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       EXPORTS:
+       !         Entity View exp parent (Transient, Export only)
+       !           preference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View parent
+       !           pinstance_id
+       !           preference_id
+       !           pcreate_user_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View type
+       !           tkey_attr_text
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n40_obj_create_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           101_parent_not_found
+       !           102_parent_already_exist
+       !           103_parent_attr_value_invalid
+       !           111_parents_type_not_found
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n40_obj_create_failed TO -40
+     9 !
+    10 !  SET loc dont_change_reason_codes 1_default TO 1
+    11 !  SET loc dont_change_reason_codes 102_parent_already_exist TO 102
+    12 !  SET loc dont_change_reason_codes 103_parent_attr_value_invalid TO 103
+    13 !  SET loc dont_change_reason_codes 111_parents_type_not_found TO 111
+    14 !
+    15 !  NOTE:
+    15 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    15 !  If the operation depends on 'type' data type
+    15 !  protect the 'READ type' operation below, delete if not.
+    15 !
+    16 !  NOTE:
+    16 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    16 !  Choose Control of Cursor Generation property as "Select only".
+    16 !
+    17 !  +=>READ (Select Only) type
+    17 !  !        WHERE DESIRED type tkey_attr_text = imp parent ptype_tkey_attr_text
+    17 !  +> WHEN successful
+    18 !  !  +->CREATE parent
+    19 !  !  !  SET pinstance_id TO imp parent pinstance_id
+    20 !  !  !  SET preference_id TO imp_reference iyy1_server_data reference_id
+    21 !  !  !  SET pcreate_user_id TO imp_reference iyy1_server_data userid
+    22 !  !  !  SET pupdate_user_id TO imp_reference iyy1_server_data userid
+    23 !  !  !  SET pkey_attr_text TO imp parent pkey_attr_text
+    24 !  !  !  SET psearch_attr_text TO imp parent psearch_attr_text
+    25 !  !  !  SET pother_attr_text TO imp parent pother_attr_text
+    26 !  !  !  SET ptype_tkey_attr_text TO imp parent ptype_tkey_attr_text
+    18 !  !  +> WHEN successful
+    27 !  !  !  SET exp parent preference_id TO imp_reference iyy1_server_data reference_id
+    18 !  !  +> WHEN already exists
+    28 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+    29 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 102_parent_already_exist
+    18 !  !  +> WHEN permitted value violation
+    30 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+    31 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 103_parent_attr_value_invalid
+    18 !  !  +--
+    17 !  +> WHEN not found
+    32 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+    33 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 111_parents_type_not_found
+    17 !  +--
+       +---

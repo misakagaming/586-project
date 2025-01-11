@@ -1,0 +1,73 @@
+       +->   IYY10411_XML_CREATE_S             07/05/2023  15:09
+       !       IMPORTS:
+       !         Entity View imp iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !
+     2 !  NOTE:
+     2 !  PURPOSE(CONTINUED)
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  Check for Pre-Post Condition and Return/Reason Code
+     3 !
+     4 !  NOTE:
+     4 !  PRE-CONDITION
+     4 !  Give the attributes that will be composed as XML
+     4 !  POST-CONDITION
+     4 !  XML will be created
+     4 !  Return Code = 1, Reason Code = 1
+     4 !
+     5 !  NOTE:
+     5 !  PRE-CONDITION
+     5 !  XML Create Error
+     5 !  POST-CONDITION
+     5 !  XML could not created. Check Exp_error canam_xml for details
+     5 !  Return Code = -70, Reason Code = 1
+     5 !
+     6 !  NOTE:
+     6 !  RETURN / REASON CODES
+     6 !  +1/1 XML Created
+     6 !  -70/1 XML Create error
+     6 !
+     7 !  NOTE:
+     7 !  RELEASE HISTORY
+     7 !  01_00 01-10-2009 New Release
+     7 !
+     8 !  NOTE:
+     8 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     8 !  USE <mapper ab>
+     8 !
+     9 !  USE myy10411_xml_create
+     9 !     WHICH IMPORTS: Entity View imp iyy1_type TO Entity View imp iyy1_type
+     9 !     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp canam_xml
+     9 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     9 !                    Work View exp_error canam_xml FROM Work View exp_error canam_xml
+       +---

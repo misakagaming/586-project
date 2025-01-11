@@ -1,0 +1,81 @@
+       +->   MYY10441_XML_GROUP_PARSE          07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp canam_xml (Transient, Optional, Import only)
+       !           xml_buffer
+       !       EXPORTS:
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (10) exp_group_list
+       !           Entity View exp_g_list iyy1_type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !       LOCALS:
+       !         Group View (10) loc_exp_group_list
+       !           Entity View loc_exp_g_list type
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Check description for porpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 01-10-2009 New Release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  SET <loc imp*> TO <imp*>
+     3 !
+     4 !  USE cyyy0441_xml_group_parse
+     4 !     WHICH IMPORTS: Work View imp canam_xml TO Work View imp canam_xml
+     4 !     WHICH EXPORTS: Work View exp_error canam_xml FROM Work View exp_error canam_xml
+     4 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     4 !                    Group View  loc_exp_group_list FROM Group View exp_group
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  SET <exp*> TO <loc exp*>
+     6 !
+     7 !  +=>FOR SUBSCRIPT OF loc_exp_group_list FROM 1 TO LAST OF loc_exp_group_list BY 1
+     8 !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF loc_exp_group_list
+     9 !  !  SET exp_g_list iyy1_type tinstance_id TO loc_exp_g_list type tinstance_id
+    10 !  !  SET exp_g_list iyy1_type treference_id TO loc_exp_g_list type treference_id
+    11 !  !  SET exp_g_list iyy1_type tcreate_user_id TO loc_exp_g_list type tcreate_user_id
+    12 !  !  SET exp_g_list iyy1_type tupdate_user_id TO loc_exp_g_list type tupdate_user_id
+    13 !  !  SET exp_g_list iyy1_type tkey_attr_text TO loc_exp_g_list type tkey_attr_text
+    14 !  !  SET exp_g_list iyy1_type tsearch_attr_text TO loc_exp_g_list type tsearch_attr_text
+    15 !  !  SET exp_g_list iyy1_type tother_attr_text TO loc_exp_g_list type tother_attr_text
+    16 !  !  SET exp_g_list iyy1_type tother_attr_date TO loc_exp_g_list type tother_attr_date
+    17 !  !  SET exp_g_list iyy1_type tother_attr_time TO loc_exp_g_list type tother_attr_time
+    18 !  !  SET exp_g_list iyy1_type tother_attr_amount TO loc_exp_g_list type tother_attr_amount
+     7 !  +--
+       +---

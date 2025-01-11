@@ -1,0 +1,77 @@
+       +->   MYY10431_XML_GROUP_CREATE         07/05/2023  15:10
+       !       IMPORTS:
+       !         Group View (10) imp_group
+       !           Entity View imp_g iyy1_type (Transient, Optional, Import only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Group View (10) loc_imp_group
+       !           Entity View loc_imp_g type
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Check description for porpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 01-10-2009 New Release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  SET <loc imp*> TO <imp*>
+     3 !
+     4 !
+     5 !  +=>FOR SUBSCRIPT OF imp_group FROM 1 TO LAST OF imp_group BY 1
+     6 !  !  SET SUBSCRIPT OF loc_imp_group TO SUBSCRIPT OF imp_group
+     7 !  !  SET loc_imp_g type tcreate_user_id TO imp_g iyy1_type tcreate_user_id
+     8 !  !  SET loc_imp_g type tkey_attr_text TO imp_g iyy1_type tkey_attr_text
+     9 !  !  SET loc_imp_g type tother_attr_text TO imp_g iyy1_type tother_attr_text
+    10 !  !  SET loc_imp_g type tsearch_attr_text TO imp_g iyy1_type tsearch_attr_text
+    11 !  !  SET loc_imp_g type tupdate_user_id TO imp_g iyy1_type tupdate_user_id
+    12 !  !  SET loc_imp_g type tinstance_id TO imp_g iyy1_type tinstance_id
+    13 !  !  SET loc_imp_g type treference_id TO imp_g iyy1_type treference_id
+    14 !  !  SET loc_imp_g type tother_attr_date TO imp_g iyy1_type tother_attr_date
+    15 !  !  SET loc_imp_g type tother_attr_time TO imp_g iyy1_type tother_attr_time
+    16 !  !  SET loc_imp_g type tother_attr_amount TO imp_g iyy1_type tother_attr_amount
+     5 !  +--
+    17 !  USE cyyy0431_xml_group_create
+    17 !     WHICH IMPORTS: Group View  loc_imp_group TO Group View imp_group
+    17 !     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp_error canam_xml
+    17 !                    Work View exp canam_xml FROM Work View exp_error canam_xml
+    17 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+       +---

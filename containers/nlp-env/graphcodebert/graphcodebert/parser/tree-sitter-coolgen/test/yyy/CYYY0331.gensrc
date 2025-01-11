@@ -1,0 +1,180 @@
+       +->   CYYY0331_TYPE_UPDATE              07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       EXPORTS:
+       !         Entity View exp type (Transient, Export only)
+       !           treference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Entity View loc_imp type
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !         Entity View loc_empty type
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n20_mandatory_import_missing
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           145_type_key_attr_mand
+       !           146_type_search_attr_mand
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  USE cyyy9001_exception_hndlng_dflt
+     3 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     5 !  Please rename the procedure name below.
+     5 !
+     6 !  SET SUBSCRIPT OF loc_group_context TO 1
+     7 !  SET loc_g_context dont_change_text text_150 TO "CYYY0331"
+     8 !  SET SUBSCRIPT OF loc_group_context TO 2
+     9 !  SET loc_g_context dont_change_text text_150 TO "UPDATE"
+    10 !
+    11 !  NOTE:
+    11 !  ****************************************************************
+    11 !  Values of the ReturnCode/ReasonCode used.
+    11 !
+    12 !  NOTE:
+    12 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    12 !  Please set the return ve reason code values below.
+    12 !
+    13 !  SET loc dont_change_return_codes 1_ok TO 1
+    14 !  SET loc dont_change_return_codes n20_mandatory_import_missing TO -20
+    15 !
+    16 !  SET loc dont_change_reason_codes 1_default TO 1
+    17 !  SET loc dont_change_reason_codes 145_type_key_attr_mand TO 145
+    18 !  SET loc dont_change_reason_codes 146_type_search_attr_mand TO 146
+    19 !
+    20 !  NOTE:
+    20 !  ****************************************************************
+    20 !
+    21 !  MOVE imp type TO loc_imp type
+    22 !
+    23 !  NOTE:
+    23 !  ****************************************************************
+    23 !  Necessary or optional but the required fields for the operation is checked.
+    23 !
+    24 !  +->IF exp_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+    25 !  !  +->IF loc_imp type tkey_attr_text <= loc_empty type tkey_attr_text
+    26 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n20_mandatory_import_missing
+    27 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 145_type_key_attr_mand
+    28 ! <------ESCAPE
+    25 !  !  +--
+    29 !  !  +->IF loc_imp type tsearch_attr_text <= loc_empty type tsearch_attr_text
+    30 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n20_mandatory_import_missing
+    31 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 146_type_search_attr_mand
+    32 ! <------ESCAPE
+    29 !  !  +--
+    24 !  +--
+    33 !
+    34 !  +->IF exp_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+    35 !  !  USE dyyy0331_type_update
+    35 !  !     WHICH IMPORTS: Work View exp_error iyy1_component TO Work View imp_error iyy1_component
+    35 !  !                    Work View imp_reference iyy1_server_data TO Work View imp_reference iyy1_server_data
+    35 !  !                    Entity View imp type TO Entity View imp type
+    35 !  !     WHICH EXPORTS: Entity View exp type FROM Entity View exp type
+    35 !  !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    36 !  !
+    37 !  !  NOTE:
+    37 !  !  ****************************************************************
+    37 !  !  If External will be USEd the code sample replacement for above code:
+    37 !  !
+    37 !  !  | USE eyyy0331_type_update
+    37 !  !  |   WHICH IMPORTS: Work View imp_reference iyy1_server_data  TO Work View imp_reference iyy1_s.
+    37 !  !  |                  Entity View imp type  TO Entity View imp type
+    37 !  !  |   WHICH EXPORTS: Entity View exp type  FROM Entity View exp type
+    37 !  !  |                  Work View   loc_error d._c._text  FROM Work View   exp_error d._c._text
+    37 !  !  |
+    37 !  !  | +- CASE OF loc_error dont_change_text text_2
+    37 !  !  | +- CASE "OK"
+    37 !  !  | +- CASE "NF"
+    37 !  !  | |  SET exp_error iyy1_com.. return_code TO loc d._c._return_codes n10_obj_not_found
+    37 !  !  | |  SET exp_error iyy1_com.. reason_code TO loc d._c._reason_codes 141_type_not_found
+    37 !  !  | +- CASE "AE"
+    37 !  !  | |  SET exp_error iyy1_com.. return_code TO loc d._c._return_codes n41_obj_update_failed
+    37 !  !  | |  SET exp_error iyy1_com.. reason_code TO loc d._c._reason_codes 142_type_already_exist
+    37 !  !  | +- CASE "PV"
+    37 !  !  | |  SET exp_error iyy1_com.. return_code TO loc d._c._return_codes n41_obj_update_failed
+    37 !  !  | |  SET exp_error iyy1_com.. reason_code TO loc d._c._reason_codes 143_type_attr_value_invalid
+    37 !  !  | +- CASE "CC"
+    37 !  !  | |  SET exp_error iyy1_com.. return_code TO loc d._c._return_codes n41_obj_update_failed
+    37 !  !  | |  SET exp_error iyy1_com.. reason_code TO loc d._c._reason_codes 152_type_concurrency_error
+    37 !  !  | +- OTHERWISE
+    37 !  !  | |  SET exp_error iyy1_com.. return_code TO loc d._c._return_codes n999_unexpected_exception
+    37 !  !  | |  SET exp_error iyy1_com.. reason_code TO loc d._c._reason_codes 1_default
+    37 !  !  | +--
+    37 !  !
+    38 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    39 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    40 !  !  !  NOTE:
+    40 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    40 !  !  !  !! ATTENTION : In D AB, if context string must be formed ESCAPE AB must be exited.
+    40 !  !  !
+    41 ! <------ESCAPE
+    38 !  !  +--
+    34 !  +--
+    42 !
+    43 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    44 !  !  USE cyyy9141_context_string_set
+    44 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    44 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    44 !  !                    Work View exp_error iyy1_component FROM Work View exp_context iyy1_component
+    45 !  !
+    46 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    47 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    46 !  !  +--
+    48 !  !  SET exp_error iyy1_component severity_code TO "E"
+    43 !  +--
+       +---

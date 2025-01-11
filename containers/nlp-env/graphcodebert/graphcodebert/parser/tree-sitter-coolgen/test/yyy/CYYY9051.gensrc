@@ -1,0 +1,68 @@
+       +->   CYYY9051_CMPNT_IDENTIFIERS_GET    07/05/2023  15:07
+       !       EXPORTS:
+       !         Work View exp_identifiers iyy1_component (Transient, Export only)
+       !           origin_servid
+       !           implementation_id
+       !           specification_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Group View (9) loc_group_context_s
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     3 !
+     4 !  NOTE:
+     4 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     4 !  Please rename the procedure name below.
+     4 !
+     5 !  SET SUBSCRIPT OF loc_group_context_s TO 1
+     6 !  SET loc_g_context dont_change_text text_150 TO "CYYY9051"
+     7 !  SET SUBSCRIPT OF loc_group_context_s TO 2
+     8 !  SET loc_g_context dont_change_text text_150 TO "IDENT"
+     9 !
+    10 !  USE cyyy9001_exception_hndlng_dflt
+    10 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    11 !
+    12 !  NOTE:
+    12 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    12 !  Please set implem. and spec. numbers below.
+    12 !
+    13 !  SET exp_identifiers iyy1_component origin_servid TO exp_error iyy1_component origin_servid
+    14 !  SET exp_identifiers iyy1_component specification_id TO 9001
+    15 !  SET exp_identifiers iyy1_component implementation_id TO 9001
+    16 !
+    17 !  +->IF exp_error iyy1_component return_code < 1
+    18 !  !  USE cyyy9141_context_string_set
+    18 !  !     WHICH IMPORTS: Group View  loc_group_context_s TO Group View imp_group_context
+    18 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    18 !  !                    Work View exp_error iyy1_component FROM Work View exp_context iyy1_component
+    19 !  !
+    20 !  !  +->IF loc_error iyy1_component return_code < 1
+    21 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    20 !  !  +--
+    22 !  !  SET exp_error iyy1_component severity_code TO "E"
+    17 !  +--
+       +---

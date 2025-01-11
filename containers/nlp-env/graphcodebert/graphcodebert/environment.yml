@@ -1,0 +1,7 @@
+name: graphcodebert-env
+dependencies:
+- python=3.10.9
+- numpy
+- pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch-nightly -c nvidia
+- transformers
+- tree_sitter

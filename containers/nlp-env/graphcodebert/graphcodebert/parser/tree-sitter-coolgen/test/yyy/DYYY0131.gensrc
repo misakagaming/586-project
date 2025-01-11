@@ -1,0 +1,140 @@
+       +->   DYYY0131_PARENT_UPDATE            07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp parent (Transient, Mandatory, Import only)
+       !           pinstance_id
+       !           preference_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       EXPORTS:
+       !         Entity View exp parent (Transient, Export only)
+       !           preference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View parent
+       !           pinstance_id
+       !           preference_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View type
+       !           tkey_attr_text
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n10_obj_not_found
+       !           n41_obj_update_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           101_parent_not_found
+       !           102_parent_already_exist
+       !           103_parent_attr_value_invalid
+       !           111_parents_type_not_found
+       !           112_parent_concurrency_error
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  The used ReturnCode/ReasonCode values
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Set the return and reason codes below
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n10_obj_not_found TO -10
+     9 !  SET loc dont_change_return_codes n41_obj_update_failed TO -41
+    10 !
+    11 !  SET loc dont_change_reason_codes 1_default TO 1
+    12 !  SET loc dont_change_reason_codes 101_parent_not_found TO 101
+    13 !  SET loc dont_change_reason_codes 102_parent_already_exist TO 102
+    14 !  SET loc dont_change_reason_codes 103_parent_attr_value_invalid TO 103
+    15 !  SET loc dont_change_reason_codes 111_parents_type_not_found TO 111
+    16 !  SET loc dont_change_reason_codes 112_parent_concurrency_error TO 112
+    17 !
+    18 !  NOTE:
+    18 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    18 !  If the Instance_id is being used, reading must be operated according to this section, instead of business_key(s).
+    18 !
+    19 !  NOTE:
+    19 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    19 !  Choose Control of Cursor Generation property as "Select only". (being read for update)
+    19 !
+    20 !  +=>READ (Cursor Only) parent
+    20 !  !        WHERE DESIRED parent pkey_attr_text = imp parent pkey_attr_text
+    20 !  +> WHEN successful
+    21 !  !  +->IF parent preference_id ^= imp parent preference_id
+    22 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    23 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 112_parent_concurrency_error
+    24 ! <------ESCAPE
+    21 !  !  +--
+    25 !  !  NOTE:
+    25 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    25 !  !  If the operation 'type' depends on the data type, protect the 'READ type' method below; remove if not.
+    25 !  !
+    26 !  !  NOTE:
+    26 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    26 !  !  Choose Control of Cursor Generation property as "Select only".
+    26 !  !
+    27 !  !  +=>READ (Select Only) type
+    27 !  !  !        WHERE DESIRED type tkey_attr_text = imp parent ptype_tkey_attr_text
+    27 !  !  +> WHEN successful
+    28 !  !  !  NOTE:
+    28 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    28 !  !  !  All fields are updated except for the key field(s), Create_ts and Create_userid.
+    28 !  !  !
+    29 !  !  !  +->UPDATE parent
+    30 !  !  !  !  SET preference_id TO imp_reference iyy1_server_data reference_id
+    31 !  !  !  !  SET pupdate_user_id TO imp_reference iyy1_server_data userid
+    32 !  !  !  !  SET psearch_attr_text TO imp parent psearch_attr_text
+    33 !  !  !  !  SET pother_attr_text TO imp parent pother_attr_text
+    34 !  !  !  !  SET ptype_tkey_attr_text TO imp parent ptype_tkey_attr_text
+    29 !  !  !  +> WHEN successful
+    35 !  !  !  !  MOVE  parent TO exp parent
+    29 !  !  !  +> WHEN not unique
+    36 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    37 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 102_parent_already_exist
+    29 !  !  !  +> WHEN permitted value violation
+    38 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    39 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 103_parent_attr_value_invalid
+    29 !  !  !  +--
+    27 !  !  +> WHEN not found
+    40 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    41 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 111_parents_type_not_found
+    27 !  !  +--
+    20 !  +> WHEN not found
+    42 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n10_obj_not_found
+    43 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 101_parent_not_found
+    20 !  +--
+       +---

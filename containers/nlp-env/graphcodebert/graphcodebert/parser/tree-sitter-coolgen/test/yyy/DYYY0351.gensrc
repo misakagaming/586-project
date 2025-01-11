@@ -1,0 +1,221 @@
+       +->   DYYY0351_TYPE_LIST                07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !         Entity View imp_filter_start type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter_stop type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter type (Transient, Mandatory, Import only)
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View type
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       LOCALS:
+       !         Work View loc_filter iyy1_list
+       !           scroll_type
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           11_list_full
+       !           12_list_empty
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  Values of the ReturnCode/ReasonCode used.
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Please set the return ve reason code values below.
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !
+     9 !  SET loc dont_change_reason_codes 1_default TO 1
+    10 !  SET loc dont_change_reason_codes 11_list_full TO 11
+    11 !  SET loc dont_change_reason_codes 12_list_empty TO 12
+    12 !
+    13 !  NOTE:
+    13 !  ****************************************************************
+    13 !
+    14 !  SET SUBSCRIPT OF exp_group_list TO 0
+    15 !  SET loc_filter iyy1_list scroll_type TO imp_filter iyy1_list scroll_type
+    16 !
+    17 !
+    18 !  +->CASE OF imp_filter iyy1_list sort_option
+    18 !  +> CASE "ASC"
+    19 !  !  NOTE:
+    19 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    19 !  !  Set "General->Select Clause Isolation Level" property to "Uncomitted / Browse"
+    19 !  !  and "DB2 MVS (XDB)->Optimize for N rows" property to "Use the value: 1".
+    19 !  !
+    20 !  !  +->CASE OF imp_filter iyy1_list order_by_field_num
+    20 !  !  +> CASE 2
+    21 !  !  !  +=>READ EACH (Isolation UR) type
+    21 !  !  !  !        SORTED BY ASCENDING type tsearch_attr_text
+    21 !  !  !  !              AND SORTED BY ASCENDING type tkey_attr_text
+    21 !  !  !  !        WHERE (DESIRED type tsearch_attr_text > imp_from type tsearch_attr_text
+    21 !  !  !  !              OR  (DESIRED type tsearch_attr_text = imp_from type tsearch_attr_text
+    21 !  !  !  !              AND  (DESIRED type tkey_attr_text >= imp_from type tkey_attr_text)))
+    21 !  !  !  !              AND  DESIRED type tkey_attr_text >= imp_filter_start type tkey_attr_text
+    21 !  !  !  !              AND  DESIRED type tkey_attr_text <= imp_filter_stop type tkey_attr_text
+    21 !  !  !  !              AND  DESIRED type tsearch_attr_text IS LIKE imp_filter type tsearch_attr_text
+    21 !  !  !  !              AND  DESIRED type tother_attr_text IS LIKE imp_filter type tother_attr_text
+    22 !  !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    23 !  !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    24 !  !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    23 !  !  !  !  !  +> ELSE
+    25 !  !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    26 !  !  !  !  !  !  MOVE  type TO exp_g_list type
+    23 !  !  !  !  !  +--
+    22 !  !  !  !  +> ELSE
+    27 !  !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    28 !  !  ! <------ESCAPE
+    22 !  !  !  !  +--
+    21 !  !  !  +--
+    20 !  !  +> OTHERWISE
+    29 !  !  !  NOTE:
+    29 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    29 !  !  !  Set "General->Select Clause Isolation Level" property to "Uncomitted / Browse"
+    29 !  !  !  and "DB2 MVS (XDB)->Optimize for N rows" property to "Use the value: 1".
+    29 !  !  !
+    30 !  !  !  +=>READ EACH (Optimize 1, Isolation UR) type
+    30 !  !  !  !        SORTED BY ASCENDING type tkey_attr_text
+    30 !  !  !  !        WHERE DESIRED type tkey_attr_text >= imp_from type tkey_attr_text
+    30 !  !  !  !              AND  DESIRED type tkey_attr_text >= imp_filter_start type tkey_attr_text
+    30 !  !  !  !              AND  DESIRED type tkey_attr_text <= imp_filter_stop type tkey_attr_text
+    30 !  !  !  !              AND  DESIRED type tsearch_attr_text IS LIKE imp_filter type tsearch_attr_text
+    30 !  !  !  !              AND  DESIRED type tother_attr_text IS LIKE imp_filter type tother_attr_text
+    31 !  !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    32 !  !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    33 !  !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    32 !  !  !  !  !  +> ELSE
+    34 !  !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    35 !  !  !  !  !  !  MOVE  type TO exp_g_list type
+    32 !  !  !  !  !  +--
+    31 !  !  !  !  +> ELSE
+    36 !  !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    37 !  !  ! <------ESCAPE
+    31 !  !  !  !  +--
+    30 !  !  !  +--
+    20 !  !  +--
+    18 !  +> CASE "DES"
+    38 !  !  +->CASE OF imp_filter iyy1_list order_by_field_num
+    38 !  !  +> CASE 2
+    39 !  !  !  NOTE:
+    39 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    39 !  !  !  Set "General->Select Clause Isolation Level" property to "Uncomitted / Browse"
+    39 !  !  !  and "DB2 MVS (XDB)->Optimize for N rows" property to "Use the value: 1".
+    39 !  !  !
+    40 !  !  !  +=>READ EACH (Isolation UR) type
+    40 !  !  !  !        SORTED BY DESCENDING type tsearch_attr_text
+    40 !  !  !  !              AND SORTED BY DESCENDING type tkey_attr_text
+    40 !  !  !  !        WHERE (DESIRED type tsearch_attr_text < imp_from type tsearch_attr_text
+    40 !  !  !  !              OR  (DESIRED type tsearch_attr_text = imp_from type tsearch_attr_text
+    40 !  !  !  !              AND  (DESIRED type tkey_attr_text <= imp_from type tkey_attr_text)))
+    40 !  !  !  !              AND  DESIRED type tkey_attr_text >= imp_filter_start type tkey_attr_text
+    40 !  !  !  !              AND  DESIRED type tkey_attr_text <= imp_filter_stop type tkey_attr_text
+    40 !  !  !  !              AND  DESIRED type tsearch_attr_text IS LIKE imp_filter type tsearch_attr_text
+    40 !  !  !  !              AND  DESIRED type tother_attr_text IS LIKE imp_filter type tother_attr_text
+    41 !  !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    42 !  !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    43 !  !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    42 !  !  !  !  !  +> ELSE
+    44 !  !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    45 !  !  !  !  !  !  MOVE  type TO exp_g_list type
+    42 !  !  !  !  !  +--
+    41 !  !  !  !  +> ELSE
+    46 !  !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    47 !  !  ! <------ESCAPE
+    41 !  !  !  !  +--
+    40 !  !  !  +--
+    38 !  !  +> OTHERWISE
+    48 !  !  !  NOTE:
+    48 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    48 !  !  !  Set "General->Select Clause Isolation Level" property to "Uncomitted / Browse"
+    48 !  !  !  and "DB2 MVS (XDB)->Optimize for N rows" property to "Use the value: 1".
+    48 !  !  !
+    49 !  !  !  +=>READ EACH (Optimize 1, Isolation UR) type
+    49 !  !  !  !        SORTED BY DESCENDING type tkey_attr_text
+    49 !  !  !  !        WHERE DESIRED type tkey_attr_text <= imp_from type tkey_attr_text
+    49 !  !  !  !              AND  DESIRED type tkey_attr_text >= imp_filter_start type tkey_attr_text
+    49 !  !  !  !              AND  DESIRED type tkey_attr_text <= imp_filter_stop type tkey_attr_text
+    49 !  !  !  !              AND  DESIRED type tsearch_attr_text IS LIKE imp_filter type tsearch_attr_text
+    49 !  !  !  !              AND  DESIRED type tother_attr_text IS LIKE imp_filter type tother_attr_text
+    50 !  !  !  !  +->IF SUBSCRIPT OF exp_group_list < imp_filter iyy1_list scroll_amount
+    51 !  !  !  !  !  +->IF loc_filter iyy1_list scroll_type = "S"
+    52 !  !  !  !  !  !  SET loc_filter iyy1_list scroll_type TO SPACES
+    51 !  !  !  !  !  +> ELSE
+    53 !  !  !  !  !  !  SET SUBSCRIPT OF exp_group_list TO SUBSCRIPT OF exp_group_list + 1
+    54 !  !  !  !  !  !  MOVE  type TO exp_g_list type
+    51 !  !  !  !  !  +--
+    50 !  !  !  !  +> ELSE
+    55 !  !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 11_list_full
+    56 !  !  ! <------ESCAPE
+    50 !  !  !  !  +--
+    49 !  !  !  +--
+    38 !  !  +--
+    18 !  +> OTHERWISE
+    18 !  +--
+    57 !  +->IF LAST OF exp_group_list <= 0
+    58 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 12_list_empty
+    57 !  +--
+       +---

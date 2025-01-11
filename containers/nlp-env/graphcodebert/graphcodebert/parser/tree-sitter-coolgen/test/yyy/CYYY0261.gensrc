@@ -1,0 +1,16 @@
+       +->   CYYY0261_CHILD_INSTANCE_ID_GEN    07/05/2023  15:08
+       !       EXPORTS:
+       !         Entity View exp child (Transient, Export only)
+       !           cinstance_id
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  See the description for the purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  SET exp child cinstance_id TO CURRENT_TIMESTAMP
+       +---

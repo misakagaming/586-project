@@ -1,0 +1,26 @@
+       +->   CYYY9811_SET_EXCPTN_OTHER_ERROR   07/05/2023  15:07
+       !       EXPORTS:
+       !         Work View exp_other_error iyy1_component (Transient, Export only)
+       !           return_code
+       !           reason_code
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 25-10-1998 New release
+     2 !
+     3 !  NOTE:
+     3 !  ****************************************************************
+     3 !  This will be used instead of the error codes, returned and not mapped from the components used in this component.
+     3 !  This component will return an error code that will not be used for other purpose.
+     3 !
+     3 !  Recommended return_code = -1999
+     3 !           reason_code =     1
+     3 !
+     4 !  SET exp_other_error iyy1_component return_code TO -1999
+     5 !  SET exp_other_error iyy1_component reason_code TO 1
+       +---

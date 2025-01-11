@@ -1,0 +1,75 @@
+       +->   IYY10431_XML_GROUP_CREATE_S       07/05/2023  15:10
+       !       IMPORTS:
+       !         Group View (10) imp_group
+       !           Entity View imp_g iyy1_type (Transient, Optional, Import only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !
+     2 !
+     3 !  NOTE:
+     3 !  PURPOSE(CONTINUED)
+     3 !
+     4 !  NOTE:
+     4 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     4 !  Check for Pre-Post Condition and Return/Reason Code
+     4 !
+     5 !  NOTE:
+     5 !  PRE-CONDITION
+     5 !  Give the attributes that will be composed as XML
+     5 !  POST-CONDITION
+     5 !  XML will be created
+     5 !  Return Code = 1, Reason Code = 1
+     5 !
+     6 !  NOTE:
+     6 !  PRE-CONDITION
+     6 !  XML Create Error
+     6 !  POST-CONDITION
+     6 !  XML could not created. Check Exp_error canam_xml for details
+     6 !  Return Code = -70, Reason Code = 1
+     6 !
+     7 !  NOTE:
+     7 !  RETURN / REASON CODES
+     7 !  +1/1 XML Created
+     7 !  -70/1 XML Create error
+     7 !
+     8 !  NOTE:
+     8 !  RELEASE HISTORY
+     8 !  01_00 01-10-2009 New Release
+     8 !
+     9 !  NOTE:
+     9 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     9 !  USE <mapper ab>
+     9 !
+    10 !  USE myy10431_xml_group_create
+    10 !     WHICH IMPORTS: Group View  imp_group TO Group View imp_group
+    10 !     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp canam_xml
+    10 !                    Work View exp_error canam_xml FROM Work View exp_error canam_xml
+    10 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+       +---

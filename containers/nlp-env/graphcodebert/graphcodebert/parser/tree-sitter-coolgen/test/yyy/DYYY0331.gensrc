@@ -1,0 +1,131 @@
+       +->   DYYY0331_TYPE_UPDATE              07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       EXPORTS:
+       !         Entity View exp type (Transient, Export only)
+       !           treference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View type
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tupdate_user_id
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n10_obj_not_found
+       !           n41_obj_update_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           141_type_not_found
+       !           142_type_already_exist
+       !           143_type_attr_value_invalid
+       !           152_type_concurrency_error
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  Values of the ReturnCode/ReasonCode used.
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Please set the return ve reason code values below.
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n10_obj_not_found TO -10
+     9 !  SET loc dont_change_return_codes n41_obj_update_failed TO -41
+    10 !
+    11 !  SET loc dont_change_reason_codes 1_default TO 1
+    12 !  SET loc dont_change_reason_codes 141_type_not_found TO 141
+    13 !  SET loc dont_change_reason_codes 142_type_already_exist TO 142
+    14 !  SET loc dont_change_reason_codes 143_type_attr_value_invalid TO 143
+    15 !  SET loc dont_change_reason_codes 152_type_concurrency_error TO 152
+    16 !
+    17 !  NOTE:
+    17 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    17 !  If Instance_id is used, reading should not be done according to business key(s). This field must be used.
+    17 !
+    18 !  NOTE:
+    18 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    18 !  If operation is dependent to 'parent' data type, preserve the PARENT READ process below, otherwise delete it.
+    18 !
+    19 !  NOTE:
+    19 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    19 !  Please set "Control of Cursor Generation" property to "Cursor only". (It is read for Update.)
+    19 !
+    20 !  +=>READ (Cursor Only) type
+    20 !  !        WHERE DESIRED type tkey_attr_text = imp type tkey_attr_text
+    20 !  +> WHEN successful
+    21 !  !  +->IF type treference_id ^= imp type treference_id
+    22 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    23 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 152_type_concurrency_error
+    24 ! <------ESCAPE
+    21 !  !  +--
+    25 !  !  NOTE:
+    25 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    25 !  !  Except the specified fields (Key field(s), Create_ts, Create_userid), all fields must be changed.
+    25 !  !
+    26 !  !  +->UPDATE type
+    27 !  !  !  SET treference_id TO imp_reference iyy1_server_data reference_id
+    28 !  !  !  SET tupdate_user_id TO imp_reference iyy1_server_data userid
+    29 !  !  !  SET tsearch_attr_text TO imp type tsearch_attr_text
+    30 !  !  !  SET tother_attr_text TO imp type tother_attr_text
+    31 !  !  !  SET tother_attr_date TO imp type tother_attr_date
+    32 !  !  !  SET tother_attr_time TO imp type tother_attr_time
+    33 !  !  !  SET tother_attr_amount TO imp type tother_attr_amount
+    26 !  !  +> WHEN successful
+    34 !  !  !  MOVE  type TO exp type
+    26 !  !  +> WHEN not unique
+    35 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    36 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 142_type_already_exist
+    26 !  !  +> WHEN permitted value violation
+    37 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n41_obj_update_failed
+    38 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 143_type_attr_value_invalid
+    26 !  !  +--
+    20 !  +> WHEN not found
+    39 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n10_obj_not_found
+    40 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 141_type_not_found
+    20 !  +--
+       +---

@@ -1,0 +1,107 @@
+       +->   CYY1SDUM_DUMMY_SERVER_1           07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp_command iyy1_component (Transient, Mandatory, Import only)
+       !           send_command
+       !         Work View imp_dialect iyy1_component (Transient, Mandatory, Import only)
+       !           dialect_cd
+       !         Entity View imp isc1_authorization_info (Transient, Mandatory, Import only)
+       !           userid
+       !           token_id
+       !           module_id
+       !           authority_object_id
+       !           version
+       !           working_unit_num
+       !         Entity View imp parent (Transient, Optional, Import only)
+       !           pinstance_id
+       !           preference_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       EXPORTS:
+       !         Work View exp_reference iyy1_server_data (Transient, Export only)
+       !           server_date
+       !           server_time
+       !           reference_id
+       !         Entity View exp isc1_authorization_info (Transient, Export only)
+       !           token_id
+       !           authority_ind
+       !           authority_status_r
+       !           authority_status_u
+       !           authority_status_d
+       !           authority_status_l
+       !         Entity View exp_all parent (Transient, Export only)
+       !           pinstance_id
+       !           preference_id
+       !           pcreate_user_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View exp_ts parent (Transient, Export only)
+       !           pinstance_id
+       !           preference_id
+       !         Entity View exp_all type (Transient, Export only)
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !         Work View exp_msg iyy1_component (Transient, Export only)
+       !           severity_code
+       !           message_tx
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Entity View loc_imp type
+       !           tinstance_id
+       !           tkey_attr_text
+       !         Work View loc_reference iyy1_server_data
+       !           userid
+       !           server_date
+       !           server_time
+       !           reference_id
+       !           server_timestamp
+       !         Work View loc_error isc1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View loc_context iyy1_component
+       !           context_string
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n1110_unauthorized_operation
+       !           n1120_invalid_command
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 *  USE iyy10321_type_read_s
+     2 !  USE iyy10351_type_list_s
+     3 !
+       +---

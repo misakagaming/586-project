@@ -1,0 +1,99 @@
+       +->   DYYY0311_TYPE_CREATE              07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       EXPORTS:
+       !         Entity View exp type (Transient, Export only)
+       !           treference_id
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View type
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !       LOCALS:
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n40_obj_create_failed
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           142_type_already_exist
+       !           143_type_attr_value_invalid
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  Values of the ReturnCode/ReasonCode used.
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Please set the return ve reason code values below.
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n40_obj_create_failed TO -40
+     9 !
+    10 !  SET loc dont_change_reason_codes 1_default TO 1
+    11 !  SET loc dont_change_reason_codes 142_type_already_exist TO 142
+    12 !  SET loc dont_change_reason_codes 143_type_attr_value_invalid TO 143
+    13 !
+    14 !  +->CREATE type
+    15 !  !  SET tinstance_id TO imp type tinstance_id
+    16 !  !  SET treference_id TO imp_reference iyy1_server_data reference_id
+    17 !  !  SET tcreate_user_id TO imp_reference iyy1_server_data userid
+    18 !  !  SET tupdate_user_id TO imp_reference iyy1_server_data userid
+    19 !  !  SET tkey_attr_text TO imp type tkey_attr_text
+    20 !  !  SET tsearch_attr_text TO imp type tsearch_attr_text
+    21 !  !  SET tother_attr_text TO imp type tother_attr_text
+    22 !  !  SET tother_attr_date TO imp type tother_attr_date
+    23 !  !  SET tother_attr_time TO imp type tother_attr_time
+    24 !  !  SET tother_attr_amount TO imp type tother_attr_amount
+    14 !  +> WHEN successful
+    25 !  !  MOVE  type TO exp type
+    14 !  +> WHEN already exists
+    26 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+    27 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 142_type_already_exist
+    14 !  +> WHEN permitted value violation
+    28 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n40_obj_create_failed
+    29 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 143_type_attr_value_invalid
+    14 !  +--
+       +---

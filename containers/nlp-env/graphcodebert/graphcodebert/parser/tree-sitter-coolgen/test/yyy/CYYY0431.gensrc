@@ -1,0 +1,157 @@
+       +->   CYYY0431_XML_GROUP_CREATE         07/05/2023  15:09
+       !       IMPORTS:
+       !         Group View (48) imp_group
+       !           Entity View imp_g type (Transient, Optional, Import only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !       EXPORTS:
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_buffer
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n70_xml_error
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !
+     2 !
+     3 !  NOTE:
+     3 !  Check description for porpose
+     3 !
+     4 !  NOTE:
+     4 !  RELEASE HISTORY
+     4 !  01_00 01-10-2009 New Release
+     4 !
+     5 !  USE cyyy9001_exception_hndlng_dflt
+     5 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     6 !
+     7 !  NOTE:
+     7 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     7 !  Change Action Block Name
+     7 !
+     8 !  SET SUBSCRIPT OF loc_group_context TO 1
+     9 !  SET loc_g_context dont_change_text text_150 TO "CYYY0431"
+    10 !  SET SUBSCRIPT OF loc_group_context TO 2
+    11 !  SET loc_g_context dont_change_text text_150 TO "XML CREATE"
+    12 !
+    13 !  NOTE:
+    13 !  ****************************************************************
+    13 !  The used ReturnCode/ReasonCode values
+    13 !
+    14 !  NOTE:
+    14 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    14 !  Set the return and reason codes below
+    14 !
+    15 !  SET loc dont_change_return_codes 1_ok TO 1
+    16 !  SET loc dont_change_return_codes n70_xml_error TO -70
+    17 !
+    18 !  SET loc dont_change_reason_codes 1_default TO 1
+    19 !
+    20 !  +->IF exp_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+    21 !  !  USE eyyy0431_xml_group_create
+    21 !  !     WHICH IMPORTS: Group View  imp_group TO Group View imp_group
+    21 !  !     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp canam_xml
+    21 !  !                    Work View exp_error canam_xml FROM Work View exp_error canam_xml
+    22 !  !
+    23 !  !  +->CASE OF exp_error canam_xml xml_return_code
+    23 !  !  +> CASE "OK"
+    24 !  !  !  NOTE:
+    24 !  !  !  ****************************************************************
+    24 !  !  !  OK
+    24 !  !  !   Successful.
+    25 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes 1_ok
+    26 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    23 !  !  +> OTHERWISE
+    27 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n70_xml_error
+    28 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    29 !  !  !  NOTE:
+    29 ...Check exp_error canam_xml for error details..
+    29 ...       Work View   exp_error canam_xml (transient,export only)
+    29 ...         xml_return_code
+    29 ...         xml_message
+    29 ...         xml_position
+    29 ...         xml_source
+    29 ...
+    29 ...CASE OF  xml_return_code:
+    29 ...EB
+    29 ... End of buffer. Occurs during parsing when end of buffer is encountered while more data was expected. For the writer,
+    29 ...it means that buffer is exhausted while more data was needed to be written out.
+    29 ...
+    29 ...IC
+    29 ... Invalid character. Occurs when a character is encountered in the stream that was not expected. Such as, a missing “=”
+    29 ...after attribute name.
+    29 ...
+    29 ...MN
+    29 ... Missing node. Occurs when a mandatory element or attribute is missing.
+    29 ...
+    29 ...UN
+    29 ... Unknown node. Occurs when a foreign (unknown) node has been encountered within a ‘non-extensible’ element context
+    29 ...
+    29 ...DA
+    29 ... Duplicate attribute. Occurs during parsing when an XML element has two attributes with the same name.
+    29 ...
+    29 ...PE
+    29 ... Pattern error. The node text does not have the pattern specified during design, such as date/time patterns.
+    29 ...
+    29 ...OV
+    29 ... Numeric overflow error. This can happen when the integer part of the number is truncated after parsing.
+    29 ...
+    29 ...MD
+    29 ... More data warning. This is a warning message that means there is more data in XML document than the IDS (Interface Data
+    29 ...Structure) can hold.
+    29 ...
+    29 ...BP
+    29 ... XML PARSE statement error.
+    29 ...
+    29 ...ER
+    29 ... Unknown error. Occurs when operation could not be completed for any other reason.
+    29 ...
+    23 !  !  +--
+    20 !  +--
+    30 !  +->IF exp_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    31 !  !  USE cyyy9141_context_string_set
+    31 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    31 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    31 !  !                    Work View exp_error iyy1_component FROM Work View exp_context iyy1_component
+    32 !  !
+    33 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    34 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    33 !  !  +--
+    35 !  !  SET exp_error iyy1_component severity_code TO "E"
+    30 !  +--
+       +---

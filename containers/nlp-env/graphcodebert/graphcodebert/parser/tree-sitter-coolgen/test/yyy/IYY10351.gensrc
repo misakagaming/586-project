@@ -1,0 +1,82 @@
+       +->   IYY10351_TYPE_LIST_S              07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp_filter iyy1_list (Transient, Mandatory, Import only)
+       !           sort_option
+       !           scroll_type
+       !           list_direction
+       !           scroll_amount
+       !           order_by_field_num
+       !         Entity View imp_from iyy1_type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !         Entity View imp_filter_start iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter_stop iyy1_type (Transient, Mandatory, Import only)
+       !           tkey_attr_text
+       !         Entity View imp_filter iyy1_type (Transient, Mandatory, Import only)
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !       EXPORTS:
+       !         Group View (48) exp_group_list
+       !           Entity View exp_g_list iyy1_type (Transient, Export only)
+       !             tinstance_id
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tsearch_attr_text
+       !             tother_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  PURPOSE(CONTINUED)
+     1 !
+     2 !  NOTE:
+     2 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     2 !  Review Pre-Post Conditions and Return/Reason Codes.
+     2 !
+     3 !  NOTE:
+     3 !  PRE-CONDITION
+     3 !  List type and filters are given.
+     3 !  POST-CONDITION
+     3 !  Read data is returned as list.
+     3 !  Return Code = 1, Reason Code = 1, 11 veya 12
+     3 !
+     4 !  NOTE:
+     4 !  RETURN / REASON CODES
+     4 !  +1/1 List is partially full.
+     4 !  +1999/1 Other warnings.
+     4 !  +1/11 List is full, there are records to be listed.
+     4 !  +1/12 List is empty.
+     4 !  -1999/1 Other errors.
+     4 !
+     5 !  NOTE:
+     5 !  RELEASE HISTORY
+     5 !  01_00 23-02-1998 New release
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  USE <mapper ab>
+     6 !
+     7 !  USE myy10351_type_list
+     7 !     WHICH IMPORTS: Work View imp_filter iyy1_list TO Work View imp_filter iyy1_list
+     7 !                    Entity View imp_from iyy1_type TO Entity View imp_from iyy1_type
+     7 !                    Entity View imp_filter_start iyy1_type TO Entity View imp_filter_start iyy1_type
+     7 !                    Entity View imp_filter_stop iyy1_type TO Entity View imp_filter_stop iyy1_type
+     7 !                    Entity View imp_filter iyy1_type TO Entity View imp_filter iyy1_type
+     7 !     WHICH EXPORTS: Group View  exp_group_list FROM Group View exp_group_list
+     7 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+       +---

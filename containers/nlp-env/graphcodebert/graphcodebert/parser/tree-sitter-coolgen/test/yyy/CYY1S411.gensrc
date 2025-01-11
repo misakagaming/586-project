@@ -1,0 +1,258 @@
+       +->   CYY1S411_XML_COMPOSER_TEST        07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_command iyy1_component (Transient, Optional, Import only)
+       !           send_command
+       !         Work View imp_dialect iyy1_component (Transient, Optional, Import only)
+       !           dialect_cd
+       !         Entity View imp isc1_authorization_info (Transient, Optional, Import only)
+       !           userid
+       !           token_id
+       !           module_id
+       !           authority_object_id
+       !           version
+       !           working_unit_num
+       !         Entity View imp type (Transient, Optional, Import only)
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !         Group View (48) imp_group
+       !           Entity View imp_g type (Transient, Optional, Import only)
+       !             tinstance_id
+       !             tsearch_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !             treference_id
+       !             tcreate_user_id
+       !             tupdate_user_id
+       !             tkey_attr_text
+       !             tother_attr_text
+       !         Work View imp canam_xml (Transient, Optional, Import only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !           xml_buffer
+       !       EXPORTS:
+       !         Work View exp_msg iyy1_component (Transient, Export only)
+       !           severity_code
+       !           message_tx
+       !         Work View exp_reference iyy1_server_data (Transient, Export only)
+       !           server_date
+       !           server_time
+       !           reference_id
+       !           server_timestamp
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Entity View exp isc1_authorization_info (Transient, Export only)
+       !           token_id
+       !           authority_ind
+       !           authority_status_01
+       !         Entity View exp type (Transient, Export only)
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !         Group View (48) exp_group
+       !           Entity View exp_g type (Transient, Export only)
+       !             tinstance_id
+       !             tsearch_attr_text
+       !             tother_attr_date
+       !             tother_attr_time
+       !             tother_attr_amount
+       !         Work View exp canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !           xml_buffer
+       !       LOCALS:
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View loc_context iyy1_component
+       !           context_string
+       !         Work View loc_reference iyy1_server_data
+       !           userid
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc dont_change_return_codes
+       !           n1120_invalid_command
+       !           n61_operation_environment_failur
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  PURPOSE(CONTINUED)
+     2 !
+     3 !  NOTE:
+     3 !  PRE-CONDITION:
+     3 !  INIT command, user info is given.
+     3 !  POST-CONDITION:
+     3 !  Security check results are generated.
+     3 !  RETURN CODE = 1, REASON CODE = 1
+     4 !
+     5 !  NOTE:
+     5 !  PRE-CONDITION:
+     5 !  A command except for INIT is given.
+     5 !  POST-CONDITION:
+     5 !  No result is generated.
+     5 !  RETURN CODE = -1120, REASON CODE = 1
+     5 !
+     6 !  NOTE:
+     6 !  RETURN / REASON  CODES
+     6 !  +1/1 Normal
+     6 !  -1120/1 Erronous command
+     7 !
+     8 !  NOTE:
+     8 !  RELEASE HISTORY
+     8 !  01_00 15-10-2003 New release
+     9 !
+    10 !
+    11 !  USE cyyy9001_exception_hndlng_dflt
+    11 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    12 !
+    13 !  NOTE:
+    13 !  **************************************************************
+    13 !  Return/Reason code values
+    13 !
+    14 !  NOTE:
+    14 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    14 !  Set the values of the return code/reason codes used
+    14 !
+    15 !  SET loc dont_change_return_codes n1120_invalid_command TO -1120
+    16 !  SET loc dont_change_return_codes n61_operation_environment_failur TO -61
+    17 !  SET loc dont_change_reason_codes 1_default TO 1
+    18 !
+    19 !  SET SUBSCRIPT OF loc_group_context TO 1
+    20 !  SET loc_g_context dont_change_text text_150 TO "CYY1S411"
+    21 !  SET SUBSCRIPT OF loc_group_context TO 2
+    22 !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    23 !
+    24 !  USE cyy1a131_server_init
+    24 !     WHICH EXPORTS: Work View loc_reference iyy1_server_data FROM Work View exp_reference iyy1_server_data
+    25 !
+    26 !  MOVE loc_reference iyy1_server_data TO exp_reference iyy1_server_data
+    27 !  NOTE:
+    27 !  ****************************************************************
+    27 !  Security check
+    27 !
+    28 !  NOTE:
+    28 !  ****************************************************************
+    28 !  All essential Server controls are being made...
+    28 !
+    29 !  +->IF exp_error iyy1_component return_code = 1
+    30 !  !
+    31 !  !  NOTE:
+    31 !  !  ****************************************************************
+    31 !  !  Check the operation wanted.
+    31 !  !
+    32 !  !  SET loc_reference iyy1_server_data userid TO imp isc1_authorization_info userid
+    33 !  !
+    34 !  !  +->CASE OF imp_command iyy1_component send_command
+    34 !  !  +> CASE "READ"
+    34 !  !  +> CASE "WRITE"
+    34 !  !  +> CASE "GRPWRITE"
+    34 !  !  +> CASE "GRPREAD"
+    34 !  !  +> OTHERWISE
+    35 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1120_invalid_command
+    36 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    37 !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    38 !  !  !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    34 !  !  +--
+    39 !  !
+    40 !  !  NOTE:
+    40 !  !  ****************************************************************
+    40 !  !  OK. Nothing left to control. Let' s build Context string.
+    40 !  !
+    41 !  !  NOTE:
+    41 !  !  ****************************************************************
+    41 !  !  Generate Context string whether there is an error or not.
+    41 !  !  There' s message to return in error-free condition.
+    41 !  !
+    42 !  !  USE cyyy9141_context_string_set
+    42 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    42 !  !     WHICH EXPORTS: Work View loc_context iyy1_component FROM Work View exp_context iyy1_component
+    42 !  !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    43 !  !
+    44 !  !  +->IF exp_error iyy1_component return_code < 1
+    45 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    44 !  !  +> ELSE
+    46 !  !  !  SET exp_error iyy1_component context_string TO loc_context iyy1_component context_string
+    44 !  !  +--
+    29 !  +--
+    47 !
+    48 !  NOTE:
+    48 !  ****************************************************************
+    48 !  Everything' s OK. Nothing left to control.
+    48 !
+    49 !  +->IF exp_error iyy1_component return_code = 1
+    50 !  !
+    51 !  !  +->CASE OF imp_command iyy1_component send_command
+    51 !  !  +> CASE "WRITE"
+    52 !  !  !
+    53 !  !  !
+    54 !  !  !  USE iyy10411_xml_create_s
+    55 *  *  *  USE cyyy0411_xml_create
+    55 *  *  *     WHICH IMPORTS: Entity View imp type TO Entity View imp type
+    55 *  *  *     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp canam_xml
+    55 *  *  *                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    51 !  !  +> CASE "READ"
+    56 !  !  !
+    57 !  !  !  USE iyy10421_xml_parse_s
+    58 *  *  *  USE cyyy0421_xml_parse
+    58 *  *  *     WHICH IMPORTS: Work View imp canam_xml TO Work View imp canam_xml
+    58 *  *  *     WHICH EXPORTS: Entity View exp type FROM Entity View exp type
+    58 *  *  *                    Work View exp canam_xml FROM Work View exp_error canam_xml
+    59 !  !  !
+    51 !  !  +> CASE "GRPWRITE"
+    60 !  !  !
+    61 !  !  !  USE iyy10431_xml_group_create_s
+    62 *  *  *  USE cyyy0431_xml_group_create
+    62 *  *  *     WHICH IMPORTS: Group View  imp_group TO Group View imp_group
+    62 *  *  *     WHICH EXPORTS: Work View exp canam_xml FROM Work View exp_error canam_xml
+    62 *  *  *                    Work View exp canam_xml FROM Work View exp_error canam_xml
+    63 !  !  !
+    51 !  !  +> CASE "GRPREAD"
+    64 !  !  !
+    65 !  !  !  USE iyy10441_xml_group_parse_s
+    66 *  *  *  USE cyyy0441_xml_group_parse
+    66 *  *  *     WHICH IMPORTS: Work View imp canam_xml TO Work View imp canam_xml
+    66 *  *  *     WHICH EXPORTS: Group View  exp_group FROM Group View exp_group
+    66 *  *  *                    Work View exp canam_xml FROM Work View exp_error canam_xml
+    51 !  !  +--
+    49 !  +--
+    67 !
+    68 !  USE cyy1a121_server_termination
+    68 !     WHICH IMPORTS: Work View imp_command iyy1_component TO Work View imp_dialect iyy1_component
+    68 !                    Work View exp_error iyy1_component TO Work View imp_error iyy1_component
+    68 !     WHICH EXPORTS: Work View exp_msg iyy1_component FROM Work View exp_error_msg iyy1_component
+    68 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+       +---

@@ -1,0 +1,107 @@
+       +->   CYYY9041_EXCPTN_MSG_FMT_AS_STR    07/05/2023  15:07
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Optional, Import only)
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           implementation_id
+       !           specification_id
+       !           dialect_cd
+       !           activity_cd
+       !       EXPORTS:
+       !         Work View exp_error_msg iyy1_component (Transient, Export only)
+       !           severity_code
+       !           message_tx
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_imp_error iro1_component
+       !           specification_id
+       !           implementation_id
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           activity_cd
+       !           dialect_cd
+       !         Work View loc_other_error iyy1_component
+       !           return_code
+       !           reason_code
+       !         Work View loc_error_msg iro1_component
+       !           severity_cd
+       !           message_tx
+       !         Work View loc_error iro1_component
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           severity_cd
+       !           rollback_indicator_tx
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     3 !
+     4 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     5 !  SET exp_error iyy1_component return_code TO 1
+     6 !  SET exp_error iyy1_component reason_code TO 1
+     7 !
+     8 !  +->IF imp_error iyy1_component return_code < 1
+     9 !  !  USE cyyy9811_set_excptn_other_error
+     9 !  !     WHICH EXPORTS: Work View loc_other_error iyy1_component FROM Work View exp_other_error iyy1_component
+     8 !  +> ELSE
+    10 !  !  USE cyyy9801_set_excptn_other_info
+    10 !  !     WHICH EXPORTS: Work View loc_other_error iyy1_component FROM Work View exp_other_error iyy1_component
+     8 !  +--
+    11 !
+    12 !  +->IF imp_error iyy1_component return_code = loc_other_error iyy1_component return_code
+    13 !  !  SET exp_error_msg iyy1_component message_tx TO imp_error iyy1_component context_string
+    12 !  +> ELSE
+    14 !  !  SET loc_imp_error iro1_component activity_cd TO imp_error iyy1_component activity_cd
+    15 !  !  SET loc_imp_error iro1_component context_string_tx TO imp_error iyy1_component context_string
+    16 !  !  SET loc_imp_error iro1_component dialect_cd TO imp_error iyy1_component dialect_cd
+    17 !  !  SET loc_imp_error iro1_component implementation_id TO imp_error iyy1_component implementation_id
+    18 !  !  SET loc_imp_error iro1_component origin_servid TO imp_error iyy1_component origin_servid
+    19 !  !  SET loc_imp_error iro1_component reason_code TO imp_error iyy1_component reason_code
+    20 !  !  SET loc_imp_error iro1_component return_code TO imp_error iyy1_component return_code
+    21 !  !  SET loc_imp_error iro1_component specification_id TO imp_error iyy1_component specification_id
+    22 !  !
+    23 !  !  NOTE:
+    23 !  !  ****************************************************************
+    23 !  !  Set the dialect code..
+    23 !  !
+    24 !  !  USE cyyy9911_check_dialect
+    24 !  !     WHICH IMPORTS: Work View loc_imp_error iro1_component TO Work View imp_dialect iro1_component
+    24 !  !     WHICH EXPORTS: Work View loc_imp_error iro1_component FROM Work View exp_dialect iro1_component
+    25 !  !
+    26 !  !  NOTE:
+    26 !  !  ****************************************************************
+    26 !  !  Convert the error data to message.
+    26 !  !
+    27 !  !  USE iro10041_excptn_msg_fmt_as_str_s
+    27 !  !     WHICH IMPORTS: Work View loc_imp_error iro1_component TO Work View in iro1_component
+    27 !  !     WHICH EXPORTS: Work View loc_error iro1_component FROM Work View out_error iro1_component
+    27 !  !                    Work View loc_error_msg iro1_component FROM Work View out_data iro1_component
+    28 !  !
+    29 !  !  SET exp_error_msg iyy1_component message_tx TO loc_error_msg iro1_component message_tx
+    30 !  !  SET exp_error_msg iyy1_component severity_code TO loc_error_msg iro1_component severity_cd
+    31 !  !
+    32 !  !  +->IF loc_error iro1_component return_code < 1
+    33 !  !  !  SET exp_error iyy1_component return_code TO loc_other_error iyy1_component return_code
+    34 !  !  !  SET exp_error iyy1_component reason_code TO loc_other_error iyy1_component reason_code
+    35 !  !  !  SET exp_error iyy1_component context_string TO loc_error_msg iro1_component message_tx
+    32 !  !  +--
+    12 !  +--
+       +---

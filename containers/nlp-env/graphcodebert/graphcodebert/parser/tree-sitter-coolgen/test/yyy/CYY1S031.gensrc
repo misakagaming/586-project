@@ -1,0 +1,375 @@
+       +->   CYY1S031_PARENT_MAINTAIN          07/05/2023  15:08
+       !       IMPORTS:
+       !         Work View imp_command iyy1_component (Transient, Mandatory, Import only)
+       !           send_command
+       !         Work View imp_dialect iyy1_component (Transient, Mandatory, Import only)
+       !           dialect_cd
+       !         Entity View imp isc1_authorization_info (Transient, Mandatory, Import only)
+       !           userid
+       !           token_id
+       !           module_id
+       !           authority_object_id
+       !           version
+       !           working_unit_num
+       !         Entity View imp parent (Transient, Optional, Import only)
+       !           pinstance_id
+       !           preference_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !       EXPORTS:
+       !         Work View exp_reference iyy1_server_data (Transient, Export only)
+       !           server_date
+       !           server_time
+       !           reference_id
+       !         Entity View exp isc1_authorization_info (Transient, Export only)
+       !           token_id
+       !           authority_ind
+       !           authority_status_r
+       !           authority_status_u
+       !           authority_status_d
+       !           authority_status_l
+       !         Entity View exp_all parent (Transient, Export only)
+       !           pinstance_id
+       !           preference_id
+       !           pcreate_user_id
+       !           pupdate_user_id
+       !           pkey_attr_text
+       !           psearch_attr_text
+       !           pother_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View exp_ts parent (Transient, Export only)
+       !           pinstance_id
+       !           preference_id
+       !         Entity View exp_all type (Transient, Export only)
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !         Work View exp_msg iyy1_component (Transient, Export only)
+       !           severity_code
+       !           message_tx
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Entity View loc_imp type
+       !           tinstance_id
+       !           tkey_attr_text
+       !         Work View loc_reference iyy1_server_data
+       !           userid
+       !           server_date
+       !           server_time
+       !           reference_id
+       !           server_timestamp
+       !         Work View loc_error isc1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View loc_context iyy1_component
+       !           context_string
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n1110_unauthorized_operation
+       !           n1120_invalid_command
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  PURPOSE(CONTINUED)
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  Review Pre-Post Conditions and Return/Reason Codes.
+     3 !
+     4 !  NOTE:
+     4 !  PRE-CONDITION:
+     4 !  INIT command, user info is given.
+     4 !  POST-CONDITION:
+     4 !  Security check results are generated.
+     4 !  RETURN CODE = 1, REASON CODE = 1
+     5 !
+     6 !  NOTE:
+     6 !  PRE-CONDITION:
+     6 !  READ command, key fields are given.
+     6 !  POST-CONDITION:
+     6 !  Record is read, EXP_ALL and EXP_TS are generated.
+     6 !  RETURN CODE = 1, REASON CODE = 1
+     7 !
+     8 !  NOTE:
+     8 !  PRE-CONDITION:
+     8 !  UPDATE command, all fields are given.
+     8 !  POST-CONDITION:
+     8 !  Record is read and updated, EXP_TS is generated.
+     8 !  RETURN CODE = 1, REASON CODE = 1
+     9 !
+    10 !  NOTE:
+    10 !  PRE-CONDITION:
+    10 !  DELETE command, key fields and the latest update time are given.
+    10 !  POST-CONDITION:
+    10 !  Record is read and deleted.
+    10 !  RETURN CODE = 1, REASON CODE = 1
+    11 !
+    12 !  NOTE:
+    12 !  PRE-CONDITION:
+    12 !  CREATE command and all fields are given.
+    12 !  POST-CONDITION:
+    12 !  Record is created, EXP_TS is generated.
+    12 !  RETURN CODE = 1, REASON CODE = 1
+    13 !
+    14 !  NOTE:
+    14 !  PRE-CONDITION:
+    14 !  A command different than the ones above is given.
+    14 !  POST-CONDITION:
+    14 !  No result is generated.
+    14 !  RETURN CODE = -1120, REASON CODE = 1
+    14 !
+    15 !  NOTE:
+    15 !  PRE-CONDITION:
+    15 !  User is not authorized for the operation wanted.
+    15 !  POST-CONDITION:
+    15 !  No result is generated.
+    15 !  RETURN CODE = -1110, REASON CODE = 1
+    16 !
+    17 !  NOTE:
+    17 !  RETURN / REASON  CODES
+    17 !  +1/1 Normal
+    17 !  -1110/1 Unauthorized access
+    17 !  -1120/1 Erronous command
+    18 !
+    19 !  NOTE:
+    19 !  RELEASE HISTORY
+    19 !  01_00 23-02-1998 New release
+    20 !
+    21 !  USE cyyy9001_exception_hndlng_dflt
+    21 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    22 !
+    23 !  NOTE:
+    23 !  **************************************************************
+    23 !  Return/Reason code values
+    23 !
+    24 !  NOTE:
+    24 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    24 !  Set the values for the return code/reason codes used.
+    24 !
+    25 !  SET loc dont_change_return_codes 1_ok TO 1
+    26 !  SET loc dont_change_return_codes n1110_unauthorized_operation TO -1110
+    27 !  SET loc dont_change_return_codes n1120_invalid_command TO -1120
+    28 !
+    29 !  SET loc dont_change_reason_codes 1_default TO 1
+    30 !
+    31 !  NOTE:
+    31 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    31 !  Name the procedure below
+    31 !
+    32 !  SET SUBSCRIPT OF loc_group_context TO 1
+    33 !  SET loc_g_context dont_change_text text_150 TO "CYY1S031"
+    34 !  SET SUBSCRIPT OF loc_group_context TO 2
+    35 !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    36 !
+    37 !  USE cyy1a131_server_init
+    37 !     WHICH EXPORTS: Work View loc_reference iyy1_server_data FROM Work View exp_reference iyy1_server_data
+    38 !  MOVE loc_reference iyy1_server_data TO exp_reference iyy1_server_data
+    39 !
+    40 !  NOTE:
+    40 !  ****************************************************************
+    40 !  Security check
+    40 !
+    41 !  USE isc1z021_o_authorization_check_s
+    41 !     WHICH IMPORTS: Entity View imp isc1_authorization_info TO Entity View imp isc1_authorization_info
+    41 !     WHICH EXPORTS: Work View loc_error isc1_component FROM Work View exp_error isc1_component
+    41 !                    Entity View exp isc1_authorization_info FROM Entity View exp isc1_authorization_info
+    42 !
+    43 !  +->IF loc_error isc1_component return_code < loc dont_change_return_codes 1_ok
+    44 !  !  USE cyyy9831_mv_sc1_to_yy1
+    44 !  !     WHICH IMPORTS: Work View loc_error isc1_component TO Work View imp_error isc1_component
+    44 !  !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+    43 !  +--
+    45 !
+    46 !  NOTE:
+    46 !  ****************************************************************
+    46 !  All essential Server controls are being made...
+    46 !
+    47 !  +->IF exp_error iyy1_component return_code = loc dont_change_return_codes 1_ok
+    48 !  !
+    49 !  !  NOTE:
+    49 !  !  ****************************************************************
+    49 !  !  Control the operation wanted
+    49 !  !
+    50 !  !  SET loc_reference iyy1_server_data userid TO imp isc1_authorization_info userid
+    51 !  !
+    52 !  !  +->CASE OF imp_command iyy1_component send_command
+    52 !  !  +> CASE "INIT"
+    52 !  !  +> CASE "CREATE"
+    53 !  !  !  +->IF exp isc1_authorization_info authority_status_u ^= "Y"
+    54 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1110_unauthorized_operation
+    55 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    56 !  !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    57 !  !  !  !  SET loc_g_context dont_change_text text_150 TO CLIENT_USER_ID
+    53 !  !  !  +--
+    52 !  !  +> CASE "READ"
+    58 !  !  !  +->IF exp isc1_authorization_info authority_status_r ^= "Y"
+    59 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1110_unauthorized_operation
+    60 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    61 !  !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    62 !  !  !  !  SET loc_g_context dont_change_text text_150 TO CLIENT_USER_ID
+    58 !  !  !  +--
+    52 !  !  +> CASE "UPDATE"
+    63 !  !  !  +->IF exp isc1_authorization_info authority_status_u ^= "Y"
+    64 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1110_unauthorized_operation
+    65 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    66 !  !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    67 !  !  !  !  SET loc_g_context dont_change_text text_150 TO CLIENT_USER_ID
+    63 !  !  !  +--
+    52 !  !  +> CASE "DELETE"
+    68 !  !  !  +->IF exp isc1_authorization_info authority_status_d ^= "Y"
+    69 !  !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1110_unauthorized_operation
+    70 !  !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    71 !  !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    72 !  !  !  !  SET loc_g_context dont_change_text text_150 TO CLIENT_USER_ID
+    68 !  !  !  +--
+    52 !  !  +> OTHERWISE
+    73 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n1120_invalid_command
+    74 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 1_default
+    75 !  !  !  SET SUBSCRIPT OF loc_group_context TO 3
+    76 !  !  !  SET loc_g_context dont_change_text text_150 TO imp_command iyy1_component send_command
+    52 !  !  +--
+    77 !  !
+    78 !  !  NOTE:
+    78 !  !  ****************************************************************
+    78 !  !  OK. Nothing left to control. Let' s generate Context string.
+    78 !  !
+    79 !  !  NOTE:
+    79 !  !  ****************************************************************
+    79 !  !  Generate Context string whether there is an error or not.
+    79 !  !  There' s message to return in error-free condition.
+    79 !  !
+    80 !  !  USE cyyy9141_context_string_set
+    80 !  !     WHICH IMPORTS: Group View  loc_group_context TO Group View imp_group_context
+    80 !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    80 !  !                    Work View loc_context iyy1_component FROM Work View exp_context iyy1_component
+    81 !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    82 !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    81 !  !  +> ELSE
+    83 !  !  !  SET exp_error iyy1_component context_string TO loc_context iyy1_component context_string
+    81 !  !  +--
+    47 !  +--
+    84 !
+    85 !  NOTE:
+    85 !  ****************************************************************
+    85 !  Everything is OK. Nothing left to control.
+    85 !
+    86 !  +->IF exp_error iyy1_component return_code = loc dont_change_return_codes 1_ok
+    87 !  !
+    88 !  !  +->CASE OF imp_command iyy1_component send_command
+    88 !  !  +> CASE "INIT"
+    89 !  !  !
+    90 !  !  !  NOTE:
+    90 !  !  !  ****************************************************************
+    90 !  !  !  Things to be done when the Server is initially called.
+    90 !  !  !
+    91 !  !  !  NOTE:
+    91 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    91 !  !  !  Encode the things to be done when the Server is initially called.
+    91 !  !  !
+    88 !  !  +> CASE "CREATE"
+    92 !  !  !  USE cyyy0111_parent_create
+    92 !  !  !     WHICH IMPORTS: Work View loc_reference iyy1_server_data TO Work View imp_reference iyy1_server_data
+    92 !  !  !                    Entity View imp parent TO Entity View imp parent
+    92 !  !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    92 !  !  !                    Entity View exp_ts parent FROM Entity View exp parent
+    93 !  !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+    94 !  !  !  !  NOTE:
+    94 !  !  !  !  ****************************************************************
+    94 !  !  !  !  If the function raised an error...
+    94 !  !  !  !
+    95 !  !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+    93 !  !  !  +--
+    88 !  !  +> CASE "READ"
+    96 !  !  !  USE cyyy0121_parent_read
+    96 !  !  !     WHICH IMPORTS: Entity View imp parent TO Entity View imp parent
+    96 !  !  !     WHICH EXPORTS: Entity View exp_all parent FROM Entity View exp parent
+    96 !  !  !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+    97 !  !  !
+    98 !  !  !  MOVE exp_all parent TO exp_ts parent
+    99 !  !  !
+   100 !  !  !  NOTE:
+   100 !  !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   100 !  !  !  The IF and the reading below will be put into operation if 'PARENT read' does not send sufficient info for TYPE.
+   100 !  !  !
+   101 !  !  !  +->IF loc_error iyy1_component return_code >= loc dont_change_return_codes 1_ok
+   102 !  !  !  !  SET loc_imp type tkey_attr_text TO exp_all parent ptype_tkey_attr_text
+   103 !  !  !  !
+   104 !  !  !  !  USE cyyy0321_type_read
+   104 !  !  !  !     WHICH IMPORTS: Entity View loc_imp type TO Entity View imp type
+   104 !  !  !  !     WHICH EXPORTS: Entity View exp_all type FROM Entity View exp type
+   104 !  !  !  !                    Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+   101 !  !  !  +--
+   105 !  !  !
+   106 !  !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+   107 !  !  !  !  NOTE:
+   107 !  !  !  !  ****************************************************************
+   107 !  !  !  !  If the function raised an error...
+   107 !  !  !  !
+   108 !  !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+   106 !  !  !  +--
+    88 !  !  +> CASE "UPDATE"
+   109 !  !  !  USE cyyy0131_parent_update
+   109 !  !  !     WHICH IMPORTS: Work View loc_reference iyy1_server_data TO Work View imp_reference iyy1_server_data
+   109 !  !  !                    Entity View imp parent TO Entity View imp parent
+   109 !  !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+   109 !  !  !                    Entity View exp_ts parent FROM Entity View exp parent
+   110 !  !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+   111 !  !  !  !  NOTE:
+   111 !  !  !  !  ****************************************************************
+   111 !  !  !  !  If the function raised an error...
+   111 !  !  !  !
+   112 !  !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+   110 !  !  !  +--
+    88 !  !  +> CASE "DELETE"
+   113 !  !  !  USE cyyy0141_parent_delete
+   113 !  !  !     WHICH IMPORTS: Work View loc_reference iyy1_server_data TO Work View imp_reference iyy1_server_data
+   113 !  !  !                    Entity View imp parent TO Entity View imp parent
+   113 !  !  !     WHICH EXPORTS: Work View loc_error iyy1_component FROM Work View exp_error iyy1_component
+   114 !  !  !  +->IF loc_error iyy1_component return_code < loc dont_change_return_codes 1_ok
+   115 !  !  !  !  NOTE:
+   115 !  !  !  !  ****************************************************************
+   115 !  !  !  !  If the function raised an error...
+   115 !  !  !  !
+   116 !  !  !  !  MOVE loc_error iyy1_component TO exp_error iyy1_component
+   114 !  !  !  +--
+    88 !  !  +--
+    86 !  +--
+   117 !
+   118 !  USE cyy1a121_server_termination
+   118 !     WHICH IMPORTS: Work View exp_error iyy1_component TO Work View imp_error iyy1_component
+   118 !                    Work View imp_dialect iyy1_component TO Work View imp_dialect iyy1_component
+   118 !     WHICH EXPORTS: Work View exp_msg iyy1_component FROM Work View exp_error_msg iyy1_component
+   118 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+       +---

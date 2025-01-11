@@ -1,0 +1,119 @@
+       +->   DYYY0341_TYPE_DELETE              07/05/2023  15:09
+       !       IMPORTS:
+       !         Work View imp_error iyy1_component (Transient, Mandatory, Import only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View imp_reference iyy1_server_data (Transient, Mandatory, Import only)
+       !           userid
+       !           reference_id
+       !         Entity View imp type (Transient, Mandatory, Import only)
+       !           tinstance_id
+       !           treference_id
+       !           tkey_attr_text
+       !       EXPORTS:
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       ENTITY ACTIONS:
+       !         Entity View parent
+       !           pkey_attr_text
+       !           ptype_tkey_attr_text
+       !         Entity View type
+       !           tinstance_id
+       !           treference_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !       LOCALS:
+       !         Group View (9) loc_group_context
+       !           Work View loc_g_context dont_change_text
+       !             text_150
+       !         Work View loc_error iyy1_component
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !         Work View loc dont_change_return_codes
+       !           1_ok
+       !           n10_obj_not_found
+       !           n43_obj_not_deleted
+       !         Work View loc dont_change_reason_codes
+       !           1_default
+       !           141_type_not_found
+       !           152_type_concurrency_error
+       !           153_type_integrity_error
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  MOVE imp_error iyy1_component TO exp_error iyy1_component
+     4 !
+     5 !  NOTE:
+     5 !  ****************************************************************
+     5 !  Values of the ReturnCode/ReasonCode used.
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  Please set the return ve reason code values below.
+     6 !
+     7 !  SET loc dont_change_return_codes 1_ok TO 1
+     8 !  SET loc dont_change_return_codes n10_obj_not_found TO -10
+     9 !  SET loc dont_change_return_codes n43_obj_not_deleted TO -43
+    10 !
+    11 !  SET loc dont_change_reason_codes 1_default TO 1
+    12 !  SET loc dont_change_reason_codes 141_type_not_found TO 141
+    13 !  SET loc dont_change_reason_codes 152_type_concurrency_error TO 152
+    14 !  SET loc dont_change_reason_codes 153_type_integrity_error TO 153
+    15 !
+    16 !  NOTE:
+    16 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    16 !  Please select "Control of Cursor Generation" property as "Select only".
+    16 !
+    17 !  +=>READ (Select Only) type
+    17 !  !        WHERE DESIRED type tkey_attr_text = imp type tkey_attr_text
+    17 !  +> WHEN successful
+    18 !  !  +->IF type treference_id ^= imp type treference_id
+    19 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n43_obj_not_deleted
+    20 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 152_type_concurrency_error
+    21 ! <------ESCAPE
+    18 !  !  +--
+    22 !  !  NOTE:
+    22 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    22 !  !  If operation is dependent to 'parent' data type, preserve the PARENT READ process below, otherwise delete it.
+    22 !  !
+    23 !  !  NOTE:
+    23 !  !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    23 !  !  Please set "General->Select Clause Isolation Level" property to "Uncomitted / Browse"
+    23 !  !  "DB2 MVS (XDB)->Optimize for N rows" property to "Use the value: 1".
+    23 !  !
+    23 !  !
+    24 !  !  +=>READ EACH (Optimize 1, Isolation UR) parent
+    24 !  !  !        WHERE DESIRED parent ptype_tkey_attr_text = CURRENT type tkey_attr_text
+    25 !  !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n43_obj_not_deleted
+    26 !  !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 153_type_integrity_error
+    27 ! <------ESCAPE
+    24 !  !  +--
+    28 !  !  DELETE type
+    17 !  +> WHEN not found
+    29 !  !  SET exp_error iyy1_component return_code TO loc dont_change_return_codes n10_obj_not_found
+    30 !  !  SET exp_error iyy1_component reason_code TO loc dont_change_reason_codes 141_type_not_found
+    17 !  +--
+       +---

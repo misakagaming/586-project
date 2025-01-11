@@ -1,0 +1,21 @@
+       +->   CYYY9991_SETSERVID                07/05/2023  15:07
+       !       EXPORTS:
+       !         Work View exp_servid iyy1_component (Transient, Export only)
+       !           origin_servid
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Please review explanation for purpose.
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 23-02-1998 New release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  Please set ORIGIN_SERVID variable.
+     4 !
+     5 !  SET exp_servid iyy1_component origin_servid TO 9001
+     6 !
+       +---

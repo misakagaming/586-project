@@ -1,0 +1,77 @@
+       +->   MYY10421_XML_PARSE                07/05/2023  15:10
+       !       IMPORTS:
+       !         Work View imp canam_xml (Transient, Optional, Import only)
+       !           xml_buffer
+       !       EXPORTS:
+       !         Entity View exp iyy1_type (Transient, Export only)
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !         Work View exp_error canam_xml (Transient, Export only)
+       !           xml_return_code
+       !           xml_message
+       !           xml_position
+       !           xml_source
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Entity View loc_exp type
+       !           tinstance_id
+       !           treference_id
+       !           tcreate_user_id
+       !           tupdate_user_id
+       !           tkey_attr_text
+       !           tsearch_attr_text
+       !           tother_attr_text
+       !           tother_attr_date
+       !           tother_attr_time
+       !           tother_attr_amount
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !  NOTE:
+     1 !  Check description for porpose
+     1 !
+     2 !  NOTE:
+     2 !  RELEASE HISTORY
+     2 !  01_00 01-10-2009 New Release
+     2 !
+     3 !  NOTE:
+     3 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     3 !  SET <loc imp*> TO <imp*>
+     3 !
+     4 !  USE cyyy0421_xml_parse
+     4 !     WHICH IMPORTS: Work View imp canam_xml TO Work View imp canam_xml
+     4 !     WHICH EXPORTS: Work View exp_error canam_xml FROM Work View exp_error canam_xml
+     4 !                    Work View exp_error iyy1_component FROM Work View exp_error iyy1_component
+     4 !                    Entity View loc_exp type FROM Entity View exp type
+     5 !
+     6 !  NOTE:
+     6 !  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     6 !  SET <exp*> TO <loc exp*>
+     6 !
+     7 !  SET exp iyy1_type tinstance_id TO loc_exp type tinstance_id
+     8 !  SET exp iyy1_type treference_id TO loc_exp type treference_id
+     9 !  SET exp iyy1_type tcreate_user_id TO loc_exp type tcreate_user_id
+    10 !  SET exp iyy1_type tupdate_user_id TO loc_exp type tupdate_user_id
+    11 !  SET exp iyy1_type tkey_attr_text TO loc_exp type tkey_attr_text
+    12 !  SET exp iyy1_type tsearch_attr_text TO loc_exp type tsearch_attr_text
+    13 !  SET exp iyy1_type tother_attr_text TO loc_exp type tother_attr_text
+    14 !  SET exp iyy1_type tother_attr_date TO loc_exp type tother_attr_date
+    15 !  SET exp iyy1_type tother_attr_time TO loc_exp type tother_attr_time
+    16 !  SET exp iyy1_type tother_attr_amount TO loc_exp type tother_attr_amount
+    17 !
+       +---

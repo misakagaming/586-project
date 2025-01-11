@@ -1,0 +1,127 @@
+       +->   CYYY9821_MV_RO1_TO_YY1            07/05/2023  15:07
+       !       IMPORTS:
+       !         Work View imp_error iro1_component (Transient, Optional, Import only)
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           severity_cd
+       !           checksum_tx
+       !           rollback_indicator_tx
+       !           dialect_cd
+       !       EXPORTS:
+       !         Work View exp_error iyy1_component (Transient, Export only)
+       !           severity_code
+       !           rollback_indicator
+       !           origin_servid
+       !           context_string
+       !           return_code
+       !           reason_code
+       !           checksum
+       !       LOCALS:
+       !         Work View loc_imp_error iro1_component
+       !           specification_id
+       !           implementation_id
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           severity_cd
+       !           checksum_tx
+       !           rollback_indicator_tx
+       !           dialect_cd
+       !           activity_cd
+       !         Work View loc_error_msg iro1_component
+       !           message_tx
+       !           severity_cd
+       !         Work View loc_error iro1_component
+       !           origin_servid
+       !           return_code
+       !           reason_code
+       !           context_string_tx
+       !           severity_cd
+       !           checksum_tx
+       !           rollback_indicator_tx
+       !           dialect_cd
+       !
+       !     PROCEDURE STATEMENTS
+       !
+     1 !
+     2 !  NOTE:
+     2 !  Please review explanation for purpose.
+     2 !
+     3 !  NOTE:
+     3 !  RELEASE HISTORY
+     3 !  01_00 23-02-1998 New release
+     3 !
+     4 !  NOTE:
+     4 !  ****************************************************************
+     4 !  Please format the error message.
+     4 !
+     5 !  MOVE imp_error iro1_component TO loc_imp_error iro1_component
+     6 !
+     7 !  NOTE:
+     7 !  ****************************************************************
+     7 !  This component is which spec + impl + serv ?
+     7 !
+     8 !  USE iro10051_cmpnt_identifiers_get_s
+     8 !     WHICH EXPORTS: Work View loc_error iro1_component FROM Work View out_error iro1_component
+     8 !                    Work View loc_imp_error iro1_component FROM Work View out_data iro1_component
+     9 !  +->IF loc_error iro1_component return_code < 1
+    10 !  !  MOVE loc_error iro1_component TO loc_imp_error iro1_component
+     9 !  +--
+    11 !
+    12 !  NOTE:
+    12 !  ****************************************************************
+    12 !  Set the dialect code.
+    12 !
+    13 !  USE cyyy9911_check_dialect
+    13 !     WHICH IMPORTS: Work View loc_imp_error iro1_component TO Work View imp_dialect iro1_component
+    13 !     WHICH EXPORTS: Work View loc_imp_error iro1_component FROM Work View exp_dialect iro1_component
+    14 !
+    15 !  NOTE:
+    15 !  ****************************************************************
+    15 !  Convert the error data to message.
+    15 !
+    16 !  USE iro10041_excptn_msg_fmt_as_str_s
+    16 !     WHICH IMPORTS: Work View loc_imp_error iro1_component TO Work View in iro1_component
+    16 !     WHICH EXPORTS: Work View loc_error iro1_component FROM Work View out_error iro1_component
+    16 !                    Work View loc_error_msg iro1_component FROM Work View out_data iro1_component
+    17 !  +->IF loc_error iro1_component return_code < 1
+    18 !  !  MOVE loc_error iro1_component TO loc_imp_error iro1_component
+    17 !  +--
+    19 !
+    20 !  NOTE:
+    20 !  ****************************************************************
+    20 !  If message is not formatted, use the available data.
+    20 !
+    21 !  +->IF loc_error_msg iro1_component message_tx <= SPACES
+    22 !  !  SET loc_error_msg iro1_component message_tx TO loc_imp_error iro1_component context_string_tx
+    21 !  +--
+    23 !  +->IF loc_error_msg iro1_component severity_cd <= SPACES
+    24 !  !  SET loc_error_msg iro1_component severity_cd TO loc_imp_error iro1_component severity_cd
+    23 !  +--
+    25 !  +->IF loc_error_msg iro1_component severity_cd <= SPACES
+    26 !  !  SET loc_error_msg iro1_component severity_cd TO "E"
+    25 !  +--
+    27 !  NOTE:
+    27 !  ****************************************************************
+    27 !  The error message obtained from the other component is transferred to the string and it is customized by this way.
+    27 !
+    28 !  USE cyyy9991_setservid
+    28 !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_servid iyy1_component
+    29 !  +->IF loc_imp_error iro1_component return_code < 1
+    30 !  !  USE cyyy9811_set_excptn_other_error
+    30 !  !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_other_error iyy1_component
+    29 !  +> ELSE
+    31 !  !  USE cyyy9801_set_excptn_other_info
+    31 !  !     WHICH EXPORTS: Work View exp_error iyy1_component FROM Work View exp_other_error iyy1_component
+    29 !  +--
+    32 !  SET exp_error iyy1_component context_string TO loc_error_msg iro1_component message_tx
+    33 !  NOTE:
+    33 !  ****************************************************************
+    33 !
+    34 !  SET exp_error iyy1_component severity_code TO loc_error_msg iro1_component severity_cd
+    35 !  SET exp_error iyy1_component rollback_indicator TO loc_imp_error iro1_component rollback_indicator_tx
+    36 !  SET exp_error iyy1_component checksum TO loc_imp_error iro1_component checksum_tx
+       +---
